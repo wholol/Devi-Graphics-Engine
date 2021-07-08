@@ -5,6 +5,7 @@ namespace Devi
 {
 
 	class Application {
+
 	public:
 		
 		void Init(int screenWidth, int screenHeight, const std::string& title);
