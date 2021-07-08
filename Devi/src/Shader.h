@@ -28,7 +28,7 @@ namespace Devi
 	{
 
 	public:
-
+		Shader() = delete;
 		Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 		void Bind();
 		void UnBind();

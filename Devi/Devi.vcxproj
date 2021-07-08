@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\assets;$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\assets;$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="assets\BasicShapes\BasicShapeVertexData.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Shader.h" />

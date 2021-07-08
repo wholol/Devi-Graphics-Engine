@@ -11,6 +11,7 @@ class VertexArray
 
 public:
 
+	VertexArray() = delete;
 	VertexArray(const VertexBuffer& vertexBuffer,std::optional<Devi::IndexBuffer> indexBuffer = {});
 	void Bind();
 	void UnBind();

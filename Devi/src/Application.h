@@ -1,5 +1,9 @@
 #pragma once
 #include "Window.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+#include "Shader.h"
+#include "BasicShapes/BasicShapeVertexData.h"
 
 namespace Devi
 {

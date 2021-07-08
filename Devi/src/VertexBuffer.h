@@ -27,7 +27,7 @@ namespace Devi
 	{
 
 	public:
-
+		VertexBuffer() = delete;
 		VertexBuffer(void* data, size_t dataSize);
 		void Bind();
 		void UnBind();
