@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 
 Devi::Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
+	:m_vertexShaderFilePath(vertexShaderFilePath),
+	 m_fragmentShaderFilePath(fragmentShaderFilePath)
 {
 	auto [vertexShaderCode, fragmentShaderCode] = GetShaderCodeFromFilePath(vertexShaderFilePath, fragmentShaderFilePath);
 	CompileShader(vertexShaderCode, fragmentShaderCode);
@@ -41,26 +43,27 @@ void Devi::Shader::SetUniform(const std::string& uniformName, const std::any& un
 
 		else if (uniformDataType == UniformDataType::VEC2)
 		{
-			//TODO
+			glUniform2fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, &std::any_cast<glm::vec2>(uniformValue)[0]);
 		}
 
 		else if (uniformDataType == UniformDataType::VEC3)
 		{
-			//TODO
+			glUniform3fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, &std::any_cast<glm::vec3>(uniformValue)[0]);
 		}
 
 		else if (uniformDataType == UniformDataType::VEC4)
 		{
-			glUniform3fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, &std::any_cast<glm::vec4>(uniformValue)[0]);
+			glUniform4fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, &std::any_cast<glm::vec4>(uniformValue)[0]);
 		}
 		else
 		{
-			throw Exception::NotImplementedException("uniform data type not implemented", __FILE__, __LINE__);
+			//TODO: since we will have multiple shaders, we need to define the shader being used.
+			throw Exception::NotImplementedException("uniform data type not implemented.", __FILE__, __LINE__);
 		}
 	}
 	catch (std::exception& e)
 	{
-		DEVI_ERROR(e.what(), __FILE__, __LINE__);
+		DEVI_ERROR(std::string(e.what()), __FILE__, __LINE__);
 	}
 }
 
@@ -84,7 +87,7 @@ void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std:
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		DEVI_ERROR("Vertex shader failed to compile.", __FILE__, __LINE__);
+		DEVI_ERROR("compilation failed: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 	}
 	
 	const char* fsCode = fragmentShaderCode.c_str();
@@ -98,7 +101,7 @@ void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std:
 	if (!success)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		DEVI_ERROR("Fragment shader failed to compile.", __FILE__, __LINE__);
+		DEVI_ERROR("compilation failed: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 	}
 
 
@@ -110,7 +113,7 @@ void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std:
 	glGetProgramiv(m_shaderID, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(m_shaderID, 512, NULL, infoLog);
-		DEVI_ERROR("Linking error with shaders.", __FILE__, __LINE__);
+		DEVI_ERROR("Linking error with shaders: " + m_fragmentShaderFilePath + " and " + m_vertexShaderFilePath, __FILE__, __LINE__);
 	}
 
 	glDeleteShader(vertexShader);
@@ -152,7 +155,7 @@ std::pair<std::string, std::string> Devi::Shader::GetShaderCodeFromFilePath(cons
 
 		fragmentShaderCode = fragmentShaderStream.str();
 	}
-	catch (std::ifstream::failure& e)
+	catch (...)
 	{
 		DEVI_ERROR(".Fragment shader file path failed to load for: " + vertexShaderFilePath, __FILE__, __LINE__);
 	}

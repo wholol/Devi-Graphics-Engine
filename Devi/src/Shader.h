@@ -24,7 +24,6 @@ namespace Devi
 		VEC2,
 		VEC3,
 		VEC4,
-
 	};
 
 	/**
@@ -44,6 +43,11 @@ namespace Devi
 	private:
 		unsigned int m_shaderID;
 		bool m_ShadersLoadedSuccessfully = false;
+
+		std::string m_vertexShaderFilePath;
+		std::string m_fragmentShaderFilePath;
+
+
 		void CompileShader(const std::string& vertexShaderCode, const std::string& fragmentShaderCode);
 		std::pair<std::string, std::string> GetShaderCodeFromFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 	};
