@@ -20,7 +20,11 @@ namespace Devi
 		BOOL,
 		MAT2,
 		MAT3,
-		MAT4
+		MAT4,
+		VEC2,
+		VEC3,
+		VEC4,
+
 	};
 
 	/**

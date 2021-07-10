@@ -1,4 +1,7 @@
 #include "Shader.h"
+#include "Math/glm/mat4x4.hpp"
+#include "Math/glm/vec3.hpp"
+#include "Math/glm/vec4.hpp"
 #include <glad/glad.h>
 
 Devi::Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
@@ -36,33 +39,29 @@ void Devi::Shader::SetUniform(const std::string& uniformName, const std::any& un
 			glUniform1i(glGetUniformLocation(m_shaderID, uniformName.c_str()), std::any_cast<bool>(uniformValue));
 		}
 
-		else if (uniformDataType == UniformDataType::MAT2)
+		else if (uniformDataType == UniformDataType::VEC2)
 		{
 			//TODO
 		}
 
-		else if (uniformDataType == UniformDataType::MAT3)
+		else if (uniformDataType == UniformDataType::VEC3)
 		{
 			//TODO
 		}
 
-		else if (uniformDataType == UniformDataType::MAT4)
+		else if (uniformDataType == UniformDataType::VEC4)
 		{
-			//TODO
+			glUniform3fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, &std::any_cast<glm::vec4>(uniformValue)[0]);
 		}
 		else
 		{
-			//throw Exception::NotImplementedException("uniform data type not implemented", __FILE__, __LINE__);
-			//Uniform type not implemented!
+			throw Exception::NotImplementedException("uniform data type not implemented", __FILE__, __LINE__);
 		}
 	}
-	catch (std::bad_any_cast& e)
+	catch (std::exception& e)
 	{
 		DEVI_ERROR(e.what(), __FILE__, __LINE__);
 	}
-
-	
-		
 }
 
 Devi::Shader::~Shader()
@@ -95,6 +94,7 @@ void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std:
 	glShaderSource(fragmentShader, 1, &fsCode, nullptr);
 	glCompileShader(fragmentShader);
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	
 	if (!success)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
@@ -105,9 +105,8 @@ void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std:
 	m_shaderID = glCreateProgram();
 	glAttachShader(m_shaderID, vertexShader);
 	glAttachShader(m_shaderID, fragmentShader);
-	
 	glLinkProgram(m_shaderID);
-	//TODO: Check for linking error for shader.
+
 	glGetProgramiv(m_shaderID, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(m_shaderID, 512, NULL, infoLog);

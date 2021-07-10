@@ -13,14 +13,18 @@ void Devi::Window::Init(int screenWidth, int screenHeight, const std::string& wi
 	if (!m_windowContext)
 	{
 		DEVI_FATAL("Window Creation Failed.", __FILE__, __LINE__);
+		glfwTerminate();
 	}
 
 	glfwMakeContextCurrent(m_windowContext);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		DEVI_ERROR("gladLoader failed to initialize.", __FILE__, __LINE__);
+		DEVI_FATAL("gladLoader failed to initialize.", __FILE__, __LINE__);
+		glfwTerminate();
 	}
+
+	DEVI_INFO("Window nad GLAD loader succesfully initialized.", __FILE__, __LINE__);
 
 	glViewport(0, 0, screenWidth, screenHeight);
 

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "BasicShapes/BasicShapesVertexData.h"
+#include "Math/glm/mat4x4.hpp"
 
 void Devi::Application::Init(int screenWidth, int screenHeight, const std::string & title)
 {
@@ -8,14 +9,13 @@ void Devi::Application::Init(int screenWidth, int screenHeight, const std::strin
 
 void Devi::Application::Run()
 {
-	
 	VertexBuffer vb(BasicShapesVertexData::Get(BasicShape::TRIANGLERGB));
 	vb.AddAttribLayout(3, DataTypeForComponents::FLOAT);
 	vb.AddAttribLayout(3, DataTypeForComponents::FLOAT);
 	VertexArray va(vb);
 
 	Shader shadertest("assets/Shaders/testshadervert.vs", "assets/Shaders/testshaderfrag.fs");
-	//shadertest.SetUniform("u_mvp", 2, UniformDataType::INT);
+	shadertest.SetUniform("u_test", glm::vec4{2,2,2,2}, UniformDataType::VEC4);
 
 	while (m_isRunning)
 	{

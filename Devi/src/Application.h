@@ -9,7 +9,6 @@
 
 namespace Devi
 {
-
 	class Application {
 
 	public:
@@ -19,7 +18,7 @@ namespace Devi
 		void ShutDown();
 
 	private:
-		Devi::Window m_window;
+		Window m_window;
 		bool m_isRunning = true;
 	};
 }

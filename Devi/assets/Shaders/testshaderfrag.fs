@@ -1,8 +1,11 @@
 #version 330 core
-    
 out vec4 FragColor;
+
+in vec3 vs_outColor;
+
+uniform int u_test;
 
 void main()
 {
-    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+	FragColor = vec4(vs_outColor, 1.0f);
 };

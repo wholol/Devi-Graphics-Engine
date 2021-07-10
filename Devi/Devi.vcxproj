@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\Dependencies;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\Dependencies;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,10 +140,45 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="assets\BasicShapes\BasicShapesVertexData.h" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\exception_implementation.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\file_parser_error.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\info_parser_error.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\info_parser_read.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\info_parser_utils.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\info_parser_write.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\info_parser_writer_settings.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\ptree_implementation.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\ptree_utils.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\rapidxml.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\xml_parser_error.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\xml_parser_flags.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\xml_parser_read_rapidxml.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\xml_parser_utils.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\xml_parser_write.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\detail\xml_parser_writer_settings.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\exceptions.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\id_translator.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\info_parser.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\ini_parser.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\detail\narrow_encoding.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\detail\parser.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\detail\read.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\detail\standard_callbacks.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\detail\wide_encoding.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\detail\write.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\json_parser\error.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\ptree.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\ptree_fwd.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\ptree_serialization.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\stream_translator.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\string_path.hpp" />
+    <ClInclude Include="Dependencies\Boost\property_tree\xml_parser.hpp" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\NotImplementedException.h" />
+    <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />

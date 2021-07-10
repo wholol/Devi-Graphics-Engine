@@ -29,7 +29,7 @@ std::pair<void*, size_t> Devi::BasicShapesVertexData::Get(BasicShape basicShapeT
 		{
 			return std::make_pair((void*)v_triangle, sizeof(v_triangle));
 		}
-
+		
 		else
 		{
 			throw Exception::NotImplementedException("Basic shape not implemented.", __FILE__, __LINE__);

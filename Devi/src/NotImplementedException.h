@@ -15,8 +15,7 @@ namespace Devi
 			
 			NotImplementedException(const std::string& errorMessage, const std::string& fileLocation, int lineNumber) noexcept
 				:exception(( errorMessage + "file location: " + fileLocation + " .line number: " + std::to_string(lineNumber)).c_str() )
-			{
-			}
+			{}
 		};
 	}
 }
