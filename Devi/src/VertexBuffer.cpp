@@ -8,30 +8,46 @@ Devi::VertexBuffer::VertexBuffer(void* data,size_t dataSize)
 	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 }
 
+Devi::VertexBuffer::VertexBuffer(std::pair<void*, size_t> VertexBufferParams)
+{
+	glGenBuffers(1, &m_vertexBufferID);
+	Bind();
+	glBufferData(GL_ARRAY_BUFFER, VertexBufferParams.second, VertexBufferParams.first, GL_STATIC_DRAW);
+}
+
 void Devi::VertexBuffer::AddAttribLayout(int numberOfComponents, DataTypeForComponents type, bool isNormalized)
 {
 	m_stride += numberOfComponents;
 
-	if (type == DataTypeForComponents::FLOAT)
+	try
 	{
-		m_layouts.push_back({GL_FLOAT, numberOfComponents, GL_FALSE});
+
+		if (type == DataTypeForComponents::FLOAT)
+		{
+			m_layouts.push_back({ GL_FLOAT, numberOfComponents, GL_FALSE });
+		}
+
+		else if (type == DataTypeForComponents::DOUBLE)
+		{
+			m_layouts.push_back({ GL_DOUBLE, numberOfComponents, GL_FALSE });
+		}
+
+		else if (type == DataTypeForComponents::INT)
+		{
+			m_layouts.push_back({ GL_INT, numberOfComponents, GL_FALSE });
+		}
+		
+		else
+		{
+			throw Exception::NotImplementedException("attrib layout type not implemented.", __FILE__, __LINE__);
+		}
+	}
+	
+	catch (std::exception& e)
+	{
+		DEVI_ERROR(e.what(), __FILE__, __LINE__);
 	}
 
-	else if (type == DataTypeForComponents::DOUBLE)
-	{
-		m_layouts.push_back({GL_DOUBLE, numberOfComponents, GL_FALSE});
-	}
-
-	else if (type == DataTypeForComponents::INT)
-	{
-		m_layouts.push_back({GL_INT, numberOfComponents, GL_FALSE});
-	}
-
-	else
-	{
-		//TODO: implement from std::logic_error
-		throw std::runtime_error("Not implemented!");
-	}
 }
 
 void Devi::VertexBuffer::Bind()

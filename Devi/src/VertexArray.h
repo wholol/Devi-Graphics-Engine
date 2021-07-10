@@ -10,9 +10,7 @@ class VertexArray
 {
 
 public:
-
-	VertexArray() = delete;
-	VertexArray(const VertexBuffer& vertexBuffer,std::optional<Devi::IndexBuffer> indexBuffer = {});
+	VertexArray(VertexBuffer& vertexBuffer, std::optional<Devi::IndexBuffer> indexBuffer = {});
 	void Bind();
 	void UnBind();
 	bool HasIndexBuffer() const;
@@ -21,7 +19,7 @@ public:
 private:
 	unsigned int m_vertexArrayID;
 	bool m_hasIndexBuffer = false;
-	void SetupAndEnableAttribs(const VertexBuffer& vertexBuffer);
+	void SetupAndEnableAttribs(VertexBuffer& vertexBuffer);
 };
 
 }

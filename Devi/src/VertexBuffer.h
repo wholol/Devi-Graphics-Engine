@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include "NotImplementedException.h"
+#include "Log.h"
 
 namespace Devi
 {
@@ -29,6 +31,7 @@ namespace Devi
 	public:
 		VertexBuffer() = delete;
 		VertexBuffer(void* data, size_t dataSize);
+		VertexBuffer(std::pair<void*, size_t> VertexBufferParams);
 		void Bind();
 		void UnBind();
 		void AddAttribLayout(int numberOfComponents, DataTypeForComponents type, bool isNormalized = false);

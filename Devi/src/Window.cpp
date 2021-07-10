@@ -12,15 +12,14 @@ void Devi::Window::Init(int screenWidth, int screenHeight, const std::string& wi
 
 	if (!m_windowContext)
 	{
-		std::cerr << "window creating failed." << std::endl;
-		glfwTerminate();
+		DEVI_FATAL("Window Creation Failed.", __FILE__, __LINE__);
 	}
 
 	glfwMakeContextCurrent(m_windowContext);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "GLAD failed to initialize." << std::endl;
+		DEVI_ERROR("gladLoader failed to initialize.", __FILE__, __LINE__);
 	}
 
 	glViewport(0, 0, screenWidth, screenHeight);
@@ -36,6 +35,7 @@ GLFWwindow* Devi::Window::GetWindow() const
 void Devi::Window::Shutdown()
 {
 	glfwTerminate();
+	DEVI_INFO("Shutting Down the Window.", __FILE__, __LINE__);
 }
 
 void Devi::Window::Update()
@@ -44,7 +44,7 @@ void Devi::Window::Update()
 	glfwPollEvents();
 }
 
-void FrameBufferSizeCallback(GLFWwindow * window, int width, int height)
+void FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }

@@ -39,6 +39,12 @@
     <ClCompile Include="src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="assets\BasicShapes\BasicShapesVertexData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -59,8 +65,18 @@
     <ClInclude Include="src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="assets\BasicShapes\BasicShapeVertexData.h">
+    <ClInclude Include="src\NotImplementedException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="assets\BasicShapes\BasicShapesVertexData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Shaders\testshaderfrag.fs" />
+    <None Include="assets\Shaders\testshadervert.vs" />
   </ItemGroup>
 </Project>

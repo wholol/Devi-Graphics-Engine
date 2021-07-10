@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "Log.h"
+#include "NotImplementedException.h"
 
 namespace Devi
 {
@@ -37,6 +39,7 @@ namespace Devi
 
 	private:
 		unsigned int m_shaderID;
+		bool m_ShadersLoadedSuccessfully = false;
 		void CompileShader(const std::string& vertexShaderCode, const std::string& fragmentShaderCode);
 		std::pair<std::string, std::string> GetShaderCodeFromFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 	};

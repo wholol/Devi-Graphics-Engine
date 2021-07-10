@@ -3,6 +3,7 @@
 #include <glfw3.h>
 #include <string>
 #include <iostream>
+#include "Log.h"
 
 //GLFW callback functions here
 void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);

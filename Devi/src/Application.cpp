@@ -1,5 +1,5 @@
 #include "Application.h"
-
+#include "BasicShapes/BasicShapesVertexData.h"
 
 void Devi::Application::Init(int screenWidth, int screenHeight, const std::string & title)
 {
@@ -8,22 +8,24 @@ void Devi::Application::Init(int screenWidth, int screenHeight, const std::strin
 
 void Devi::Application::Run()
 {
-	VertexBuffer triangleVB(Devi::BasicShapes::v_TriangleWithColors, sizeof(Devi::BasicShapes::v_TriangleWithColors));
-	VertexArray triangleVA(triangleVB);
-	Shader shadertest("Shaders/testshader.vs", "Shaders/testshader.fs");
+	
+	VertexBuffer vb(BasicShapesVertexData::Get(BasicShape::TRIANGLERGB));
+	vb.AddAttribLayout(3, DataTypeForComponents::FLOAT);
+	vb.AddAttribLayout(3, DataTypeForComponents::FLOAT);
+	VertexArray va(vb);
 
+	Shader shadertest("assets/Shaders/testshadervert.vs", "assets/Shaders/testshaderfrag.fs");
+	//shadertest.SetUniform("u_mvp", 2, UniformDataType::INT);
 
 	while (m_isRunning)
 	{
 		m_isRunning = !glfwWindowShouldClose(m_window.GetWindow());
-
 		shadertest.Bind();
-		triangleVA.Bind();
-
+		//renderer flow (->bind shader->bind texture->bind uniforms->bind vertexarray->glDrawCall
+		va.Bind();
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 		//update and render here.
 		m_window.Update();
-
-
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
