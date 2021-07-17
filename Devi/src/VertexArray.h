@@ -14,7 +14,6 @@ public:
 	void Bind();
 	void UnBind();
 	bool HasIndexBuffer() const;
-	~VertexArray();
 
 private:
 	unsigned int m_vertexArrayID;

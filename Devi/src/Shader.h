@@ -23,7 +23,7 @@ namespace Devi
 		MAT4,
 		VEC2,
 		VEC3,
-		VEC4,
+		VEC4
 	};
 
 	/**
@@ -38,7 +38,6 @@ namespace Devi
 		void Bind();
 		void UnBind();
 		void SetUniform(const std::string& uniformName, const std::any& uniformValue, UniformDataType uniformDataType);
-		~Shader();
 
 	private:
 		unsigned int m_shaderID;

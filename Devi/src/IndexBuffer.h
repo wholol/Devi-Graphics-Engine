@@ -14,7 +14,6 @@ class IndexBuffer
 		IndexBuffer(std::pair<void*, size_t> IndexBufferParams);
 		void Bind();
 		void UnBind();
-		~IndexBuffer();
 
 	private:
 		unsigned int m_indexBufferID;

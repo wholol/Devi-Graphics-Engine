@@ -15,7 +15,7 @@ void Devi::Application::Run()
 	VertexArray va(vb);
 
 	Shader shadertest("assets/Shaders/testshadervert.vs", "assets/Shaders/testshaderfrag.fs");
-	shadertest.SetUniform("u_test", glm::vec4{2,2,2,2}, UniformDataType::MAT4);
+	shadertest.SetUniform("u_test", glm::vec4{2,2,2,2}, UniformDataType::VEC4);
 
 	while (m_isRunning)
 	{

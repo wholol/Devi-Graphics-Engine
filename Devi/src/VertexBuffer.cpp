@@ -60,11 +60,6 @@ void Devi::VertexBuffer::UnBind()
 	glBindBuffer(0, m_vertexBufferID);
 }
 
-Devi::VertexBuffer::~VertexBuffer()
-{
-	UnBind();
-}
-
 const std::vector<Devi::VertexBufferLayout>& Devi::VertexBuffer::GetVertexBufferLayout() const
 {
 	return m_layouts;

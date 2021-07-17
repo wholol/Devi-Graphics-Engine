@@ -37,7 +37,6 @@ namespace Devi
 		void AddAttribLayout(int numberOfComponents, DataTypeForComponents type, bool isNormalized = false);
 		const std::vector<VertexBufferLayout>& GetVertexBufferLayout() const;
 		unsigned int GetStride() const;
-		~VertexBuffer();
 
 	private:
 		unsigned int m_vertexBufferID;

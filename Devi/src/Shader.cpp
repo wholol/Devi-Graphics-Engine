@@ -67,11 +67,6 @@ void Devi::Shader::SetUniform(const std::string& uniformName, const std::any& un
 	}
 }
 
-Devi::Shader::~Shader()
-{
-	UnBind();
-}
-
 void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std::string& fragmentShaderCode)
 {
 
@@ -103,7 +98,6 @@ void Devi::Shader::CompileShader(const std::string& vertexShaderCode, const std:
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
 		DEVI_ERROR("compilation failed: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 	}
-
 
 	m_shaderID = glCreateProgram();
 	glAttachShader(m_shaderID, vertexShader);
@@ -138,7 +132,7 @@ std::pair<std::string, std::string> Devi::Shader::GetShaderCodeFromFilePath(cons
 	}
 	catch (std::ifstream::failure& e)
 	{
-		DEVI_ERROR(".Vertex shader file path failed to load for: " + vertexShaderFilePath, __FILE__, __LINE__);
+		DEVI_ERROR(".Vertex shader file path failed to load for: " + m_vertexShaderFilePath, __FILE__, __LINE__);
 	}
 
 	std::stringstream fragmentShaderStream;
@@ -157,7 +151,7 @@ std::pair<std::string, std::string> Devi::Shader::GetShaderCodeFromFilePath(cons
 	}
 	catch (...)
 	{
-		DEVI_ERROR(".Fragment shader file path failed to load for: " + vertexShaderFilePath, __FILE__, __LINE__);
+		DEVI_ERROR(".Fragment shader file path failed to load for: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 	}
 
 	return std::make_pair(vertexShaderCode, fragmentShaderCode);

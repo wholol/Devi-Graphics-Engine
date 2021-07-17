@@ -31,11 +31,6 @@ bool Devi::VertexArray::HasIndexBuffer() const
 	return m_hasIndexBuffer;
 }
 
-Devi::VertexArray::~VertexArray()
-{
-	UnBind();
-}
-
 void Devi::VertexArray::SetupAndEnableAttribs(VertexBuffer& vertexBuffer)
 {
 	const auto& vertexBufferLayouts = vertexBuffer.GetVertexBufferLayout();

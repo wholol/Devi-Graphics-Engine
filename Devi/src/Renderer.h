@@ -1,15 +1,16 @@
 #pragma once
 #include "VertexArray.h"
+#include "Shader.h"
+#include <GLAD/glad.h>
 
-/**
-* Renderer class. Facade for the renderer binding flow.
-**/
-class Renderer
+namespace Devi
 {
-public:
-
-	static void Render();
-
-private:
-
-};
+	/**
+	* Renderer class. Facade for the data(e.g. shader, vertex array, texture) binding flow.
+	**/
+	class Renderer
+	{
+	public:
+		static void Render(VertexArray& vertexArray, Shader& shader);
+	};
+}
