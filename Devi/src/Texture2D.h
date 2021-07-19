@@ -13,7 +13,7 @@ namespace Devi
 	{
 	public:
 		Texture2D(const std::string& textureFilePath,bool generateMipMap = true);
-		void Bind() override;
+		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
 
 	private:

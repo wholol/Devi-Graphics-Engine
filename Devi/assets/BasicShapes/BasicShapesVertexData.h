@@ -12,7 +12,8 @@ namespace Devi
 		RECTANGLE,
 		SPHERE,
 		TRIANGLE,
-		TRIANGLERGB
+		TRIANGLERGB,
+		RECTANGLERGBTEXCOORDS
 	};
 
 	class BasicShapesVertexData

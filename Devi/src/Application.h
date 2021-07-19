@@ -3,6 +3,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "Shader.h"
+#include "Texture2D.h"
 #include <any>
 #include <utility>
 #include "Log.h"

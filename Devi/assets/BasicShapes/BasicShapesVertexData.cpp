@@ -1,6 +1,5 @@
 #include "BasicShapesVertexData.h"
 
-
 float v_triangleRGB[] = 
 {
 	// positions         // colors
@@ -16,6 +15,17 @@ float v_triangle[] =
 	0.0f,  0.5f, 0.0f  // top   
 };
 
+float v_rectangleRGBTexCoords[] = {
+	// positions          // colors           // texture coords
+	 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+	 -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f,    // top left
+	 - 0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+
+	 -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+	 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+	 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+};
+
 std::pair<void*, size_t> Devi::BasicShapesVertexData::Get(BasicShape basicShapeType)
 {
 	try
@@ -28,6 +38,11 @@ std::pair<void*, size_t> Devi::BasicShapesVertexData::Get(BasicShape basicShapeT
 		else if (basicShapeType == BasicShape::TRIANGLE)
 		{
 			return std::make_pair((void*)v_triangle, sizeof(v_triangle));
+		}
+
+		else if (basicShapeType == BasicShape::RECTANGLERGBTEXCOORDS)
+		{
+			return std::make_pair((void*)v_rectangleRGBTexCoords, sizeof(v_rectangleRGBTexCoords));
 		}
 		
 		else

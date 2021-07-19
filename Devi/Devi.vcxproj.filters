@@ -57,6 +57,9 @@
     <ClCompile Include="src\Texture2DFrameBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dependencies\STBImage\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -206,9 +209,17 @@
     <ClInclude Include="src\Texture2DFrameBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dependencies\STBImage\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\Shaders\testshaderfrag.fs" />
     <None Include="assets\Shaders\testshadervert.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

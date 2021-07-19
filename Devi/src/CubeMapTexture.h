@@ -13,7 +13,7 @@ namespace Devi
 	{
 	public:
 		CubeMapTexture();
-		void Bind() override;
+		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
 
 	private:

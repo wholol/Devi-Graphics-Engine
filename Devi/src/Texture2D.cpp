@@ -31,8 +31,9 @@ Devi::Texture2D::Texture2D(const std::string& textureFilePath, bool generateMipM
 	stbi_image_free(data);
 }
 
-void Devi::Texture2D::Bind()
+void Devi::Texture2D::Bind(unsigned int activeTexture)
 {
+	glActiveTexture(GL_TEXTURE0 + activeTexture);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 }
 
