@@ -212,7 +212,7 @@
     <None Include="assets\Shaders\testshadervert.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\Textures\container.jpg" />
+    <Image Include="assets\Textures\container.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

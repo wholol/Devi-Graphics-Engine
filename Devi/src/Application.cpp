@@ -17,7 +17,7 @@ void Devi::Application::Run()
 
 	Shader shadertest("assets/Shaders/testshadervert.vs", "assets/Shaders/testshaderfrag.fs");
 	shadertest.SetUniform("texture1", 1, UniformDataType::INT);
-	Texture2D tex("assets/Textures/container.jpg");
+	Texture2D tex("assets/Textures/container.png");
 
 	while (m_isRunning)
 	{
