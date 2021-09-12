@@ -19,6 +19,8 @@ void Devi::Application::Run()
 	shadertest.SetUniform("texture1", 1, UniformDataType::INT);
 	Texture2D tex("assets/Textures/container.png");
 
+
+	//essentially the update loop is in this while loop.
 	while (m_isRunning)
 	{
 		m_isRunning = !glfwWindowShouldClose(m_window.GetWindow());

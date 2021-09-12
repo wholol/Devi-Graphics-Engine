@@ -12,5 +12,6 @@ namespace Devi
 	{
 	public:
 		static void Render(VertexArray& vertexArray, Shader& shader);
+		static void Clear(float r = 0.2f, float g = 0.3f, float b = 0.3f, float a = 1.0f);
 	};
 }

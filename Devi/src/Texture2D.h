@@ -7,12 +7,12 @@
 namespace Devi
 {
 	/**
-	* Texture2D class. Responsible for loading 2D textures and binding/unbindiing.
+	* Texture2D class. Responsible for loading 2D textures and binding/unbinding.
 	**/
 	class Texture2D : public ITexture
 	{
 	public:
-		Texture2D(const std::string& textureFilePath,bool generateMipMap = true);
+		Texture2D(const std::string& textureFilePath,bool generateMipMap = true, bool flipImage = true);
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
 
