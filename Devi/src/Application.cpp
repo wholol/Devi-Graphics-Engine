@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "BasicShapes/BasicShapesVertexData.h"
 #include "Math/glm/mat4x4.hpp"
+#include "Math/glm/vec3.hpp"
 
 void Devi::Application::Init(int screenWidth, int screenHeight, const std::string & title)
 {
@@ -19,7 +20,7 @@ void Devi::Application::Run()
 	shadertest.SetUniform("texture1", 1, UniformDataType::INT);
 	Texture2D tex("assets/Textures/container.png");
 
-
+	
 	//essentially the update loop is in this while loop.
 	while (m_isRunning)
 	{
