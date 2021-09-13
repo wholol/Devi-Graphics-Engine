@@ -1,21 +1,24 @@
 #include "Renderer.h"
 
-void Devi::Renderer::Render(VertexArray& vertexArray, Shader& shader)
+namespace Devi
 {
-	shader.Bind();
-	vertexArray.Bind();
-	if (vertexArray.HasIndexBuffer())
+	void Renderer::Render(VertexArray& vertexArray, Shader& shader)
 	{
-		//TODO: glDrawElements
+		shader.Bind();
+		vertexArray.Bind();
+		if (vertexArray.HasIndexBuffer())
+		{
+			//TODO: glDrawElements
+		}
+		else
+		{
+			//TODO: glDrawArrays
+		}
 	}
-	else
-	{
-		//TODO: glDrawArrays
-	}
-}
 
-void Devi::Renderer::Clear(float r, float g, float b, float a)
-{
-	glClearColor(r, g, b, a);
-	glClear(GL_COLOR_BUFFER_BIT);
+	void Renderer::Clear(float r, float g, float b, float a)
+	{
+		glClearColor(r, g, b, a);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
 }

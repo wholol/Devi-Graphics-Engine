@@ -5,11 +5,13 @@
 #include <iostream>
 #include "Log.h"
 
-//GLFW callback functions here
-void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
+
 
 namespace Devi
 {
+	//GLFW callback functions here
+	void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
+
 	/**
 	* Window clas. Resposnible for initializing the glfw window context (and also load in GLAD).
 	**/

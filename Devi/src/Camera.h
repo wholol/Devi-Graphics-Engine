@@ -22,9 +22,9 @@ namespace Devi
 	private:
 
 		//translates the camera. note: direction vectors should be constant here.
-		void move(GLFWwindow* window);
+		void translateCamera(GLFWwindow* window);
 		//rotates the camera around its position. note: direction vectors should be changed here.
-		void rotate(GLFWwindow* window);
+		void rotateCamera(GLFWwindow* window);
 		glm::vec3 m_cameraPosition = glm::vec3(0.0, 0.0, 0.0);
 		glm::vec3 m_cameraTargetPosition = glm::vec3(0.0, 0.0, -1.0);
 		

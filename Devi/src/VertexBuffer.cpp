@@ -1,71 +1,75 @@
 #include "VertexBuffer.h"
 #include <glad/glad.h>
 
-Devi::VertexBuffer::VertexBuffer(void* data,size_t dataSize)
+namespace Devi
 {
-	glGenBuffers(1, &m_vertexBufferID);
-	Bind();
-	glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
-}
 
-Devi::VertexBuffer::VertexBuffer(std::pair<void*, size_t> VertexBufferParams)
-{
-	glGenBuffers(1, &m_vertexBufferID);
-	Bind();
-	glBufferData(GL_ARRAY_BUFFER, VertexBufferParams.second, VertexBufferParams.first, GL_STATIC_DRAW);
-}
-
-void Devi::VertexBuffer::AddAttribLayout(int numberOfComponents, DataTypeForComponents type, bool isNormalized)
-{
-	m_stride += numberOfComponents;
-
-	try
+	VertexBuffer::VertexBuffer(void* data, size_t dataSize)
 	{
-
-		if (type == DataTypeForComponents::FLOAT)
-		{
-			m_layouts.push_back({ GL_FLOAT, numberOfComponents, GL_FALSE });
-		}
-
-		else if (type == DataTypeForComponents::DOUBLE)
-		{
-			m_layouts.push_back({ GL_DOUBLE, numberOfComponents, GL_FALSE });
-		}
-
-		else if (type == DataTypeForComponents::INT)
-		{
-			m_layouts.push_back({ GL_INT, numberOfComponents, GL_FALSE });
-		}
-		
-		else
-		{
-			throw Exception::NotImplementedException("attrib layout type not implemented.", __FILE__, __LINE__);
-		}
-	}
-	
-	catch (std::exception& e)
-	{
-		DEVI_ERROR(e.what(), __FILE__, __LINE__);
+		glGenBuffers(1, &m_vertexBufferID);
+		Bind();
+		glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 	}
 
-}
+	VertexBuffer::VertexBuffer(std::pair<void*, size_t> VertexBufferParams)
+	{
+		glGenBuffers(1, &m_vertexBufferID);
+		Bind();
+		glBufferData(GL_ARRAY_BUFFER, VertexBufferParams.second, VertexBufferParams.first, GL_STATIC_DRAW);
+	}
 
-void Devi::VertexBuffer::Bind()
-{
-	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
-}
+	void VertexBuffer::AddAttribLayout(int numberOfComponents, DataTypeForComponents type, bool isNormalized)
+	{
+		m_stride += numberOfComponents;
 
-void Devi::VertexBuffer::UnBind()
-{
-	glBindBuffer(0, m_vertexBufferID);
-}
+		try
+		{
 
-const std::vector<Devi::VertexBufferLayout>& Devi::VertexBuffer::GetVertexBufferLayout() const
-{
-	return m_layouts;
-}
+			if (type == DataTypeForComponents::FLOAT)
+			{
+				m_layouts.push_back({ GL_FLOAT, numberOfComponents, GL_FALSE });
+			}
 
-unsigned int Devi::VertexBuffer::GetStride() const
-{
-	return m_stride;
+			else if (type == DataTypeForComponents::DOUBLE)
+			{
+				m_layouts.push_back({ GL_DOUBLE, numberOfComponents, GL_FALSE });
+			}
+
+			else if (type == DataTypeForComponents::INT)
+			{
+				m_layouts.push_back({ GL_INT, numberOfComponents, GL_FALSE });
+			}
+
+			else
+			{
+				throw Exception::NotImplementedException("attrib layout type not implemented.", __FILE__, __LINE__);
+			}
+		}
+
+		catch (std::exception& e)
+		{
+			DEVI_ERROR(e.what(), __FILE__, __LINE__);
+		}
+
+	}
+
+	void VertexBuffer::Bind()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
+	}
+
+	void VertexBuffer::UnBind()
+	{
+		glBindBuffer(0, m_vertexBufferID);
+	}
+
+	const std::vector<Devi::VertexBufferLayout>& Devi::VertexBuffer::GetVertexBufferLayout() const
+	{
+		return m_layouts;
+	}
+
+	unsigned int VertexBuffer::GetStride() const
+	{
+		return m_stride;
+	}
 }
