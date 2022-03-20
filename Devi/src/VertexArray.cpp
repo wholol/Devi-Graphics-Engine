@@ -4,6 +4,7 @@
 namespace Devi
 {
 	VertexArray::VertexArray(VertexBuffer& vertexBuffer, std::optional<Devi::IndexBuffer> indexBuffer)
+		: m_indexBuffer(indexBuffer)
 	{
 		glGenVertexArrays(1, &m_vertexArrayID);
 		Bind();
@@ -28,9 +29,9 @@ namespace Devi
 		glBindVertexArray(0);
 	}
 
-	bool VertexArray::HasIndexBuffer() const
+	const std::optional<IndexBuffer>& VertexArray::GetIndexBuffer() const
 	{
-		return m_hasIndexBuffer;
+		return m_indexBuffer;
 	}
 
 	void VertexArray::SetupAndEnableAttribs(VertexBuffer& vertexBuffer)
@@ -40,7 +41,7 @@ namespace Devi
 		unsigned int vertexAttribOffset = 0;
 		for (const auto& layout : vertexBufferLayouts)
 		{
-			int numComponents = layout.numComponents;
+			int numComponents = layout.numComponentsForAttrib;
 			bool isNormalized = layout.isNormalized;
 			unsigned int dataType = layout.dataType;
 			int stride = vertexBuffer.GetStride() * sizeof(dataType);

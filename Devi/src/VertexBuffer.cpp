@@ -18,26 +18,26 @@ namespace Devi
 		glBufferData(GL_ARRAY_BUFFER, VertexBufferParams.second, VertexBufferParams.first, GL_STATIC_DRAW);
 	}
 
-	void VertexBuffer::AddAttribLayout(int numberOfComponents, DataTypeForComponents type, bool isNormalized)
+	void VertexBuffer::AddAttribLayout(int numberOfComponentsForAttrib, DataTypeForComponents type, bool isNormalized)
 	{
-		m_stride += numberOfComponents;
+		m_stride += numberOfComponentsForAttrib;
 
 		try
 		{
 
 			if (type == DataTypeForComponents::FLOAT)
 			{
-				m_layouts.push_back({ GL_FLOAT, numberOfComponents, GL_FALSE });
+				m_layouts.push_back({ GL_FLOAT, numberOfComponentsForAttrib, GL_FALSE });
 			}
 
 			else if (type == DataTypeForComponents::DOUBLE)
 			{
-				m_layouts.push_back({ GL_DOUBLE, numberOfComponents, GL_FALSE });
+				m_layouts.push_back({ GL_DOUBLE, numberOfComponentsForAttrib, GL_FALSE });
 			}
 
 			else if (type == DataTypeForComponents::INT)
 			{
-				m_layouts.push_back({ GL_INT, numberOfComponents, GL_FALSE });
+				m_layouts.push_back({ GL_INT, numberOfComponentsForAttrib, GL_FALSE });
 			}
 
 			else

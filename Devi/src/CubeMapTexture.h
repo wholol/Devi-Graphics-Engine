@@ -3,7 +3,6 @@
 #include "ITexture.h"
 #include "Log.h"
 
-
 namespace Devi
 {
 	/**

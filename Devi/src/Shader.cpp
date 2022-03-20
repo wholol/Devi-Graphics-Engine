@@ -2,6 +2,8 @@
 #include "Math/glm/mat4x4.hpp"
 #include "Math/glm/vec3.hpp"
 #include "Math/glm/vec4.hpp"
+#include "Math/glm/gtc/matrix_transform.hpp"
+#include "Math/glm/gtc/type_ptr.hpp"
 #include <glad/glad.h>
 
 namespace Devi
@@ -57,6 +59,11 @@ namespace Devi
 			else if (uniformDataType == UniformDataType::VEC4)
 			{
 				glUniform4fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, &std::any_cast<glm::vec4>(uniformValue)[0]);
+			}
+			else if (uniformDataType == UniformDataType::MAT4)
+			{
+				// glm::value_ptr is the same as &(glm::mat4(uniformvalue)[0][0]); --getting the address to the first pointer--.
+				glUniformMatrix4fv(glGetUniformLocation(m_shaderID, uniformName.c_str()), 1, GL_FALSE, glm::value_ptr(std::any_cast<glm::mat4>(uniformValue)));
 			}
 			else
 			{

@@ -7,10 +7,12 @@
 #include <any>
 #include <utility>
 #include "Log.h"
+#include "Camera.h"
 
 namespace Devi
 {
-	class Application {
+	class Application 
+	{
 
 	public:
 		
@@ -19,7 +21,11 @@ namespace Devi
 		void ShutDown();
 
 	private:
+		Camera m_camera{glm::vec3(0.0,0.0,0.0)};
+		int m_screenWidth;
+		int m_screenHeight;
 		Window m_window;
 		bool m_isRunning = true;
+		double lastTime = 0.0;
 	};
 }

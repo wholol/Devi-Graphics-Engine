@@ -8,7 +8,7 @@ namespace Devi
 	struct VertexBufferLayout
 	{
 		unsigned int dataType;
-		int numComponents;
+		int numComponentsForAttrib;
 		bool isNormalized;
 	};
 
@@ -34,7 +34,7 @@ namespace Devi
 		VertexBuffer(std::pair<void*, size_t> VertexBufferParams);
 		void Bind();
 		void UnBind();
-		void AddAttribLayout(int numberOfComponents, DataTypeForComponents type = DataTypeForComponents::FLOAT, bool isNormalized = false);
+		void AddAttribLayout(int numberOfComponentsForAttrib, DataTypeForComponents type = DataTypeForComponents::FLOAT, bool isNormalized = false);
 		const std::vector<VertexBufferLayout>& GetVertexBufferLayout() const;
 		unsigned int GetStride() const;
 

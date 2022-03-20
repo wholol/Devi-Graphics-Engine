@@ -92,11 +92,11 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\Dependencies;C:\Users\jeremy\source\repos\Devi\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Devi\assets;$(SolutionDir)Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\Dependencies;$(SolutionDir)Devi\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLFW\glfwlib-vc2017;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Devi\Devi\Dependencies\GLFW\glfwlib-vc2017;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,13 +128,13 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\jeremy\source\repos\Devi\Devi\assets;C:\Users\jeremy\source\repos\Devi\Devi\assets;$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\assets;C:\Users\jsow1\source\repos\Devi-Graphics-Engine\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\jeremy\source\repos\Devi\Devi\Dependencies\GLFW\glfwlib-vc2017;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Devi\Dependencies\GLFW\glfwlib-vc2017;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -184,6 +184,7 @@
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\NotImplementedException.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\ITexture.h" />
     <ClInclude Include="src\Texture2D.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\Texture2DFrameBuffer.cpp" />
@@ -211,8 +213,10 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\Shaders\testshaderfrag.fs" />
-    <None Include="assets\Shaders\testshadervert.vs" />
+    <None Include="assets\Shaders\cubefs.glsl" />
+    <None Include="assets\Shaders\cubevs.glsl" />
+    <None Include="assets\Shaders\texturedRectangle.fs" />
+    <None Include="assets\Shaders\texturedRectangle.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png" />

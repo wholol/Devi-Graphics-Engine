@@ -10,10 +10,10 @@ namespace Devi
 		m_cameraUpVector = glm::cross(m_cameraLookAtDirection, m_cameraRightVector);
 	}
 
-	void Camera::Update(GLFWwindow* window)
+	void Camera::Update(GLFWwindow* window, double deltaTime)
 	{
-		translateCamera(window);
-		rotateCamera(window);
+		translateCamera(window, deltaTime);
+		rotateCamera(window, deltaTime);
 	}
 
 	glm::mat4 Camera::getViewMatrix() const
@@ -21,8 +21,9 @@ namespace Devi
 		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraTargetPosition, m_cameraUpVector);
 	}
 
-	void Camera::translateCamera(GLFWwindow* window)
+	void Camera::translateCamera(GLFWwindow* window, double deltaTime)
 	{
+
 		//forward
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
@@ -47,8 +48,7 @@ namespace Devi
 		}
 	}
 
-	void Camera::rotateCamera(GLFWwindow* window)
+	void Camera::rotateCamera(GLFWwindow* window, double deltaTime)
 	{
-
 	}
 }

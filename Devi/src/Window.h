@@ -5,8 +5,6 @@
 #include <iostream>
 #include "Log.h"
 
-
-
 namespace Devi
 {
 	//GLFW callback functions here
@@ -22,6 +20,8 @@ namespace Devi
 		GLFWwindow* GetWindow() const;
 		void Shutdown();
 		void Update();
+		int GetScreenWidth() const;
+		int GetScreenHeight() const;
 	
 	private:
 		GLFWwindow* m_windowContext = nullptr;

@@ -15,18 +15,18 @@ namespace Devi
 
 	public:
 
-		Camera(glm::vec3 cameraPosition, glm::vec3 cameraTargetPosition);
-		void Update(GLFWwindow* window);
+		Camera( glm::vec3 cameraPosition = glm::vec3( 0.0 , 0.0 , 0.0 ), glm::vec3 cameraTargetPosition = glm::vec3(0.0,0.0,-1.0) );
+		void Update(GLFWwindow* window, double deltaTime);
 		glm::mat4 getViewMatrix() const;
 
 	private:
 
 		//translates the camera. note: direction vectors should be constant here.
-		void translateCamera(GLFWwindow* window);
+		void translateCamera(GLFWwindow* window, double deltaTime);
 		//rotates the camera around its position. note: direction vectors should be changed here.
-		void rotateCamera(GLFWwindow* window);
-		glm::vec3 m_cameraPosition = glm::vec3(0.0, 0.0, 0.0);
-		glm::vec3 m_cameraTargetPosition = glm::vec3(0.0, 0.0, -1.0);
+		void rotateCamera(GLFWwindow* window, double deltaTime);
+		glm::vec3 m_cameraPosition;
+		glm::vec3 m_cameraTargetPosition;
 		
 		//camera axis vectors
 		glm::vec3 m_cameraLookAtDirection;

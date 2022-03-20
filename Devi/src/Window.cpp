@@ -43,10 +43,15 @@ namespace Devi
 		DEVI_INFO("Shutting Down the Window.", __FILE__, __LINE__);
 	}
 
-	void Devi::Window::Update()
+	void Window::Update()
 	{
 		glfwSwapBuffers(m_windowContext);
 		glfwPollEvents();
+	}
+
+	int Window::GetScreenWidth() const
+	{
+		return 0;
 	}
 
 	void FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
