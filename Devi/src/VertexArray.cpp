@@ -44,6 +44,11 @@ namespace Devi
 			int numComponents = layout.numComponentsForAttrib;
 			bool isNormalized = layout.isNormalized;
 			unsigned int dataType = layout.dataType;
+
+			if (vertexBuffer.GetStride() == 0)
+			{
+				DEVI_ERROR("Stride for the mesh is zero. Please make sure you have called VertexBuffer::AddAttribLayout.", __FILE__, __LINE__);
+			}
 			int stride = vertexBuffer.GetStride() * sizeof(dataType);
 
 			glVertexAttribPointer(layoutNumber, numComponents, dataType, isNormalized, stride, (void*)(vertexAttribOffset * sizeof(dataType)));

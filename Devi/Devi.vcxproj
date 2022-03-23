@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Devi\assets;$(SolutionDir)Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\Dependencies;$(SolutionDir)Devi\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Devi\assets;$(SolutionDir)Devi\Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\Dependencies;$(SolutionDir)Devi\Devi\Dependencies;$(SolutionDir)Devi\Drawables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\assets;C:\Users\jsow1\source\repos\Devi-Graphics-Engine\Devi\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\assets;$(SolutionDir)Devi\Dependencies;$(SolutionDir)Devi\Drawables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,12 +175,17 @@
     <ClInclude Include="Dependencies\Boost\property_tree\string_path.hpp" />
     <ClInclude Include="Dependencies\Boost\property_tree\xml_parser.hpp" />
     <ClInclude Include="Dependencies\STBImage\stb_image.h" />
+    <ClInclude Include="Drawables\Cube.h" />
+    <ClInclude Include="Drawables\HeightMap.h" />
+    <ClInclude Include="Drawables\SkyBox.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CubeMapTexture.h" />
     <ClInclude Include="src\FrameBuffer.h" />
     <ClInclude Include="src\IDrawable.h" />
     <ClInclude Include="src\IndexBuffer.h" />
+    <ClInclude Include="src\Inputs.h" />
+    <ClInclude Include="src\KeyEnums.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\NotImplementedException.h" />
     <ClInclude Include="src\Renderer.h" />
@@ -197,10 +202,13 @@
     <ClCompile Include="assets\BasicShapes\BasicShapesVertexData.cpp" />
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Dependencies\STBImage\stb_image.cpp" />
+    <ClCompile Include="Drawables\Cube.cpp" />
+    <ClCompile Include="Drawables\SkyBox.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CubeMapTexture.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\Inputs.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -215,11 +223,19 @@
   <ItemGroup>
     <None Include="assets\Shaders\cubefs.glsl" />
     <None Include="assets\Shaders\cubevs.glsl" />
+    <None Include="assets\Shaders\skybox_fs.glsl" />
+    <None Include="assets\Shaders\skybox_vs.glsl" />
     <None Include="assets\Shaders\texturedRectangle.fs" />
     <None Include="assets\Shaders\texturedRectangle.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png" />
+    <Image Include="assets\Textures\Daylight Box_Back.bmp" />
+    <Image Include="assets\Textures\Daylight Box_Bottom.bmp" />
+    <Image Include="assets\Textures\Daylight Box_Front.bmp" />
+    <Image Include="assets\Textures\Daylight Box_Left.bmp" />
+    <Image Include="assets\Textures\Daylight Box_Right.bmp" />
+    <Image Include="assets\Textures\Daylight Box_Top.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

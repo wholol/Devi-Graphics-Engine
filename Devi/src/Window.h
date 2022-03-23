@@ -11,7 +11,7 @@ namespace Devi
 	void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
 
 	/**
-	* Window clas. Resposnible for initializing the glfw window context (and also load in GLAD).
+	* Window class. Resposnible for initializing the glfw window context (and also load in GLAD).
 	**/
 	class Window
 	{

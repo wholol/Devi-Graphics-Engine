@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Inputs.h"
 
 namespace Devi
 {
@@ -10,10 +11,10 @@ namespace Devi
 		m_cameraUpVector = glm::cross(m_cameraLookAtDirection, m_cameraRightVector);
 	}
 
-	void Camera::Update(GLFWwindow* window, double deltaTime)
+	void Camera::Update(double deltaTime)
 	{
-		translateCamera(window, deltaTime);
-		rotateCamera(window, deltaTime);
+		translateCamera(deltaTime);
+		rotateCamera(deltaTime);
 	}
 
 	glm::mat4 Camera::getViewMatrix() const
@@ -21,34 +22,31 @@ namespace Devi
 		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraTargetPosition, m_cameraUpVector);
 	}
 
-	void Camera::translateCamera(GLFWwindow* window, double deltaTime)
+	void Camera::translateCamera(double deltaTime)
 	{
-
 		//forward
-		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		{
-			m_cameraPosition += CAMERA_VELOCITY * m_cameraLookAtDirection;
-		}
-
-		//backward
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		if (Inputs::IsKeyPressed(DeviKey::Key::W))
 		{
 			m_cameraPosition -= CAMERA_VELOCITY * m_cameraLookAtDirection;
 		}
 
-		//move left
-		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		else if (Inputs::IsKeyPressed(DeviKey::Key::S))
 		{
-			m_cameraPosition -= CAMERA_VELOCITY * m_cameraRightVector;
+			m_cameraPosition += CAMERA_VELOCITY * m_cameraLookAtDirection;
 		}
 
-		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		else if (Inputs::IsKeyPressed(DeviKey::Key::A))
 		{
 			m_cameraPosition += CAMERA_VELOCITY * m_cameraRightVector;
 		}
+
+		else if (Inputs::IsKeyPressed(DeviKey::Key::D))
+		{
+			m_cameraPosition -= CAMERA_VELOCITY * m_cameraRightVector;
+		}
 	}
 
-	void Camera::rotateCamera(GLFWwindow* window, double deltaTime)
+	void Camera::rotateCamera(double deltaTime)
 	{
 	}
 }

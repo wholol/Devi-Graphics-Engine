@@ -45,9 +45,6 @@
     <ClCompile Include="src\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Texture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,7 +60,19 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Inputs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\SkyBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,9 +102,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies\Boost\property_tree\detail\exception_implementation.hpp">
@@ -224,7 +230,25 @@
     <ClInclude Include="src\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Inputs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyEnums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\SkyBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\HeightMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,9 +257,29 @@
     <None Include="assets\Shaders\texturedRectangle.vs" />
     <None Include="assets\Shaders\cubefs.glsl" />
     <None Include="assets\Shaders\cubevs.glsl" />
+    <None Include="assets\Shaders\skybox_vs.glsl" />
+    <None Include="assets\Shaders\skybox_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Daylight Box_Back.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Daylight Box_Bottom.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Daylight Box_Front.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Daylight Box_Left.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Daylight Box_Right.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Daylight Box_Top.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -1,6 +1,8 @@
 #pragma once
 #include "VertexArray.h"
-
+#include "Renderer.h"
+#include "VertexBuffer.h"
+#include "Shader.h"
 
 namespace Devi
 {

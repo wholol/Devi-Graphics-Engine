@@ -11,9 +11,9 @@ namespace Devi
 
 	Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
 		:m_vertexShaderFilePath(vertexShaderFilePath),
-		m_fragmentShaderFilePath(fragmentShaderFilePath)
+		 m_fragmentShaderFilePath(fragmentShaderFilePath)
 	{
-		auto[vertexShaderCode, fragmentShaderCode] = GetShaderCodeFromFilePath(vertexShaderFilePath, fragmentShaderFilePath);
+		auto[vertexShaderCode, fragmentShaderCode] = GetShaderCodeFromFilePath(m_vertexShaderFilePath, m_fragmentShaderFilePath);
 		CompileShader(vertexShaderCode, fragmentShaderCode);
 	}
 
@@ -75,6 +75,15 @@ namespace Devi
 		{
 			DEVI_ERROR(std::string(e.what()), __FILE__, __LINE__);
 		}
+	}
+
+	void Shader::SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
+	{
+		m_vertexShaderFilePath = vertexShaderFilePath;
+		m_fragmentShaderFilePath = fragmentShaderFilePath;
+
+		auto[vertexShaderCode, fragmentShaderCode] = GetShaderCodeFromFilePath(m_vertexShaderFilePath, m_fragmentShaderFilePath);
+		CompileShader(vertexShaderCode, fragmentShaderCode);
 	}
 
 	void Shader::CompileShader(const std::string& vertexShaderCode, const std::string& fragmentShaderCode)
@@ -140,9 +149,9 @@ namespace Devi
 
 			vertexShaderCode = vertexShaderStream.str();
 		}
-		catch (std::ifstream::failure& e)
+		catch (...)
 		{
-			DEVI_ERROR(".Vertex shader file path failed to load for: " + m_vertexShaderFilePath, __FILE__, __LINE__);
+			DEVI_ERROR("Vertex shader file path failed to load for: " + m_vertexShaderFilePath, __FILE__, __LINE__);
 		}
 
 		std::stringstream fragmentShaderStream;
@@ -161,7 +170,7 @@ namespace Devi
 		}
 		catch (...)
 		{
-			DEVI_ERROR(".Fragment shader file path failed to load for: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
+			DEVI_ERROR("Fragment shader file path failed to load for: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 		}
 
 		return std::make_pair(vertexShaderCode, fragmentShaderCode);

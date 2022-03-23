@@ -8,6 +8,8 @@
 #include <utility>
 #include "Log.h"
 #include "Camera.h"
+#include "Inputs.h"
+#include "Scene.h"
 
 namespace Devi
 {
@@ -15,8 +17,7 @@ namespace Devi
 	{
 
 	public:
-		
-		void Init(int screenWidth, int screenHeight, const std::string& title);
+		Application(int screenWidth, int screenHeight, const std::string& title);
 		void Run();
 		void ShutDown();
 
@@ -26,6 +27,8 @@ namespace Devi
 		int m_screenHeight;
 		Window m_window;
 		bool m_isRunning = true;
+		std::unique_ptr<Scene> m_scene{nullptr};
 		double lastTime = 0.0;
+		double deltaTime = 0.0;
 	};
 }

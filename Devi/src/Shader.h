@@ -33,11 +33,12 @@ namespace Devi
 	{
 
 	public:
-		Shader() = delete;
+		Shader() = default;
 		Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 		void Bind();
 		void UnBind();
 		void SetUniform(const std::string& uniformName, const std::any& uniformValue, UniformDataType uniformDataType);
+		void SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 
 	private:
 		unsigned int m_shaderID;
