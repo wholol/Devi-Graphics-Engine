@@ -6,6 +6,7 @@ namespace Devi
 	{
 		m_projectionMatrix = glm::perspective(glm::radians(projectionMatrixParams.fieldOfViewY), static_cast<float>(projectionMatrixParams.screenWidth) / static_cast<float>(projectionMatrixParams.screenHeight), projectionMatrixParams.zNear, projectionMatrixParams.zFar);
 		Renderer::SetRendererProjectionMatrix(m_projectionMatrix);
+		Renderer::EnableDepthTest();
 	}
 	
 	void Scene::Update(double deltaTime)
@@ -15,8 +16,6 @@ namespace Devi
 		const auto& viewMatrix = m_camera.getViewMatrix();
 
 		Renderer::UpdateViewMatrix(viewMatrix);
-
-		m_cube.Draw();
 
 		for (const auto& drawable : m_drawables)
 		{

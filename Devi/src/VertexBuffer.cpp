@@ -4,8 +4,9 @@
 namespace Devi
 {
 
-	VertexBuffer::VertexBuffer(void* data, size_t dataSize)
+	VertexBuffer::VertexBuffer(void* data, unsigned long long int dataSize)
 	{
+		test = dataSize;
 		glGenBuffers(1, &m_vertexBufferID);
 		Bind();
 		glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);

@@ -75,6 +75,15 @@
     <ClCompile Include="Drawables\SkyBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Drawables\CPUHeightMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -248,7 +257,10 @@
     <ClInclude Include="Drawables\SkyBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\HeightMap.h">
+    <ClInclude Include="Drawables\CPUHeightMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -259,6 +271,8 @@
     <None Include="assets\Shaders\cubevs.glsl" />
     <None Include="assets\Shaders\skybox_vs.glsl" />
     <None Include="assets\Shaders\skybox_fs.glsl" />
+    <None Include="assets\Shaders\CPUheightmap_vs.glsl" />
+    <None Include="assets\Shaders\CPUheightmap_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">
@@ -280,6 +294,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\Textures\Daylight Box_Top.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\iceland_heightmap.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

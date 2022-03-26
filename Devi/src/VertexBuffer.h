@@ -30,7 +30,7 @@ namespace Devi
 
 	public:
 		VertexBuffer() = delete;
-		VertexBuffer(void* data, size_t dataSize);
+		VertexBuffer(void* data, unsigned long long int dataSize);
 		VertexBuffer(std::pair<void*, size_t> VertexBufferParams);
 		void Bind();
 		void UnBind();
@@ -42,5 +42,6 @@ namespace Devi
 		unsigned int m_vertexBufferID;
 		unsigned int m_stride = 0;
 		std::vector<VertexBufferLayout> m_layouts;
+		int test;
 	};
 }

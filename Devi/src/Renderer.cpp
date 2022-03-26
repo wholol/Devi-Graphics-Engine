@@ -1,5 +1,4 @@
 #include "Renderer.h"
-#include <GLAD/glad.h>
 
 namespace Devi
 {
@@ -24,7 +23,7 @@ namespace Devi
 
 		if (indexBuffer.has_value())
 		{
-			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indexBuffer->GetIndexBufferDataSize()), GL_UNSIGNED_INT,indexBuffer->GetIndexBufferData());
+			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indexBuffer->GetIndexBufferDataSize()), GL_UNSIGNED_INT, 0);
 		}
 		else
 		{
@@ -32,7 +31,7 @@ namespace Devi
 		}
 	}
 
-	void Renderer::RenderWithoutIndexBuffers(double numberOfTriangles, VertexArray & vertexArray, Shader & shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	void Renderer::RenderWithoutIndexBuffers(int numberOfTriangles, VertexArray & vertexArray, Shader & shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
 	{
 		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
 
@@ -64,5 +63,29 @@ namespace Devi
 	{
 		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void Renderer::RenderTriangleStrip(int numberofStrips, int numberOfIndicesPerStrip, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	{
+		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
+
+		if (ignoreViewMatrixTranslationComponent)
+		{
+			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
+		}
+
+		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
+		shader.Bind();
+		vertexArray.Bind();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		for (int i = 0; i < numberofStrips; ++i)
+		{
+			glDrawElements(GL_TRIANGLE_STRIP, numberOfIndicesPerStrip, GL_UNSIGNED_INT,(void*)(i * sizeof(unsigned int) * numberOfIndicesPerStrip));
+		}
+	}
+	void Renderer::EnableDepthTest()
+	{
+		glEnable(GL_DEPTH_TEST);
 	}
 }

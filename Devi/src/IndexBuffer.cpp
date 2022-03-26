@@ -1,5 +1,6 @@
 #include "IndexBuffer.h"
 #include <glad/glad.h>
+#include <iostream>
 
 namespace Devi
 {

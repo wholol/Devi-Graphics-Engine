@@ -1,29 +1,33 @@
 #pragma once
-#include "ITexture.h"
+#include "FrameBuffer.h"
 #include "glad/glad.h"
+#include "Texture2D.h"
+#include "RenderBuffer.h"
 
 namespace Devi
 {
 	/**
-	* Texture2D class, meant to be attached to a framebuffer. Useful for postprocessing effects
+	* Framebuffer with a texture2D and render buffer. Useful for postprocessing effects
 	**/
-	class Texture2DFrameBuffer : public ITexture
+	class Texture2DFrameBuffer
 
 	{
 	public:
-		/**
-		* Equivalent of glTexParamteri
-		**/
-		void SetTexParameters(GLenum pname, GLint param);
-		
-		/**
-		* Equivalent of glFramebufferTexture2D. TODO: pass in framebuffer class here for binding.
-		**/
-		void AttachTextureToFrameBuffer(GLenum attachment, GLenum texTarget);
-		void Bind(unsigned int activeTexture = 0) override;
-		void UnBind() override;
+		Texture2DFrameBuffer(int screenWidth, int screenHeight);
+
+		//note: this binds the framebuffer and texture2D class.
+		void Bind();
+
+		void UnBind();
 
 	private:
 		unsigned int m_texture2DFrameBufferID;
+		int m_screenWidth;
+		int m_screenHeight;
+		FrameBuffer m_frameBuffer;	//framebuffer that is used to attach to this texture.
+		RenderBuffer m_renderBuffer{ m_screenWidth, m_screenHeight };
+		Texture2D m_texture2D;
+		
+
 	};
 }

@@ -2,16 +2,14 @@
 
 namespace Devi
 {
-	class FrameBuffer
+	class RenderBuffer
 	{
 	public:
-		FrameBuffer();
+		RenderBuffer(int screenWidth, int screenHeight);
 		void Bind();
 		void UnBind();
-		~FrameBuffer();
+
 	private:
-		unsigned int m_frameBufferID;
 		unsigned int m_renderBufferID;
 	};
-
 }

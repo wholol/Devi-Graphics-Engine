@@ -2,25 +2,28 @@
 
 namespace Devi
 {
-
-	void Texture2DFrameBuffer::SetTexParameters(GLenum pname, GLint param)
+	Texture2DFrameBuffer::Texture2DFrameBuffer(int screenWidth, int screenHeight)
+		: m_screenWidth(screenWidth),
+		  m_screenHeight(screenHeight)
 	{
-		glTexParameteri(GL_TEXTURE_2D, pname, param);
+		m_frameBuffer.Bind();
+		m_renderBuffer.Bind();
+		m_texture2D.Bind();
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_screenWidth, m_screenHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture2DFrameBufferID, 0);
 	}
 
-	void Texture2DFrameBuffer::AttachTextureToFrameBuffer(GLenum attachment, GLenum texTarget)
-	{
-		glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, texTarget, m_texture2DFrameBufferID, 0);
-	}
 
-	void Texture2DFrameBuffer::Bind(unsigned int activeTexture)
+	void Texture2DFrameBuffer::Bind()
 	{
-		glActiveTexture(GL_TEXTURE0 + activeTexture);
-		glBindTexture(GL_TEXTURE_2D, m_texture2DFrameBufferID);
+		m_frameBuffer.Bind();
 	}
 
 	void Texture2DFrameBuffer::UnBind()
 	{
-		glBindTexture(GL_TEXTURE_2D, 0);
+		m_frameBuffer.UnBind();
 	}
 }

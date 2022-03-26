@@ -176,7 +176,7 @@
     <ClInclude Include="Dependencies\Boost\property_tree\xml_parser.hpp" />
     <ClInclude Include="Dependencies\STBImage\stb_image.h" />
     <ClInclude Include="Drawables\Cube.h" />
-    <ClInclude Include="Drawables\HeightMap.h" />
+    <ClInclude Include="Drawables\CPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
@@ -188,6 +188,7 @@
     <ClInclude Include="src\KeyEnums.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\NotImplementedException.h" />
+    <ClInclude Include="src\RenderBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Shader.h" />
@@ -203,14 +204,17 @@
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Dependencies\STBImage\stb_image.cpp" />
     <ClCompile Include="Drawables\Cube.cpp" />
+    <ClCompile Include="Drawables\CPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CubeMapTexture.cpp" />
+    <ClCompile Include="src\FrameBuffer.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Inputs.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RenderBuffer.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Shader.cpp" />
@@ -221,6 +225,8 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\Shaders\CPUheightmap_fs.glsl" />
+    <None Include="assets\Shaders\CPUheightmap_vs.glsl" />
     <None Include="assets\Shaders\cubefs.glsl" />
     <None Include="assets\Shaders\cubevs.glsl" />
     <None Include="assets\Shaders\skybox_fs.glsl" />
@@ -236,6 +242,7 @@
     <Image Include="assets\Textures\Daylight Box_Left.bmp" />
     <Image Include="assets\Textures\Daylight Box_Right.bmp" />
     <Image Include="assets\Textures\Daylight Box_Top.bmp" />
+    <Image Include="assets\Textures\iceland_heightmap.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

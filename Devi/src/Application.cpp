@@ -6,6 +6,7 @@
 #include "Camera.h"
 
 #include "SkyBox.h"
+#include "CPUHeightMap.h"
 
 namespace Devi
 {
@@ -16,20 +17,25 @@ namespace Devi
 		m_screenHeight = screenHeight;
 		Inputs::Init(&m_window);
 		ProjectionMatrixParams projectionMatrixParams;
-		projectionMatrixParams.fieldOfViewY = 10.0f;
+		projectionMatrixParams.fieldOfViewY = 90.0f;
 		projectionMatrixParams.screenWidth = 800;
 		projectionMatrixParams.screenHeight = 600;
 		projectionMatrixParams.zNear = 0.1f;
-		projectionMatrixParams.zFar = 100.0f;
+		projectionMatrixParams.zFar = 100000.0f;
 
 		m_scene = std::make_unique<Scene>();
 		m_scene->SetProjectionMatrixParams(projectionMatrixParams);
 
-		m_scene->AddDrawable(std::move (std::make_unique<SkyBox>(
-			"assets/Textures/Daylight Box_Right.bmp", "assets/Textures/Daylight Box_Left.bmp",
-			"assets/Textures/Daylight Box_Top.bmp", "assets/Textures/Daylight Box_Bottom.bmp",
-			"assets/Textures/Daylight Box_Front.bmp", "assets/Textures/Daylight Box_Back.bmp",
-			"assets/Shaders/skybox_vs.glsl", "assets/Shaders/skybox_fs.glsl")) );
+		//m_scene->AddDrawable(std::move (std::make_unique<SkyBox>(
+		//	"assets/Textures/Daylight Box_Right.bmp", "assets/Textures/Daylight Box_Left.bmp",
+		//	"assets/Textures/Daylight Box_Top.bmp", "assets/Textures/Daylight Box_Bottom.bmp",
+		//	"assets/Textures/Daylight Box_Front.bmp", "assets/Textures/Daylight Box_Back.bmp",
+		//	"assets/Shaders/skybox_vs.glsl", "assets/Shaders/skybox_fs.glsl")) );
+
+		m_scene->AddDrawable(std::move(std::make_unique<CPUHeightMap>(
+			"assets/Textures/iceland_heightmap.png",
+			"assets/Shaders/CPUHeightmap_vs.glsl", "assets/Shaders/CPUHeightmap_fs.glsl"))
+		);
 	}
 
 	void Application::Run()

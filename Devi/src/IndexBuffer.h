@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <vector>
 
 namespace Devi
 {
@@ -10,7 +11,9 @@ namespace Devi
 	{
 		public:
 			IndexBuffer() = delete;
-			IndexBuffer(void* data, size_t dataSize);
+			IndexBuffer(void* data, unsigned long long int dataSize);
+
+
 			IndexBuffer(std::pair<void*, size_t> IndexBufferParams);
 			size_t GetIndexBufferDataSize() const;
 			void* GetIndexBufferData() const;

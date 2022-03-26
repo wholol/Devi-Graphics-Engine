@@ -12,6 +12,7 @@ namespace Devi
 	class Texture2D : public ITexture
 	{
 	public:
+		Texture2D() = default;
 		Texture2D(const std::string& textureFilePath,bool generateMipMap = true, bool flipImage = true);
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
