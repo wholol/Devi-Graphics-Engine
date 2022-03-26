@@ -37,12 +37,12 @@ namespace Devi
 
 		else if (Inputs::IsKeyPressed(DeviKey::Key::A))
 		{
-			m_cameraPosition += CAMERA_VELOCITY * m_cameraRightVector;
+			m_cameraPosition -= CAMERA_VELOCITY * m_cameraRightVector;
 		}
 
 		else if (Inputs::IsKeyPressed(DeviKey::Key::D))
 		{
-			m_cameraPosition -= CAMERA_VELOCITY * m_cameraRightVector;
+			m_cameraPosition += CAMERA_VELOCITY * m_cameraRightVector;
 		}
 	}
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "../src/VertexBuffer.h"
 #include "../src/IDrawable.h"
 
 namespace Devi

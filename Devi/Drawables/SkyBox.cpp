@@ -31,8 +31,10 @@ namespace Devi
 	{
 		m_skyBoxShader.Bind();
 		m_cubeMapTexture.Bind();
+		glDepthFunc(GL_LEQUAL);
 		m_skyBoxShader.SetUniform("cubeMap", 0, UniformDataType::INT);
 		Renderer::RenderWithoutIndexBuffers(12, *m_vertexArray, m_skyBoxShader,glm::mat4(1.0),true);
+		glDepthFunc(GL_LESS);
 	}
 }
 

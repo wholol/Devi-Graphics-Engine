@@ -7,6 +7,7 @@ namespace Devi
 
 	void Renderer::Render(VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
 	{
+		shader.Bind();
 		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
 		
 		if (ignoreViewMatrixTranslationComponent)
@@ -16,7 +17,7 @@ namespace Devi
 
 		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-		shader.Bind();
+		
 		vertexArray.Bind();
 
 		const std::optional<IndexBuffer>& indexBuffer = vertexArray.GetIndexBuffer();
@@ -33,6 +34,8 @@ namespace Devi
 
 	void Renderer::RenderWithoutIndexBuffers(int numberOfTriangles, VertexArray & vertexArray, Shader & shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
 	{
+		
+		shader.Bind();
 		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
 
 		if (ignoreViewMatrixTranslationComponent)
@@ -42,7 +45,7 @@ namespace Devi
 
 		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-		shader.Bind();
+
 		vertexArray.Bind();
 
 		glDrawArrays(GL_TRIANGLES, 0, numberOfTriangles * 3);
@@ -67,6 +70,7 @@ namespace Devi
 
 	void Renderer::RenderTriangleStrip(int numberofStrips, int numberOfIndicesPerStrip, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
 	{
+		shader.Bind();
 		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
 
 		if (ignoreViewMatrixTranslationComponent)
@@ -76,9 +80,9 @@ namespace Devi
 
 		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-		shader.Bind();
+		
 		vertexArray.Bind();
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 		for (int i = 0; i < numberofStrips; ++i)
 		{
 			glDrawElements(GL_TRIANGLE_STRIP, numberOfIndicesPerStrip, GL_UNSIGNED_INT,(void*)(i * sizeof(unsigned int) * numberOfIndicesPerStrip));

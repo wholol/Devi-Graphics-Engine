@@ -27,7 +27,6 @@ namespace Devi
 		FrameBuffer m_frameBuffer;	//framebuffer that is used to attach to this texture.
 		RenderBuffer m_renderBuffer{ m_screenWidth, m_screenHeight };
 		Texture2D m_texture2D;
-		
 
 	};
 }

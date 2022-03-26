@@ -9,6 +9,7 @@ namespace Devi
 
 	/**
 	* Renderer class. Facade for the data(e.g. shader, vertex array, texture) binding flow.
+	* Note: //make sure to bind shader first before setting uniforms. if we set the uniforms and bind it last, the next drawable will be using the shader from the previous drawable.
 	*/
 	class Renderer
 	{

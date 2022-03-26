@@ -26,7 +26,7 @@ namespace Devi
 	class Scene
 	{
 	public:
-
+		Scene();
 		void SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams);
 		void Update(double deltaTime);
 		void AddDrawable(DrawablePtr drawable);

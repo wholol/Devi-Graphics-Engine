@@ -4,7 +4,7 @@
 namespace
 {
 	static constexpr float normalize = 255.0f;
-	static constexpr float scaleHeight = 50.0f;
+	static constexpr float scaleHeight = 100.0f;
 }
 
 namespace Devi
@@ -27,7 +27,7 @@ namespace Devi
 				for (int x = 0; x < m_width; ++x)
 				{
 					unsigned char* texel = data + (x + m_width * y) * nChannels;
-					unsigned char heightForHeightMap = texel[0];
+					unsigned char heightForHeightMap = *texel;
 
 					m_vertices.emplace_back((-m_height / 2.0f +y));
 					m_vertices.emplace_back(((int)heightForHeightMap / normalize) * scaleHeight);

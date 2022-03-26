@@ -177,6 +177,7 @@
     <ClInclude Include="Dependencies\STBImage\stb_image.h" />
     <ClInclude Include="Drawables\Cube.h" />
     <ClInclude Include="Drawables\CPUHeightMap.h" />
+    <ClInclude Include="Drawables\GPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Dependencies\STBImage\stb_image.cpp" />
     <ClCompile Include="Drawables\Cube.cpp" />
     <ClCompile Include="Drawables\CPUHeightMap.cpp" />
+    <ClCompile Include="Drawables\GPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />

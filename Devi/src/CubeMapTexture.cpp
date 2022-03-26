@@ -33,13 +33,13 @@ namespace Devi
 			{
 				DEVI_INFO("Cubemap loaded successfully",__FILE__, __LINE__);
 				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, (void*)data);
-				stbi_image_free(data);
 			}
 			else
 			{
 				DEVI_ERROR("loading cubemap has failed at: " + m_cubeMapTextureFilePaths[i], __FILE__, __LINE__);
-				stbi_image_free(data);
 			}
+
+			stbi_image_free(data);
 		}
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -53,7 +53,6 @@ namespace Devi
 	{
 		glActiveTexture(GL_TEXTURE0 + activeTexture);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMapTextureID);
-
 	}
 
 	void CubeMapTexture::UnBind()
