@@ -27,6 +27,7 @@ namespace Devi
 		for (int i = 0; i < m_numberOfFaces; ++i)
 		{
 			int width, height, channels;
+
 			unsigned char* data = stbi_load(m_cubeMapTextureFilePaths[i].c_str(), &width, &height, &channels, 0);
 
 			if (data)

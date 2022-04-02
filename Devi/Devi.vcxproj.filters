@@ -87,6 +87,9 @@
     <ClCompile Include="Drawables\GPUHeightMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PostProcessing\GammaCorrection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -269,6 +272,12 @@
     <ClInclude Include="Drawables\GPUHeightMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PostProcessing\GammaCorrection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="assets\Shaders\GPUHeight_vs.glsl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\Shaders\texturedRectangle.fs" />
@@ -279,6 +288,9 @@
     <None Include="assets\Shaders\skybox_fs.glsl" />
     <None Include="assets\Shaders\CPUheightmap_vs.glsl" />
     <None Include="assets\Shaders\CPUheightmap_fs.glsl" />
+    <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
+    <None Include="assets\Shaders\GPUHeight_tes.glsl" />
+    <None Include="assets\Shaders\GPUHeight_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">
@@ -303,6 +315,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\Textures\iceland_heightmap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\grass.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

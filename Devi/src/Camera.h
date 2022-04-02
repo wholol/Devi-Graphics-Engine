@@ -13,7 +13,7 @@ namespace Devi
 
 	public:
 
-		Camera( glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 cameraTargetPosition = glm::vec3(0.0,-0.90,-1.0) );
+		Camera( glm::vec3 cameraPosition = glm::vec3(67.0f, 627.5f, 169.9f) , glm::vec3 cameraTargetPosition = glm::vec3(0.0,-0.90,-1.0) );
 		void Update(double deltaTime);
 		glm::mat4 getViewMatrix() const;
 

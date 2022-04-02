@@ -3,13 +3,12 @@
 
 namespace Devi
 {
-	RenderBuffer::RenderBuffer(int screenWidth, int screenHeight)
+
+	void RenderBuffer::CreateRenderBuffer(GLenum internalformat, int height, int width)
 	{
 		glGenRenderbuffers(1, &m_renderBufferID);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferID);
-		//TODO needs to be mroe versatile for the components, we need params.
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenWidth, screenHeight);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferID);
+		glRenderbufferStorage(GL_RENDERBUFFER, internalformat, width, height);
 	}
 
 	void RenderBuffer::Bind()
@@ -20,6 +19,10 @@ namespace Devi
 	void RenderBuffer::UnBind()
 	{
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	}
+	int RenderBuffer::GetID() const
+	{
+		return m_renderBufferID;
 	}
 }
 

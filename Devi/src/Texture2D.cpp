@@ -39,6 +39,52 @@ namespace Devi
 		stbi_image_free(data);
 	}
 
+	void Texture2D::CreateTexture2D(const std::string& textureFilePath, GLint internalFormat, GLint format, GLenum type, bool generateMipMap, bool flipImage)
+	{
+		glGenTextures(1, &m_textureID);
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		
+		int width, height, channels;
+
+		stbi_set_flip_vertically_on_load(flipImage);
+
+		unsigned char* data = stbi_load(textureFilePath.c_str(), &width, &height, &channels, 0);
+		
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, data);
+			DEVI_INFO("texture loaded for: " + textureFilePath, __FILE__, __LINE__);
+		}
+		else
+		{
+			DEVI_INFO("texture failed to load from: " + textureFilePath, __FILE__, __LINE__);
+		}
+
+		stbi_image_free(data);
+
+		//NOTE: MipMaps should be generated --AFTER-- loading the texture.
+		if (generateMipMap)
+		{
+			glGenerateMipmap(GL_TEXTURE_2D);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+			//magnification filter does not require mip maps.
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		}
+	}
+
+	void Texture2D::CreateEmptyTexture2D(GLint internalFormat, int textureHeight, int textureWidth, GLint format, GLenum type)
+	{
+		glGenTextures(1, &m_textureID);
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, textureWidth, textureHeight, 0, format, type, nullptr);
+	}
+
+	void Texture2D::AddTextureParameter(GLenum textureParam, GLint wrappingMode)
+	{
+		glTexParameteri(GL_TEXTURE_2D, textureParam, wrappingMode);
+	}
+
 	void Texture2D::Bind(unsigned int activeTexture)
 	{
 		glActiveTexture(GL_TEXTURE0 + activeTexture);
@@ -48,5 +94,10 @@ namespace Devi
 	void Texture2D::UnBind()
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	int Texture2D::GetID() const
+	{
+		return m_textureID;
 	}
 }

@@ -22,16 +22,17 @@ namespace Devi
 			DEVI_INFO("heightmap data loaded successfully", __FILE__, __LINE__);
 
 			//generate heightmap
-			for (int y = 0; y < m_height; ++y)
+			//note that we are not loading the pixel edges, only the y value is useful to us in the pixel, which is translated into a vertex point.
+			for (int z = 0; z < m_height; ++z)
 			{
 				for (int x = 0; x < m_width; ++x)
 				{
-					unsigned char* texel = data + (x + m_width * y) * nChannels;
+					unsigned char* texel = data + (x + m_width * z) * nChannels;
 					unsigned char heightForHeightMap = *texel;
-
-					m_vertices.emplace_back((-m_height / 2.0f +y));
-					m_vertices.emplace_back(((int)heightForHeightMap / normalize) * scaleHeight);
-					m_vertices.emplace_back((-m_width / 2.0f + (int)x));
+					
+					m_vertices.emplace_back((-m_width / 2.0f + (int)x));	//x
+					m_vertices.emplace_back(((int)heightForHeightMap / normalize) * scaleHeight);	//y
+					m_vertices.emplace_back((-m_height / 2.0f + z));	//z
 				}
 			}
 			m_test = m_vertices.size();

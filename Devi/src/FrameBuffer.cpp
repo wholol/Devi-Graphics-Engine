@@ -1,5 +1,4 @@
 #include "FrameBuffer.h"
-#include <glad/glad.h>
 
 namespace Devi
 {
@@ -7,6 +6,18 @@ namespace Devi
 	{
 		glGenFramebuffers(1, &m_frameBufferID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);
+	}
+
+	void FrameBuffer::AttachRenderBufferToFrameBuffer(GLint attachment, RenderBuffer& renderBuffer)
+	{
+		Bind();
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, renderBuffer.GetID());
+	}
+
+	void FrameBuffer::AttachTexture2DToFrameBuffer(GLint attachment, Texture2D& texture, int level)
+	{
+		Bind();
+		glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetID(), level);
 	}
 
 	void FrameBuffer::Bind()

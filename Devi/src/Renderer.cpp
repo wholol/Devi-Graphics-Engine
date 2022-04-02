@@ -51,6 +51,22 @@ namespace Devi
 		glDrawArrays(GL_TRIANGLES, 0, numberOfTriangles * 3);
 	}
 
+	void Renderer::RenderPatches(int numPatches, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	{
+		shader.Bind();
+		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
+
+		if (ignoreViewMatrixTranslationComponent)
+		{
+			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
+		}
+
+		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
+
+		vertexArray.Bind();
+		glDrawArrays(GL_PATCHES, 0, numPatches);
+	}
 
 	void Renderer::UpdateViewMatrix(glm::mat4 viewMatrix)
 	{

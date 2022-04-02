@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include "STBImage/stb_image.h"
+#include <optional>
 #include "ITexture.h"
 #include "Log.h"
+#include <glad/glad.h>
 
 namespace Devi
 {
@@ -14,8 +16,13 @@ namespace Devi
 	public:
 		Texture2D() = default;
 		Texture2D(const std::string& textureFilePath,bool generateMipMap = true, bool flipImage = true);
+		void CreateTexture2D(const std::string& textureFilePath, GLint internalFormat, GLint format, GLenum type, bool generateMipMap = true, bool flipImage = false);
+		//creates an empty texture with no data.
+		void CreateEmptyTexture2D(GLint internalFormat, int textureHeight, int textureWidth, GLint format, GLenum type);
+		void AddTextureParameter(GLenum textureParam, GLint wrappingMode);
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
+		int GetID() const;
 
 	private:
 		unsigned int m_textureID;

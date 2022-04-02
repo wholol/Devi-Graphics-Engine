@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="assets\BasicShapes\BasicShapesVertexData.h" />
+    <ClInclude Include="assets\Shaders\GPUHeight_vs.glsl" />
     <ClInclude Include="Dependencies\Boost\property_tree\detail\exception_implementation.hpp" />
     <ClInclude Include="Dependencies\Boost\property_tree\detail\file_parser_error.hpp" />
     <ClInclude Include="Dependencies\Boost\property_tree\detail\info_parser_error.hpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Drawables\CPUHeightMap.h" />
     <ClInclude Include="Drawables\GPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
+    <ClInclude Include="PostProcessing\GammaCorrection.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CubeMapTexture.h" />
@@ -208,6 +210,7 @@
     <ClCompile Include="Drawables\CPUHeightMap.cpp" />
     <ClCompile Include="Drawables\GPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
+    <ClCompile Include="PostProcessing\GammaCorrection.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CubeMapTexture.cpp" />
@@ -231,6 +234,9 @@
     <None Include="assets\Shaders\CPUheightmap_vs.glsl" />
     <None Include="assets\Shaders\cubefs.glsl" />
     <None Include="assets\Shaders\cubevs.glsl" />
+    <None Include="assets\Shaders\GPUHeight_fs.glsl" />
+    <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
+    <None Include="assets\Shaders\GPUHeight_tes.glsl" />
     <None Include="assets\Shaders\skybox_fs.glsl" />
     <None Include="assets\Shaders\skybox_vs.glsl" />
     <None Include="assets\Shaders\texturedRectangle.fs" />
@@ -244,6 +250,7 @@
     <Image Include="assets\Textures\Daylight Box_Left.bmp" />
     <Image Include="assets\Textures\Daylight Box_Right.bmp" />
     <Image Include="assets\Textures\Daylight Box_Top.bmp" />
+    <Image Include="assets\Textures\grass.png" />
     <Image Include="assets\Textures\iceland_heightmap.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

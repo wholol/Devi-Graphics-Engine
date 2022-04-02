@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <optional>
 #include "Log.h"
 #include "NotImplementedException.h"
 
@@ -34,11 +35,15 @@ namespace Devi
 
 	public:
 		Shader() = default;
-		Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+		Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath,
+			std::optional<std::string> tessellationControlShaderFilePath = {},
+			std::optional<std::string> tessellationEvaluationShaderFilePath = {});
 		void Bind();
 		void UnBind();
 		void SetUniform(const std::string& uniformName, const std::any& uniformValue, UniformDataType uniformDataType);
-		void SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+		void SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath 
+			, std::optional<std::string> tessellationControlShaderFilePath = {},
+			std::optional<std::string> tessellationEvaluationShaderFilePath = {});
 
 	private:
 		unsigned int m_shaderID;
@@ -46,10 +51,17 @@ namespace Devi
 
 		std::string m_vertexShaderFilePath;
 		std::string m_fragmentShaderFilePath;
+		std::optional<std::string> m_tessellationControlShaderFilePath = {};
+		std::optional<std::string> m_tessellationEvaluationShaderFilePath = {};
+
+		std::string m_vertexShaderCode;
+		std::string m_fragmentShaderCode;
+		std::string m_tessellationControlShaderCode;
+		std::string m_tessellationEvaluationShaderCode;
 
 
-		void CompileShader(const std::string& vertexShaderCode, const std::string& fragmentShaderCode);
-		std::pair<std::string, std::string> GetShaderCodeFromFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+		void CompileShaders();
+		void GetShaderCodeFromFilePaths();
 	};
 
 }

@@ -9,12 +9,16 @@
 namespace Devi
 {
 
-	Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
+	Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath,
+		std::optional<std::string> tessellationControlShaderFilePath,
+		std::optional<std::string> tessellationEvaluationShaderFilePath)
 		:m_vertexShaderFilePath(vertexShaderFilePath),
-		 m_fragmentShaderFilePath(fragmentShaderFilePath)
+		 m_fragmentShaderFilePath(fragmentShaderFilePath),
+		 m_tessellationControlShaderFilePath(tessellationControlShaderFilePath),
+		 m_tessellationEvaluationShaderFilePath(tessellationEvaluationShaderFilePath)
 	{
-		auto[vertexShaderCode, fragmentShaderCode] = GetShaderCodeFromFilePath(m_vertexShaderFilePath, m_fragmentShaderFilePath);
-		CompileShader(vertexShaderCode, fragmentShaderCode);
+		GetShaderCodeFromFilePaths();
+		CompileShaders();
 	}
 
 	void Shader::Bind()
@@ -77,19 +81,23 @@ namespace Devi
 		}
 	}
 
-	void Shader::SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
+	void Shader::SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath
+		, std::optional<std::string> tessellationControlShaderFilePath,
+		std::optional<std::string> tessellationEvaluationShaderFilePath)
 	{
 		m_vertexShaderFilePath = vertexShaderFilePath;
 		m_fragmentShaderFilePath = fragmentShaderFilePath;
+		m_tessellationControlShaderFilePath = tessellationControlShaderFilePath;
+		m_tessellationEvaluationShaderFilePath = tessellationEvaluationShaderFilePath;
 
-		auto[vertexShaderCode, fragmentShaderCode] = GetShaderCodeFromFilePath(m_vertexShaderFilePath, m_fragmentShaderFilePath);
-		CompileShader(vertexShaderCode, fragmentShaderCode);
+		GetShaderCodeFromFilePaths();
+		CompileShaders();
 	}
 
-	void Shader::CompileShader(const std::string& vertexShaderCode, const std::string& fragmentShaderCode)
+	void Shader::CompileShaders()
 	{
-
-		const char* vsCode = vertexShaderCode.c_str();
+		//create vertex shader
+		const char* vsCode = m_vertexShaderCode.c_str();
 		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 		glShaderSource(vertexShader, 1, &vsCode, nullptr);
@@ -104,10 +112,10 @@ namespace Devi
 			DEVI_ERROR("compilation failed: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 		}
 
-		const char* fsCode = fragmentShaderCode.c_str();
+		//create fragment shader
+		const char* fsCode = m_fragmentShaderCode.c_str();
 
 		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
 		glShaderSource(fragmentShader, 1, &fsCode, nullptr);
 		glCompileShader(fragmentShader);
 		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
@@ -121,9 +129,56 @@ namespace Devi
 		m_shaderID = glCreateProgram();
 		glAttachShader(m_shaderID, vertexShader);
 		glAttachShader(m_shaderID, fragmentShader);
+
+		//optional tesselation control shader
+		if (m_tessellationControlShaderFilePath.has_value())
+		{
+			const char* tcsCode = m_tessellationControlShaderCode.c_str();
+			unsigned int tcsShader = glCreateShader(GL_TESS_CONTROL_SHADER);
+			glShaderSource(tcsShader, 1, &tcsCode, nullptr);
+			glCompileShader(tcsShader);
+
+			glGetShaderiv(tcsShader, GL_COMPILE_STATUS, &success);
+
+			if (!success)
+			{
+				glGetShaderInfoLog(tcsShader, 512, NULL, infoLog);
+				DEVI_ERROR("compilation failed: " + m_tessellationControlShaderFilePath.value(), __FILE__, __LINE__);
+			}
+			else
+			{
+				glAttachShader(m_shaderID, tcsShader);
+				//glDeleteShader(tcsShader);
+			}
+		}
+
+		//optional tesselation evaluation shader
+		if (m_tessellationEvaluationShaderFilePath.has_value())
+		{
+			const char* tesCode = m_tessellationEvaluationShaderCode.c_str();
+			unsigned int tesShader = glCreateShader(GL_TESS_EVALUATION_SHADER);
+			glShaderSource(tesShader, 1, &tesCode, nullptr);
+			glCompileShader(tesShader);
+
+			glGetShaderiv(tesShader, GL_COMPILE_STATUS, &success);
+			if (!success)
+			{
+				glGetShaderInfoLog(tesShader, 512, NULL, infoLog);
+				DEVI_ERROR("compilation failed: " + m_tessellationEvaluationShaderFilePath.value(), __FILE__, __LINE__);
+			}
+			else
+			{
+				glAttachShader(m_shaderID, tesShader);
+				//glDeleteShader(tesShader);
+			}
+		}
+
+		//linking
+
 		glLinkProgram(m_shaderID);
 
 		glGetProgramiv(m_shaderID, GL_LINK_STATUS, &success);
+		
 		if (!success) {
 			glGetProgramInfoLog(m_shaderID, 512, NULL, infoLog);
 			DEVI_ERROR("Linking error with shaders: " + m_fragmentShaderFilePath + " and " + m_vertexShaderFilePath, __FILE__, __LINE__);
@@ -131,23 +186,20 @@ namespace Devi
 
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
-
 	}
 
-	std::pair<std::string, std::string> Devi::Shader::GetShaderCodeFromFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
+	void Devi::Shader::GetShaderCodeFromFilePaths()
 	{
 		std::stringstream vertexShaderStream;
-		std::string vertexShaderCode;
-
 		std::ifstream vertexShaderFile;
 		vertexShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
 		try
 		{
-			vertexShaderFile.open(vertexShaderFilePath);
+			vertexShaderFile.open(m_vertexShaderFilePath);
 
 			vertexShaderStream << vertexShaderFile.rdbuf();
 
-			vertexShaderCode = vertexShaderStream.str();
+			m_vertexShaderCode = vertexShaderStream.str();
 		}
 		catch (...)
 		{
@@ -155,24 +207,60 @@ namespace Devi
 		}
 
 		std::stringstream fragmentShaderStream;
-		std::string fragmentShaderCode;
-
 		std::ifstream fragmentShaderFile;
 		fragmentShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
 
 		try
 		{
-			fragmentShaderFile.open(fragmentShaderFilePath);
+			fragmentShaderFile.open(m_fragmentShaderFilePath);
 
 			fragmentShaderStream << fragmentShaderFile.rdbuf();
 
-			fragmentShaderCode = fragmentShaderStream.str();
+			m_fragmentShaderCode = fragmentShaderStream.str();
 		}
 		catch (...)
 		{
 			DEVI_ERROR("Fragment shader file path failed to load for: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
 		}
 
-		return std::make_pair(vertexShaderCode, fragmentShaderCode);
+		if (m_tessellationControlShaderFilePath.has_value())
+		{
+			std::stringstream tessellationControlShaderStream;
+			std::ifstream tessellationControlShaderFile;
+			tessellationControlShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+
+			try
+			{
+				tessellationControlShaderFile.open(m_tessellationControlShaderFilePath.value());
+
+				tessellationControlShaderStream << tessellationControlShaderFile.rdbuf();
+
+				m_tessellationControlShaderCode = tessellationControlShaderStream.str();
+			}
+			catch (...)
+			{
+				DEVI_ERROR("tessellation control shader file path failed to load for: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
+			}
+		}
+
+
+		if (m_tessellationControlShaderFilePath.has_value())
+		{
+			std::stringstream tessellationEvaluationShaderStream;
+			std::ifstream tessellationEvaluationShaderFile;
+			tessellationEvaluationShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+			try
+			{
+				tessellationEvaluationShaderFile.open(m_tessellationEvaluationShaderFilePath.value());
+
+				tessellationEvaluationShaderStream << tessellationEvaluationShaderFile.rdbuf();
+
+				m_tessellationEvaluationShaderCode = tessellationEvaluationShaderStream.str();
+			}
+			catch (...)
+			{
+				DEVI_ERROR("tessellation evaluation shader file path failed to load for: " + m_fragmentShaderFilePath, __FILE__, __LINE__);
+			}
+		}
 	}
 }

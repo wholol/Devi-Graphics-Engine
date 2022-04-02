@@ -25,7 +25,7 @@ namespace Devi
 		int m_screenWidth;
 		int m_screenHeight;
 		FrameBuffer m_frameBuffer;	//framebuffer that is used to attach to this texture.
-		RenderBuffer m_renderBuffer{ m_screenWidth, m_screenHeight };
+		RenderBuffer m_renderBuffer;
 		Texture2D m_texture2D;
 
 	};
