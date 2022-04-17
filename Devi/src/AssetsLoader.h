@@ -49,6 +49,7 @@ namespace Devi
 			SetDrawableTexture(args...);
 		}
 
+		//handle base case of variadic template
 		void SetDrawableTexture()
 		{
 			m_textureUniformBinding = 0;
@@ -59,11 +60,7 @@ namespace Devi
 
 		std::shared_ptr<ShaderManager> m_shaderManager;
 		std::shared_ptr<TextureManager> m_textureManager;
-		std::shared_ptr<DrawableManager> m_drawableManager;
-		std::vector<DrawablePtr> m_drawables;
-
-
-		
+		std::shared_ptr<DrawableManager> m_drawableManager;	
 	};
 	
 

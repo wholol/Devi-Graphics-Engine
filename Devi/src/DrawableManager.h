@@ -10,8 +10,9 @@ namespace Devi
 	class DrawableManager
 	{
 	public:
-		void AddDrawable(const std::string& name, DrawablePtr drawablePtr);
+		void AddDrawable(const std::string& name, DrawablePtr drawable);
 		DrawablePtr GetDrawable(const std::string& name) const;
+		const std::vector<DrawablePtr>& GetAllDrawables() const;
 
 	private:
 		std::vector<DrawablePtr> m_drawables;

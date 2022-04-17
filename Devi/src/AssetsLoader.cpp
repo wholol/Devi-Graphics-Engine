@@ -34,7 +34,7 @@ namespace Devi
 
 	const std::vector<DrawablePtr>& Assets::GetDrawables() const
 	{
-		return m_drawables;
+		return m_drawableManager->GetAllDrawables();
 	}
 
 	void Assets::LoadShaders()
@@ -56,19 +56,15 @@ namespace Devi
 
 	void Assets::LoadDrawables()
 	{
-	
 		std::string GPUHeightMapName = "GPUHeightMap";
 		auto HeightMapGPU = std::make_shared<GPUHeightMap>(GPUHeightMapName, "assets/Textures/iceland_heightmap.png");
 		SetupDrawableShaderAndTextures(HeightMapGPU, "GPUHeightMap","icelandHeightMap","grass");
 		m_drawableManager->AddDrawable(GPUHeightMapName, HeightMapGPU);
-		m_drawables.push_back(HeightMapGPU);
 		
 		std::string skyboxName ="DayLightSkyBox";
 		auto skybox = std::make_shared<SkyBox>(skyboxName);
 		SetupDrawableShaderAndTextures(skybox, skyboxName, "DayLightSkyBoxCubeMap");
-		m_drawableManager->AddDrawable(skyboxName, skybox);
-		m_drawables.push_back(skybox);
-		
+		m_drawableManager->AddDrawable(skyboxName, skybox);	
 	}
 
 	void Assets::LoadTextures()

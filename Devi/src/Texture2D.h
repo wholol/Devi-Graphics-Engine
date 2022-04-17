@@ -24,6 +24,8 @@ namespace Devi
 		void UnBind() override;
 		int GetID() const;
 		std::string GetName() const override;
+		int GetTextureWidth() const;
+		int GetTextureHeight() const;
 
 	private:
 		unsigned int m_textureID;
