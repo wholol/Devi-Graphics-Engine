@@ -9,10 +9,13 @@
 namespace Devi
 {
 
-	Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath,
+	Shader::Shader(const std::string& shaderName,
+		const std::string& vertexShaderFilePath, 
+		const std::string& fragmentShaderFilePath,
 		std::optional<std::string> tessellationControlShaderFilePath,
 		std::optional<std::string> tessellationEvaluationShaderFilePath)
-		:m_vertexShaderFilePath(vertexShaderFilePath),
+		:m_shaderName(shaderName),
+		 m_vertexShaderFilePath(vertexShaderFilePath),
 		 m_fragmentShaderFilePath(fragmentShaderFilePath),
 		 m_tessellationControlShaderFilePath(tessellationControlShaderFilePath),
 		 m_tessellationEvaluationShaderFilePath(tessellationEvaluationShaderFilePath)
@@ -92,6 +95,11 @@ namespace Devi
 
 		GetShaderCodeFromFilePaths();
 		CompileShaders();
+	}
+
+	std::string Shader::GetName() const
+	{
+		return m_shaderName;
 	}
 
 	void Shader::CompileShaders()

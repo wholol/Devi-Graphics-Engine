@@ -16,7 +16,11 @@ namespace Devi
 		m_window.Init(screenWidth, screenHeight, title);	//IMPORTANT. THIS FUNCTION SHOULD BE COMPLETED BEFORE ANY GLAD CODE SHOULD BE RUN, OR THE APP CRASHES.
 		m_screenWidth = screenWidth;
 		m_screenHeight = screenHeight;
+		
 		Inputs::Init(&m_window);
+
+		m_assets.LoadAssets();
+
 		ProjectionMatrixParams projectionMatrixParams;
 		projectionMatrixParams.fieldOfViewY = 90.0f;
 		projectionMatrixParams.screenWidth = 800;
@@ -24,28 +28,8 @@ namespace Devi
 		projectionMatrixParams.zNear = 0.1f;
 		projectionMatrixParams.zFar = 100000.0f;
 
-		m_scene = std::make_unique<Scene>();
+		m_scene = std::make_unique<Scene>(m_assets);
 		m_scene->SetProjectionMatrixParams(projectionMatrixParams);
-
-		//m_scene->AddDrawable(std::move(std::make_unique<CPUHeightMap>(
-		//	"assets/Textures/iceland_heightmap.png",
-		//	"assets/Shaders/CPUHeightmap_vs.glsl", "assets/Shaders/CPUHeightmap_fs.glsl"))
-		//);
-
-		m_scene->AddDrawable(std::move(std::make_unique<GPUHeightMap>("assets/Textures/iceland_heightmap.png",
-			"assets/Shaders/GPUHeight_vs.glsl",
-			"assets/Shaders/GPUHeight_fs.glsl",
-			"assets/Shaders/GPUHeight_tcs.glsl",
-			"assets/Shaders/GPUHeight_tes.glsl",
-			"assets/Textures/grass.png"))
-		);
-
-		m_scene->AddDrawable(std::move(std::make_unique<SkyBox>(
-			"assets/Textures/Daylight Box_Right.bmp", "assets/Textures/Daylight Box_Left.bmp",
-			"assets/Textures/Daylight Box_Top.bmp", "assets/Textures/Daylight Box_Bottom.bmp",
-			"assets/Textures/Daylight Box_Front.bmp", "assets/Textures/Daylight Box_Back.bmp",
-			"assets/Shaders/skybox_vs.glsl", "assets/Shaders/skybox_fs.glsl"))
-		);
 	}
 
 	void Application::Run()

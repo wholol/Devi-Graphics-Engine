@@ -12,8 +12,8 @@ namespace Devi
 	{
 
 	public:
-
-		Camera( glm::vec3 cameraPosition = glm::vec3(67.0f, 627.5f, 169.9f) , glm::vec3 cameraTargetPosition = glm::vec3(0.0,-0.90,-1.0) );
+		//do note that the targetposition is not a direction only vector, it should be a coordiante as well ideally.
+		Camera( glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f) , glm::vec3 cameraTargetPosition = glm::vec3(0.0,0.0,-1.0) );
 		void Update(double deltaTime);
 		glm::mat4 getViewMatrix() const;
 

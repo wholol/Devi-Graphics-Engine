@@ -12,14 +12,16 @@ namespace Devi
 	{
 	public:
 
-		CubeMapTexture();
+		CubeMapTexture(const std::string& name);
 		void addCubeMapTextures(const std::string& textureFilePath);
 		void GenerateCubeMap();
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
+		std::string GetName() const override;
 
 	private:
 		unsigned int m_cubeMapTextureID;
+		std::string m_name;
 		std::vector<std::string> m_cubeMapTextureFilePaths;
 		static constexpr unsigned int m_numberOfFaces = 6;
 	};

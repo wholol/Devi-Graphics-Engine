@@ -70,6 +70,14 @@ float v_cube[] = {
 		-100000.5f,  100000.5f, -100000.5f
 };
 
+float v_texturedQuad[] = {
+	// positions        // texture Coords
+	-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+	-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+	 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+	 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+};
+
 std::pair<void*, size_t> Devi::BasicShapesVertexData::Get(BasicShape basicShapeType)
 {
 	try
@@ -92,6 +100,11 @@ std::pair<void*, size_t> Devi::BasicShapesVertexData::Get(BasicShape basicShapeT
 		else if (basicShapeType == BasicShape::CUBE)
 		{
 			return std::make_pair((void*)v_cube, sizeof(v_cube));
+		}
+
+		else if (basicShapeType == BasicShape::TEXTUREDQUAD)
+		{
+			return std::make_pair((void*)v_texturedQuad, sizeof(v_texturedQuad));
 		}
 		
 		else

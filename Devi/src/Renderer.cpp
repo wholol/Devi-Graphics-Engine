@@ -104,6 +104,22 @@ namespace Devi
 			glDrawElements(GL_TRIANGLE_STRIP, numberOfIndicesPerStrip, GL_UNSIGNED_INT,(void*)(i * sizeof(unsigned int) * numberOfIndicesPerStrip));
 		}
 	}
+	void Renderer::RenderQuad(VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	{
+		shader.Bind();
+		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
+
+		if (ignoreViewMatrixTranslationComponent)
+		{
+			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
+		}
+
+		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
+
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
+
 	void Renderer::EnableDepthTest()
 	{
 		glEnable(GL_DEPTH_TEST);

@@ -4,30 +4,23 @@
 
 namespace Devi
 {
-	GPUHeightMap::GPUHeightMap(const std::string & heightMapFilePath, const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath,
-		const std::string& tessellationControlShaderFilePath,
-		const std::string& tessellationEvaluationShaderFilePath,
-		const std::string& textureFilePath)
+	GPUHeightMap::GPUHeightMap(const std::string& name, const std::string & heightMapFilePath)
+		:m_name(name)
 	{
-		m_shader.SetShaderFilePath(vertexShaderFilePath, fragmentShaderFilePath, tessellationControlShaderFilePath, tessellationEvaluationShaderFilePath);
 
 		int nChannels;
 		unsigned char* data = stbi_load(heightMapFilePath.c_str(), &m_width, &m_height, &nChannels, 0);
-
-
-		m_grassTexture.CreateTexture2D(textureFilePath.c_str(), GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
-		m_grassTexture.AddTextureParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-		m_grassTexture.AddTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
 		
+		m_texture2D = std::make_shared<Texture2D>("test");
 		m_numTiles = 20;
 		if (data)
 		{
-			m_texture2D.CreateTexture2D(heightMapFilePath.c_str(), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
-			m_texture2D.AddTextureParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-			m_texture2D.AddTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			m_texture2D->CreateTexture2D(heightMapFilePath.c_str(), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+			m_texture2D->AddTextureParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
+			m_texture2D->AddTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
 			
-
 			//note that we are not using index buffers. this makes sense as we are tessellating the mesh later on.
+			//there ma
 			for (int x = 0; x < m_numTiles; ++x)
 			{
 				for (int z = 0; z < m_numTiles; ++z)
@@ -41,20 +34,17 @@ namespace Devi
 					m_vertices.push_back(x / (float)m_numTiles); // u
 					m_vertices.push_back(z / (float)m_numTiles); // v
 
-
 					m_vertices.push_back(-m_width / 2.0f + (x + 1) * tileDimensionX); // v.x
 					m_vertices.push_back(0.0f); // v.y
 					m_vertices.push_back(-m_height / 2.0f + z * tileDimensionZ); // v.z
 					m_vertices.push_back((x + 1) / (float)m_numTiles); // u
 					m_vertices.push_back(z / (float)m_numTiles); // v
 
-
 					m_vertices.push_back(-m_width / 2.0f + m_width * x / (float)m_numTiles); // v.x
 					m_vertices.push_back(0.0f); // v.y
 					m_vertices.push_back(-m_height / 2.0f + (z + 1) * tileDimensionZ); // v.z
 					m_vertices.push_back(x / (float)m_numTiles); // u
 					m_vertices.push_back((z + 1) / (float)m_numTiles); // v
-
 
 					m_vertices.push_back(-m_width / 2.0f + (x + 1) * tileDimensionX); // v.x
 					m_vertices.push_back(0.0f); // v.y
@@ -76,20 +66,40 @@ namespace Devi
 		}
 	
 		stbi_image_free(data);
-		m_shader.SetUniform("heightMap", 0, UniformDataType::INT);
-		m_shader.SetUniform("grass", 1, UniformDataType::INT);
 	}
 
 	void GPUHeightMap::Draw()
 	{
-		m_shader.Bind();
-		
-		
-		m_texture2D.Bind();
-		m_grassTexture.Bind(1);
+		m_shader->Bind();
+	
+		for (auto& t : m_textures)
+		{
+			auto& texture = t.first;
+			unsigned int activeTexture = t.second;
+			texture->Bind(activeTexture);
+		}
+
+		//m_grassTexture.Bind(1);
+		//m_texture2D.Bind();
 		glPatchParameteri(GL_PATCH_VERTICES, 4);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		Renderer::RenderPatches(m_numTiles * m_numTiles * 4, *m_vertexArray, m_shader);
+		Renderer::RenderPatches(m_numTiles * m_numTiles * 4, *m_vertexArray, *m_shader);
+	}
+
+	void GPUHeightMap::SetShader(std::shared_ptr<Shader> shader)
+	{
+		m_shader = shader;
+	}
+
+	void GPUHeightMap::SetTextures(std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures)
+	{
+		m_textures = std::move(textures);
+
+		m_shader->Bind();
+
+		for (auto& t : textures)
+		{
+			m_shader->SetUniform(t.first->GetName(), t.second, UniformDataType::INT);
+		};
 	}
 
 }

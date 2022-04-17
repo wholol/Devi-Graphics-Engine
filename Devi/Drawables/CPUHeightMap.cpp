@@ -10,8 +10,8 @@ namespace
 namespace Devi
 {
 
-	CPUHeightMap::CPUHeightMap(const std::string& heightMapFilePath, const std::string& vertexShaderFilePath,
-		const std::string& fragmentShaderFilePath)
+	CPUHeightMap::CPUHeightMap(const std::string& name, const std::string& heightMapFilePath)
+		:m_name(name)
 	{
 
 		int nChannels;
@@ -35,6 +35,7 @@ namespace Devi
 					m_vertices.emplace_back((-m_height / 2.0f + z));	//z
 				}
 			}
+
 			m_test = m_vertices.size();
 			m_vertexBuffer = std::make_unique<VertexBuffer>((void*)&m_vertices[0], m_vertices.size() * sizeof(float));
 			m_vertexBuffer->AddAttribLayout(3);
@@ -61,12 +62,20 @@ namespace Devi
 
 		stbi_image_free(data);
 
-		m_shader.SetShaderFilePath(vertexShaderFilePath, fragmentShaderFilePath);
 	}
 
 	void CPUHeightMap::Draw()
 	{
-		Renderer::RenderTriangleStrip(m_height - 1, m_width * 2, *m_vertexArray, m_shader);
+		Renderer::RenderTriangleStrip(m_height - 1, m_width * 2, *m_vertexArray, *m_shader);
+	}
+
+	void CPUHeightMap::SetShader(std::shared_ptr<Shader> shader)
+	{
+		m_shader = shader;
+	}
+
+	void CPUHeightMap::SetTextures(std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures)
+	{
 	}
 
 }

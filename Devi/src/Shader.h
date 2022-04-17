@@ -35,16 +35,24 @@ namespace Devi
 
 	public:
 		Shader() = default;
-		Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath,
+		Shader(const std::string& shaderName, 
+			const std::string& vertexShaderFilePath, 
+			const std::string& fragmentShaderFilePath,
 			std::optional<std::string> tessellationControlShaderFilePath = {},
 			std::optional<std::string> tessellationEvaluationShaderFilePath = {});
+		
 		void Bind();
 		void UnBind();
+		
 		void SetUniform(const std::string& uniformName, const std::any& uniformValue, UniformDataType uniformDataType);
-		void SetShaderFilePath(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath 
-			, std::optional<std::string> tessellationControlShaderFilePath = {},
+		
+		void SetShaderFilePath(const std::string& vertexShaderFilePath, 
+			const std::string& fragmentShaderFilePath, 
+			std::optional<std::string> tessellationControlShaderFilePath = {},
 			std::optional<std::string> tessellationEvaluationShaderFilePath = {});
 
+		std::string GetName() const;
+	
 	private:
 		unsigned int m_shaderID;
 		bool m_ShadersLoadedSuccessfully = false;
@@ -58,6 +66,8 @@ namespace Devi
 		std::string m_fragmentShaderCode;
 		std::string m_tessellationControlShaderCode;
 		std::string m_tessellationEvaluationShaderCode;
+
+		std::string m_shaderName;
 
 
 		void CompileShaders();

@@ -12,12 +12,16 @@ namespace Devi
 	class Cube : public IDrawable
 	{
 		public:
-			Cube();
+			Cube(const std::string& name);
 			void Draw() override;		
+			void SetShader(std::shared_ptr<Shader> shader) override;
+			void SetTextures(std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures) override;
+
 	private:
+			std::string m_name;
 			VertexBuffer m_vertexBuffer = VertexBuffer( BasicShapesVertexData::Get(BasicShape::CUBE) );
 			std::unique_ptr<VertexArray> m_vertexArray{nullptr};
-			Shader m_shader{ "assets/Shaders/cubevs.glsl", "assets/Shaders/cubefs.glsl" };
+			std::shared_ptr<Shader> m_shader;
 			glm::mat4 m_modelMatrix{ glm::mat4(1.0) };
 	};
 }

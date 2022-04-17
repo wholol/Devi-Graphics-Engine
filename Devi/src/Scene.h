@@ -3,10 +3,14 @@
 #include "Window.h"
 #include "VertexArray.h"
 #include "Shader.h"
-#include "Math/glm/mat4x4.hpp"
+#include "Math/glm/common.hpp"
 #include "glfw3.h"
 #include "Renderer.h"
 #include "../Drawables/Cube.h"
+#include "Texture2D.h"
+#include "FrameBuffer.h"
+#include "AssetsLoader.h"
+
 
 namespace Devi
 {
@@ -26,16 +30,18 @@ namespace Devi
 	class Scene
 	{
 	public:
-		Scene();
+		Scene(Assets& assets);
 		void SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams);
 		void Update(double deltaTime);
-		void AddDrawable(DrawablePtr drawable);
 		void ClearScene();
 
 	private:
+		std::vector<DrawablePtr> m_drawables;
 		glm::mat4 m_projectionMatrix{glm::mat4(1.0)};
 		Camera m_camera;
-		std::vector<DrawablePtr> m_drawables;
+		
+		int m_screenWidth;
+		int m_screenHeight;
 	};
 
 }

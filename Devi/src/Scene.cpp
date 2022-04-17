@@ -2,15 +2,18 @@
 
 namespace Devi
 {
-	Scene::Scene()
+	Scene::Scene(Assets& assets)
 	{
 		Renderer::EnableDepthTest();
+		m_drawables = assets.GetDrawables();
 	}
 
 	void Scene::SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams)
 	{
 		m_projectionMatrix = glm::perspective(glm::radians(projectionMatrixParams.fieldOfViewY), static_cast<float>(projectionMatrixParams.screenWidth) / static_cast<float>(projectionMatrixParams.screenHeight), projectionMatrixParams.zNear, projectionMatrixParams.zFar);
 		Renderer::SetRendererProjectionMatrix(m_projectionMatrix);
+		m_screenWidth = projectionMatrixParams.screenWidth;
+		m_screenHeight = projectionMatrixParams.screenHeight;
 	}
 	
 	void Scene::Update(double deltaTime)
@@ -25,11 +28,6 @@ namespace Devi
 		{
 			drawable->Draw();
 		}
-	}
-
-	void Scene::AddDrawable(DrawablePtr drawable)
-	{
-		m_drawables.emplace_back(drawable);
 	}
 
 	void Scene::ClearScene()

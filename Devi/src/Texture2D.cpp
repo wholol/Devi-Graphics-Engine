@@ -3,7 +3,12 @@
 
 namespace Devi
 {
-	Texture2D::Texture2D(const std::string& textureFilePath, bool generateMipMap, bool flipImage)
+	Texture2D::Texture2D(const std::string & name)
+		:m_name(name)
+	{}
+
+	Texture2D::Texture2D(const std::string& name, const std::string& textureFilePath, bool generateMipMap, bool flipImage)
+		: m_name(name)
 	{
 		glGenTextures(1, &m_textureID);
 		Bind();
@@ -43,7 +48,7 @@ namespace Devi
 	{
 		glGenTextures(1, &m_textureID);
 		glBindTexture(GL_TEXTURE_2D, m_textureID);
-		
+
 		int width, height, channels;
 
 		stbi_set_flip_vertically_on_load(flipImage);
@@ -99,5 +104,10 @@ namespace Devi
 	int Texture2D::GetID() const
 	{
 		return m_textureID;
+	}
+
+	std::string Texture2D::GetName() const
+	{
+		return m_name;
 	}
 }

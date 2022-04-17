@@ -10,5 +10,6 @@ void main()
 {
 	vec2 aTexCoordFinal = TexCoordFinal * 20;
 	float m_height = height / 64.0f;
+
 	fragColor = texture(grass, aTexCoordFinal);
 }

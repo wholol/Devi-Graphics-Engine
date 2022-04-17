@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace Devi
 {
@@ -11,7 +12,7 @@ namespace Devi
 
 		virtual void Bind(unsigned int activeTexture = 0) = 0;
 		virtual void UnBind() = 0;
-
+		virtual std::string GetName() const = 0;
 	};
 
 }

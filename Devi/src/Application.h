@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "Inputs.h"
 #include "Scene.h"
+#include "AssetsLoader.h"
 
 namespace Devi
 {
@@ -28,6 +29,8 @@ namespace Devi
 		Window m_window;
 		bool m_isRunning = true;
 		std::unique_ptr<Scene> m_scene{nullptr};
+		std::shared_ptr<ShaderManager> m_shaderManager;
+		Assets m_assets;
 		double lastTime = 0.0;
 		double deltaTime = 0.0;
 	};

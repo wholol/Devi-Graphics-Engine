@@ -51,9 +51,6 @@
     <ClCompile Include="src\CubeMapTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Texture2DFrameBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Dependencies\STBImage\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,6 +85,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PostProcessing\GammaCorrection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Light\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcessing\ShadowMapRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssetsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DrawableManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,9 +248,6 @@
     <ClInclude Include="src\CubeMapTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Texture2DFrameBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Dependencies\STBImage\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -276,6 +288,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="assets\Shaders\GPUHeight_vs.glsl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessing\ShadowMapRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AssetsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DrawableManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

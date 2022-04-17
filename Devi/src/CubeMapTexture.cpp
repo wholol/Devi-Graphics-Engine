@@ -4,7 +4,8 @@
 
 namespace Devi 
 {
-	CubeMapTexture::CubeMapTexture()
+	CubeMapTexture::CubeMapTexture(const std::string& name)
+		:m_name(name)
 	{
 		glGenTextures(1, &m_cubeMapTextureID);
 	}
@@ -59,6 +60,11 @@ namespace Devi
 	void CubeMapTexture::UnBind()
 	{
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	}
+
+	std::string CubeMapTexture::GetName() const
+	{
+		return m_name;
 	}
 
 }
