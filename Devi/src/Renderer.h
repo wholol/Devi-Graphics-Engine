@@ -14,7 +14,7 @@ namespace Devi
 	class Renderer
 	{
 	public:
-		static void UpdateViewMatrix(glm::mat4 viewprojectionMatrix);
+		static void SetRendererViewMatrix(glm::mat4 viewprojectionMatrix);
 		static void SetRendererProjectionMatrix(glm::mat4 projectionMatrix);
 		
 		//render methods.

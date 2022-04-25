@@ -16,8 +16,8 @@ namespace Devi
 		if (data)
 		{
 			m_texture2D->CreateTexture2D(heightMapFilePath.c_str(), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
-			m_texture2D->AddTextureParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-			m_texture2D->AddTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			m_texture2D->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
+			m_texture2D->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
 			
 			//note that we are not using index buffers. this makes sense as we are tessellating the mesh later on.
 			//there ma
@@ -79,8 +79,8 @@ namespace Devi
 			texture->Bind(activeTexture);
 		}
 
-		//m_grassTexture.Bind(1);
-		//m_texture2D.Bind();
+		m_shader->SetUniform("lightSpaceMatrix", m_lightSpaceMatrix, UniformDataType::MAT4);
+
 		glPatchParameteri(GL_PATCH_VERTICES, 4);
 		Renderer::RenderPatches(m_numTiles * m_numTiles * 4, *m_vertexArray, *m_shader);
 	}
@@ -96,10 +96,31 @@ namespace Devi
 
 		m_shader->Bind();
 
-		for (auto& t : textures)
+		for (auto& t : m_textures)
 		{
-			m_shader->SetUniform(t.first->GetName(), t.second, UniformDataType::INT);
+			m_shader->SetUniform(t.first->GetName(), t.second, UniformDataType::UNSIGNEDINT);
 		};
+	}
+
+	std::string GPUHeightMap::GetName() const
+	{
+		return m_name;
+	}
+
+	void GPUHeightMap::SetDepthMapTexture(std::shared_ptr<ITexture> depthMap)
+	{
+		
+		if (!m_shadowMap)
+		{
+			m_textures.push_back(std::make_pair(depthMap, 3));	//TODO: refactor this
+		}
+
+		m_shadowMap = depthMap;	
+	}
+
+	void GPUHeightMap::SetLightSpaceMatrix(glm::mat4 lightSpaceMatrix)
+	{
+		m_lightSpaceMatrix = lightSpaceMatrix;
 	}
 
 }

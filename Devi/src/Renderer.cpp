@@ -12,7 +12,12 @@ namespace Devi
 		
 		if (ignoreViewMatrixTranslationComponent)
 		{
-			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
+			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
+
+		}
+		else
+		{
+			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
 		}
 
 		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
@@ -40,10 +45,15 @@ namespace Devi
 
 		if (ignoreViewMatrixTranslationComponent)
 		{
-			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
+			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
+			
+		}
+		else
+		{
+			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
 		}
 
-		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
 
 		vertexArray.Bind();
@@ -58,17 +68,20 @@ namespace Devi
 
 		if (ignoreViewMatrixTranslationComponent)
 		{
-			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
-		}
+			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
 
-		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		}
+		else
+		{
+			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		}
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
 
 		vertexArray.Bind();
 		glDrawArrays(GL_PATCHES, 0, numPatches);
 	}
 
-	void Renderer::UpdateViewMatrix(glm::mat4 viewMatrix)
+	void Renderer::SetRendererViewMatrix(glm::mat4 viewMatrix)
 	{
 		m_viewMatrix = viewMatrix;
 	}
@@ -91,10 +104,13 @@ namespace Devi
 
 		if (ignoreViewMatrixTranslationComponent)
 		{
-			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
-		}
+			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
 
-		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		}
+		else
+		{
+			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		}
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
 		
 		vertexArray.Bind();
@@ -111,10 +127,13 @@ namespace Devi
 
 		if (ignoreViewMatrixTranslationComponent)
 		{
-			m_viewMatrix = glm::mat4(glm::mat3(m_viewMatrix));
-		}
+			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
 
-		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		}
+		else
+		{
+			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
+		}
 		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
 
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

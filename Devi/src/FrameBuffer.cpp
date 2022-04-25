@@ -20,6 +20,17 @@ namespace Devi
 		glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetID(), level);
 	}
 
+	void FrameBuffer::SetViewPort(int width, int height)
+	{
+		m_viewportWidth = width;
+		m_viewportHeight = height;
+	}
+
+	void FrameBuffer::ClearFrameBufferDepth()
+	{
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
+
 	void FrameBuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);

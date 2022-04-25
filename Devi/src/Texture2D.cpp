@@ -5,7 +5,8 @@ namespace Devi
 {
 	Texture2D::Texture2D(const std::string & name)
 		:m_name(name)
-	{}
+	{
+	}
 
 	Texture2D::Texture2D(const std::string& name, const std::string& textureFilePath, bool generateMipMap, bool flipImage)
 		: m_name(name)
@@ -47,7 +48,7 @@ namespace Devi
 	void Texture2D::CreateTexture2D(const std::string& textureFilePath, GLint internalFormat, GLint format, GLenum type, bool generateMipMap, bool flipImage)
 	{
 		glGenTextures(1, &m_textureID);
-		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		Bind();
 
 		int width, height, channels;
 
@@ -81,13 +82,18 @@ namespace Devi
 	void Texture2D::CreateEmptyTexture2D(GLint internalFormat, int textureHeight, int textureWidth, GLint format, GLenum type)
 	{
 		glGenTextures(1, &m_textureID);
-		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		Bind();
 		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, textureWidth, textureHeight, 0, format, type, nullptr);
 	}
 
-	void Texture2D::AddTextureParameter(GLenum textureParam, GLint wrappingMode)
+	void Texture2D::AddTextureParameteri(GLenum textureParam, GLint wrappingMode)
 	{
 		glTexParameteri(GL_TEXTURE_2D, textureParam, wrappingMode);
+	}
+
+	void Texture2D::AddTextureParameterfv(GLenum textureParam,const GLfloat* params)
+	{
+		glTexParameterfv(GL_TEXTURE_2D, textureParam, params);
 	}
 
 	void Texture2D::Bind(unsigned int activeTexture)

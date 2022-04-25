@@ -18,13 +18,14 @@ namespace Devi
 		FLOAT,
 		DOUBLE,
 		INT,
+		UNSIGNEDINT,
 		BOOL,
 		MAT2,
 		MAT3,
 		MAT4,
 		VEC2,
 		VEC3,
-		VEC4
+		VEC4,
 	};
 
 	/**

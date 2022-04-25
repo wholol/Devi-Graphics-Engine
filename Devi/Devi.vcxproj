@@ -244,6 +244,8 @@
     <None Include="assets\Shaders\CPUheightmap_vs.glsl" />
     <None Include="assets\Shaders\cubefs.glsl" />
     <None Include="assets\Shaders\cubevs.glsl" />
+    <None Include="assets\Shaders\DepthMap_fs.glsl" />
+    <None Include="assets\Shaders\DepthMap_vs.glsl" />
     <None Include="assets\Shaders\GPUHeight_fs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tes.glsl" />

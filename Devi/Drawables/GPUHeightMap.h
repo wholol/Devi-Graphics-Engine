@@ -16,6 +16,9 @@ namespace Devi
 		void Draw() override;
 		void SetShader(std::shared_ptr<Shader> shader) override;
 		void SetTextures(std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures) override;
+		std::string GetName() const override;
+		void SetDepthMapTexture(std::shared_ptr<ITexture> depthMap) override;
+		void SetLightSpaceMatrix(glm::mat4 lightSpaceMatrix) override;
 
 	private:
 		std::string m_name;
@@ -27,8 +30,9 @@ namespace Devi
 		
 		std::shared_ptr<Shader> m_shader;
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>  m_textures;
-		
+		std::shared_ptr<ITexture> m_shadowMap;
 		std::shared_ptr<Texture2D> m_texture2D;
 		int m_numTiles = 0;
+		glm::mat4 m_lightSpaceMatrix;
 	};
 }

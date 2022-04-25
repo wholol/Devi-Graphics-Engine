@@ -19,7 +19,8 @@ namespace Devi
 		void CreateTexture2D(const std::string& textureFilePath, GLint internalFormat, GLint format, GLenum type, bool generateMipMap = true, bool flipImage = false);
 		//creates an empty texture with no data.
 		void CreateEmptyTexture2D(GLint internalFormat, int textureHeight, int textureWidth, GLint format, GLenum type);
-		void AddTextureParameter(GLenum textureParam, GLint wrappingMode);
+		void AddTextureParameteri(GLenum textureParam, GLint wrappingMode);
+		void AddTextureParameterfv(GLenum textureParam, const GLfloat* params);
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
 		int GetID() const;

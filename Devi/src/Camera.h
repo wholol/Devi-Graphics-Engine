@@ -4,7 +4,7 @@
 #include "Math/glm/gtc/matrix_transform.hpp"
 
 static constexpr glm::vec3 GLOBAL_UP_VECTOR(0.0, 1.0, 0.0);
-static constexpr float CAMERA_VELOCITY = 1.0f;
+static constexpr float CAMERA_VELOCITY = 3.0f;
 
 namespace Devi
 {
@@ -13,7 +13,7 @@ namespace Devi
 
 	public:
 		//do note that the targetposition is not a direction only vector, it should be a coordiante as well ideally.
-		Camera( glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f) , glm::vec3 cameraTargetPosition = glm::vec3(0.0,0.0,-1.0) );
+		Camera( glm::vec3 cameraPosition = glm::vec3(0.0f, 500.0f, 200.0f) , glm::vec3 cameraTargetPosition = glm::vec3(0.0,-0.67,-0.99) );
 		void Update(double deltaTime);
 		glm::mat4 getViewMatrix() const;
 

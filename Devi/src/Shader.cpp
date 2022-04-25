@@ -48,6 +48,11 @@ namespace Devi
 				glUniform1i(glGetUniformLocation(m_shaderID, uniformName.c_str()), std::any_cast<int>(uniformValue));
 			}
 
+			else if (uniformDataType == UniformDataType::UNSIGNEDINT)
+			{
+				glUniform1i(glGetUniformLocation(m_shaderID, uniformName.c_str()), std::any_cast<unsigned int>(uniformValue));
+			}
+
 			else if (uniformDataType == UniformDataType::BOOL)
 			{
 				glUniform1i(glGetUniformLocation(m_shaderID, uniformName.c_str()), std::any_cast<bool>(uniformValue));

@@ -20,7 +20,6 @@ namespace Devi
 		};
 
 		glDepthFunc(GL_LEQUAL);
-		
 		Renderer::RenderWithoutIndexBuffers(12, *m_vertexArray, *m_skyBoxShader,glm::mat4(1.0),true);
 		glDepthFunc(GL_LESS);
 	}
@@ -37,8 +36,12 @@ namespace Devi
 
 		for (auto& t : textures)
 		{
-			m_skyBoxShader->SetUniform(t.first->GetName(), t.second, UniformDataType::INT);
+			m_skyBoxShader->SetUniform(t.first->GetName(), t.second, UniformDataType::UNSIGNEDINT);
 		};
+	}
+	std::string SkyBox::GetName() const
+	{
+		return m_name;
 	}
 }
 

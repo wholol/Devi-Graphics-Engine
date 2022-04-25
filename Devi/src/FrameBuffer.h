@@ -11,12 +11,16 @@ namespace Devi
 		FrameBuffer();
 		void AttachRenderBufferToFrameBuffer(GLint attachment, RenderBuffer& renderBuffer);
 		void AttachTexture2DToFrameBuffer(GLint attachment, Texture2D& texture, int level);
+		void SetViewPort(int width, int height);
+		void ClearFrameBufferDepth();
 		void Bind();
 		void UnBind();
 		~FrameBuffer();
 	private:
 		unsigned int m_frameBufferID;
 		unsigned int m_renderBufferID;
+		int m_viewportWidth;
+		int m_viewportHeight;
 	};
 
 }

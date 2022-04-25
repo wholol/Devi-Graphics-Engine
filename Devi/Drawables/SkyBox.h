@@ -13,6 +13,7 @@ namespace Devi
 		void Draw() override;
 		void SetShader(std::shared_ptr<Shader> shader) override;
 		void SetTextures(std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures) override;
+		std::string GetName() const override;
 
 	private:
 		std::string m_name;

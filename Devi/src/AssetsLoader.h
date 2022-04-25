@@ -4,6 +4,7 @@
 #include "DrawableManager.h"
 #include "GPUHeightMap.h"
 #include "SkyBox.h"
+#include "Cube.h"
 #include <type_traits>
 
 namespace Devi

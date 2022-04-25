@@ -321,6 +321,8 @@
     <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tes.glsl" />
     <None Include="assets\Shaders\GPUHeight_fs.glsl" />
+    <None Include="assets\Shaders\DepthMap_vs.glsl" />
+    <None Include="assets\Shaders\DepthMap_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">

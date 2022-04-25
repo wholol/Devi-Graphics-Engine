@@ -78,4 +78,9 @@ namespace Devi
 	{
 	}
 
+	std::string CPUHeightMap::GetName() const
+	{
+		return m_name;
+	}
+
 }

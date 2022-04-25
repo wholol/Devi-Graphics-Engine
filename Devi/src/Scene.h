@@ -10,6 +10,7 @@
 #include "Texture2D.h"
 #include "FrameBuffer.h"
 #include "AssetsLoader.h"
+#include "../PostProcessing/ShadowMapRenderer.h"
 
 
 namespace Devi
@@ -23,23 +24,25 @@ namespace Devi
 		float zFar;
 	};
 
-	using DrawablePtr = std::shared_ptr<IDrawable>;
 	/**
 	* Scene class. responsible for updating the drawables in the scene.
 	*/
 	class Scene
 	{
 	public:
-		Scene(Assets& assets);
+		Scene(Assets& assets, int screenWidth, int screenHeight);
 		void SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams);
 		void Update(double deltaTime);
 		void ClearScene();
 
 	private:
 		std::vector<DrawablePtr> m_drawables;
+		std::shared_ptr<ShaderManager> m_shaderManager;
+		std::shared_ptr<TextureManager> m_textureManager;
+
 		glm::mat4 m_projectionMatrix{glm::mat4(1.0)};
 		Camera m_camera;
-		
+		std::unique_ptr<ShadowMapRenderer> m_shadowMapRenderer;
 		int m_screenWidth;
 		int m_screenHeight;
 	};

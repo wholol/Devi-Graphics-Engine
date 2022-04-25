@@ -7,14 +7,18 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
+uniform mat4 lightSpaceMatrix;
+
+
 in vec2 TextureCoord[];
 
 out vec2 TexCoordFinal;
 out float height;
+out vec4 CurrentPositionFromLightPerspectiveNDC;
 
 void main()
 {
-	//get the tesselation coordiantes
+	//get the tesselation coordiantes (newly generated coordinate)
 	float u = gl_TessCoord.x;
 	float v = gl_TessCoord.y;
 
@@ -46,6 +50,7 @@ void main()
 	vec4 distance1 = position2 - position1;
 	vec4 distance2 = position3 - position1;
 
+	//really this is just a normal pointing straight up.
 	vec4 normal = normalize( vec4( cross(distance2.xyz, distance1.xyz), 0) );
 
 	vec4 currentpos1 = (position2 - position1) * u + position1;
@@ -53,7 +58,10 @@ void main()
 
 	vec4 currentposition = (currentpos2 - currentpos1) * v + currentpos1;
 	vec4 displacementVector = normal * height;	//we're scaling the height here.
-	currentposition += displacementVector;
+	//currentposition += displacementVector;
+
+	// NDC space.
+	CurrentPositionFromLightPerspectiveNDC = lightSpaceMatrix * modelMatrix * currentposition;
 
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * currentposition;
 

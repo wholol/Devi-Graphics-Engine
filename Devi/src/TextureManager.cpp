@@ -23,7 +23,7 @@ namespace Devi
 
 			for (const auto& textureparam : textureParamsSpec)
 			{
-				texture2D->AddTextureParameter(textureparam.textureParam, textureparam.wrappingMode);
+				texture2D->AddTextureParameteri(textureparam.textureParam, textureparam.wrappingMode);
 			}
 
 			m_textureMap.insert({ name, texture2D });

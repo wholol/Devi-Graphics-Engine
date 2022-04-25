@@ -52,19 +52,45 @@ namespace Devi
 		m_shaderManager->addShader("DayLightSkyBox",
 			"assets/Shaders/skybox_vs.glsl",
 			"assets/Shaders/skybox_fs.glsl");
+
+		m_shaderManager->addShader("DepthMap",
+			"assets/Shaders/DepthMap_vs.glsl",
+			"assets/Shaders/DepthMap_fs.glsl");
+
+		m_shaderManager->addShader("TerrainDepthMap",
+			"assets/Shaders/GPUHeight_vs.glsl",
+			"assets/Shaders/DepthMap_fs.glsl",
+			"assets/Shaders/GPUHeight_tcs.glsl",
+			"assets/Shaders/GPUHeight_tes.glsl");
+
+		m_shaderManager->addShader("Terrain",
+			"assets/Shaders/GPUHeight_vs.glsl",
+			"assets/Shaders/GPUHeight_fs.glsl",
+			"assets/Shaders/GPUHeight_tcs.glsl",
+			"assets/Shaders/GPUHeight_tes.glsl");
+		
+		m_shaderManager->addShader("BasicCube",
+			"assets/Shaders/cubevs.glsl",
+			"assets/Shaders/cubefs.glsl"
+			);
 	}
 
 	void Assets::LoadDrawables()
 	{
-		std::string GPUHeightMapName = "GPUHeightMap";
-		auto HeightMapGPU = std::make_shared<GPUHeightMap>(GPUHeightMapName, "assets/Textures/iceland_heightmap.png");
+		std::string Terrain = "Terrain";
+		auto HeightMapGPU = std::make_shared<GPUHeightMap>(Terrain, "assets/Textures/iceland_heightmap.png");
 		SetupDrawableShaderAndTextures(HeightMapGPU, "GPUHeightMap","icelandHeightMap","grass");
-		m_drawableManager->AddDrawable(GPUHeightMapName, HeightMapGPU);
+		m_drawableManager->AddDrawable(Terrain, HeightMapGPU);
 		
 		std::string skyboxName ="DayLightSkyBox";
 		auto skybox = std::make_shared<SkyBox>(skyboxName);
 		SetupDrawableShaderAndTextures(skybox, skyboxName, "DayLightSkyBoxCubeMap");
-		m_drawableManager->AddDrawable(skyboxName, skybox);	
+		//m_drawableManager->AddDrawable(skyboxName, skybox);	
+
+		std::string basicCubeName = "BasicCube";
+		auto cube = std::make_shared<Cube>(basicCubeName);
+		SetupDrawableShaderAndTextures(cube, basicCubeName);
+		m_drawableManager->AddDrawable(basicCubeName, cube);
 	}
 
 	void Assets::LoadTextures()
