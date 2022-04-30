@@ -49,24 +49,24 @@ namespace Devi
 		Renderer::SetRendererProjectionMatrix(m_lightOrthoMatrix);
 		Renderer::SetRendererViewMatrix(m_lightViewMatrix);
 
-		for (int i = 0; i < drawables.size(); ++i)
-		{
-			if (drawables[i]->GetName() != "DayLightSkyBox")
-			{
-				if (drawables[i]->GetName() == "Terrain")
-				{
-					auto shader = m_shaderManager->GetShader("TerrainDepthMap");
-					drawables[i]->SetShader(shader);
-				}
-				else
-				{
-					auto shader = m_shaderManager->GetShader("DepthMap");
-					drawables[i]->SetShader(shader);
-				}
-
-				drawables[i]->Draw();
-			}		
-		}
+		//for (int i = 0; i < drawables.size(); ++i)
+		//{
+		//	if (drawables[i]->GetName() != "DayLightSkyBox")
+		//	{
+		//		if (drawables[i]->GetName() == "Terrain")
+		//		{
+		//			auto shader = m_shaderManager->GetShader("TerrainDepthMap");
+		//			drawables[i]->SetShader(shader);
+		//		}
+		//		else
+		//		{
+		//			auto shader = m_shaderManager->GetShader("DepthMap");
+		//			drawables[i]->SetShader(shader);
+		//		}
+		//
+		//		drawables[i]->Draw();
+		//	}		
+		//}
 
 		m_framebuffer.UnBind();
 	}

@@ -12,6 +12,9 @@
 #include "AssetsLoader.h"
 #include "../PostProcessing/ShadowMapRenderer.h"
 
+#include "RenderPass.h"
+#include "RenderPassManager.h"
+#include "ShadowMapRenderPass.h"
 
 namespace Devi
 {
@@ -43,6 +46,7 @@ namespace Devi
 		glm::mat4 m_projectionMatrix{glm::mat4(1.0)};
 		Camera m_camera;
 		std::unique_ptr<ShadowMapRenderer> m_shadowMapRenderer;
+		std::unique_ptr<RenderPassManager> m_renderPassManager;
 		int m_screenWidth;
 		int m_screenHeight;
 	};

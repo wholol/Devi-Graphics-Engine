@@ -31,6 +31,8 @@ namespace Devi
 	private:
 		unsigned int m_textureID;
 		std::string m_name;
+		int m_textureWidth;
+		int m_textureHeight;
 	};
 
 }

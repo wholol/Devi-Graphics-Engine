@@ -77,15 +77,15 @@ namespace Devi
 
 	void Assets::LoadDrawables()
 	{
-		std::string Terrain = "Terrain";
-		auto HeightMapGPU = std::make_shared<GPUHeightMap>(Terrain, "assets/Textures/iceland_heightmap.png");
-		SetupDrawableShaderAndTextures(HeightMapGPU, "GPUHeightMap","icelandHeightMap","grass");
-		m_drawableManager->AddDrawable(Terrain, HeightMapGPU);
-		
-		std::string skyboxName ="DayLightSkyBox";
-		auto skybox = std::make_shared<SkyBox>(skyboxName);
-		SetupDrawableShaderAndTextures(skybox, skyboxName, "DayLightSkyBoxCubeMap");
-		//m_drawableManager->AddDrawable(skyboxName, skybox);	
+		//std::string Terrain = "Terrain";
+		//auto HeightMapGPU = std::make_shared<GPUHeightMap>(Terrain, "assets/Textures/iceland_heightmap.png");
+		//SetupDrawableShaderAndTextures(HeightMapGPU, "GPUHeightMap","icelandHeightMap","grass");
+		//m_drawableManager->AddDrawable(Terrain, HeightMapGPU);
+		//
+		//std::string skyboxName ="DayLightSkyBox";
+		//auto skybox = std::make_shared<SkyBox>(skyboxName);
+		//SetupDrawableShaderAndTextures(skybox, skyboxName, "DayLightSkyBoxCubeMap");
+		////m_drawableManager->AddDrawable(skyboxName, skybox);	
 
 		std::string basicCubeName = "BasicCube";
 		auto cube = std::make_shared<Cube>(basicCubeName);

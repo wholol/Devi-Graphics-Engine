@@ -38,7 +38,7 @@ void main()
 
 	TexCoordFinal = finalTextureCoord;
 
-	height = texture(heightMap, finalTextureCoord).y * 150.0;
+	height = texture(heightMap, finalTextureCoord).y * 30.0;
 
 	//since we set the vertexbuffers to have y to be zero, we are having only a flat mesh. the way we perform the terrain height is by displacement mapping.
 	//get the positions of the quad.
@@ -58,7 +58,7 @@ void main()
 
 	vec4 currentposition = (currentpos2 - currentpos1) * v + currentpos1;
 	vec4 displacementVector = normal * height;	//we're scaling the height here.
-	//currentposition += displacementVector;
+	currentposition += displacementVector;
 
 	// NDC space.
 	CurrentPositionFromLightPerspectiveNDC = lightSpaceMatrix * modelMatrix * currentposition;

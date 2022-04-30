@@ -19,7 +19,7 @@ float ComputePCF(vec3 currentPosition, float bias, float currentDepth)
 		for (int x = -1; x <=1; ++x)
 		{
 			float closestDepth = texture(sceneDepthMap, currentPosition.xy + vec2(x,y) * texelSizePerPixel ).r;
-			if (closestDepth < currentDepth) {shadow += 1.0;}
+			if (closestDepth + bias  < currentDepth) {shadow += 1.0;}
 		}
 	}
 
@@ -35,8 +35,8 @@ float ShadowCalculation(vec3 currentPosition,float bias)
 	}
 
 	float currentDepth = currentPosition.z;
-	//float closestDepth = ComputePCF(currentPosition, bias, currentDepth);
-	float closestDepth  = texture(sceneDepthMap, currentPosition.xy).r;
+	float closestDepth = ComputePCF(currentPosition, bias, currentDepth);
+	//float closestDepth  = texture(sceneDepthMap, currentPosition.xy).r;
 	if (closestDepth + bias < currentDepth)
 	{
 		return 0.6;

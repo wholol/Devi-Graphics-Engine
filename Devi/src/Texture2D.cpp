@@ -116,4 +116,14 @@ namespace Devi
 	{
 		return m_name;
 	}
+
+	int Texture2D::GetTextureWidth() const
+	{
+		return m_textureWidth;
+	}
+
+	int Texture2D::GetTextureHeight() const
+	{
+		return m_textureHeight;
+	}
 }

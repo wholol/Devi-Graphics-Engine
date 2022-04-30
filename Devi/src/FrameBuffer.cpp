@@ -22,8 +22,7 @@ namespace Devi
 
 	void FrameBuffer::SetViewPort(int width, int height)
 	{
-		m_viewportWidth = width;
-		m_viewportHeight = height;
+		glViewport(0, 0, width, height);
 	}
 
 	void FrameBuffer::ClearFrameBufferDepth()

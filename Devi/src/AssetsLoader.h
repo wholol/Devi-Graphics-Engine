@@ -27,11 +27,11 @@ namespace Devi
 		template< typename ...TextureNames, class Enable = std::enable_if_t<(... && std::is_same_v<TextureNames, const char*>)> >
 		inline void SetupDrawableShaderAndTextures(DrawablePtr drawable,const std::string& shaderName, TextureNames ...args)
 		{
-			auto shader = m_shaderManager->GetShader(shaderName);
-			drawable->SetShader(shader);
-			SetDrawableTexture(args...);
-			drawable->SetTextures(m_texturesForDrawable);
-			m_texturesForDrawable.clear();
+			//auto shader = m_shaderManager->GetShader(shaderName);
+			//drawable->SetShader(shader);
+			//SetDrawableTexture(args...);
+			//drawable->SetTextures(m_texturesForDrawable);
+			//m_texturesForDrawable.clear();
 		}
 
 

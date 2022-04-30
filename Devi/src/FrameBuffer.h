@@ -19,8 +19,6 @@ namespace Devi
 	private:
 		unsigned int m_frameBufferID;
 		unsigned int m_renderBufferID;
-		int m_viewportWidth;
-		int m_viewportHeight;
 	};
 
 }

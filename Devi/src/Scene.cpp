@@ -7,6 +7,9 @@ namespace Devi
 		Renderer::EnableDepthTest();
 		m_drawables = assets.GetDrawables();
 		m_shaderManager = assets.GetShaderManager();
+
+		m_renderPassManager = std::make_unique<RenderPassManager>();
+
 		ShadowMapLightSpaceMatrixParams params;
 		params.top = 1000.0f;
 		params.bottom = -1000.0f;
@@ -15,7 +18,20 @@ namespace Devi
 		params.zNear = -1000.0f;
 		params.zFar = 1000.0f;
 		int shadowMapScreenWidth = 800;
-		int shadowMapScreenHeight = 600;
+		int shadowMapScreenHeight = 800;
+
+		ShadowMapMatrixParams newparams;
+		newparams.top = 1000.0f;
+		newparams.bottom = -1000.0f;
+		newparams.left = -1000.0f;
+		newparams.right = 1000.0f;
+		newparams.zNear = -1000.0f;
+		newparams.zFar = 1000.0f;
+
+		m_renderPassManager->AddRenderPass(
+			std::make_shared<ShadowMapRenderPass>(shadowMapScreenWidth, shadowMapScreenHeight, newparams), 
+			RenderPassType::ShadowMap);
+
 		m_shadowMapRenderer = std::make_unique<ShadowMapRenderer>(shadowMapScreenWidth, shadowMapScreenHeight,params, m_shaderManager);
 		
 	}
@@ -41,14 +57,6 @@ namespace Devi
 
 		Renderer::SetRendererViewMatrix(viewMatrix);
 		Renderer::SetRendererProjectionMatrix(m_projectionMatrix);
-
-		for (const auto& drawable : m_drawables)
-		{
-			drawable->SetShader( m_shaderManager->GetShader( drawable->GetName() ));	//set the default shader since we changed it for shadow map.
-			drawable->SetDepthMapTexture(m_shadowMapRenderer->GetDepthMap());
-			drawable->SetLightSpaceMatrix(m_shadowMapRenderer->GetLightSpaceMatrix());
-			drawable->Draw();
-		}
 	}
 
 	void Scene::ClearScene()

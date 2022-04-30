@@ -5,7 +5,7 @@
 
 namespace Devi
 {
-	using DrawablePtr = std::shared_ptr<IDrawable>;
+	using DrawablePtr = std::shared_ptr<Drawable>;
 
 	class DrawableManager
 	{
