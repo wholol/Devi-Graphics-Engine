@@ -2,7 +2,8 @@
 
 namespace Devi
 {
-	FrameBuffer::FrameBuffer()
+	FrameBuffer::FrameBuffer(const std::string& name)
+		:m_name(name + "FrameBuffer")
 	{
 		glGenFramebuffers(1, &m_frameBufferID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);

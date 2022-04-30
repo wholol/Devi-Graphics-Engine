@@ -12,7 +12,7 @@ namespace Devi
 	class GPUHeightMap : public Drawable
 	{
 	public:
-		GPUHeightMap(const std::string& name, const std::string& heightMapFilePath,std::shared_ptr<RenderPassManager> renderPassManager);
+		GPUHeightMap(const std::string& name);
 		void GenerateVertices(std::shared_ptr<Texture2D> heightMapTexture);
 		void Draw() override;
 
@@ -21,6 +21,5 @@ namespace Devi
 		int m_height;
 		std::vector<float> m_vertices;
 		int m_numTiles = 0;
-		std::shared_ptr<RenderPassManager> m_renderPassManager;
 	};
 }

@@ -14,7 +14,7 @@ namespace Devi
 	class Texture2D : public ITexture
 	{
 	public:
-		Texture2D(const std::string& name);
+		Texture2D(const std::string& name);	//for empty textures
 		Texture2D(const std::string& name, const std::string& textureFilePath,bool generateMipMap = true, bool flipImage = true);
 		void CreateTexture2D(const std::string& textureFilePath, GLint internalFormat, GLint format, GLenum type, bool generateMipMap = true, bool flipImage = false);
 		//creates an empty texture with no data.

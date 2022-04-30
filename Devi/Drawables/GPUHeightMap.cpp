@@ -4,33 +4,18 @@
 
 namespace Devi
 {
-	GPUHeightMap::GPUHeightMap(const std::string& name, const std::string & heightMapFilePath, std::shared_ptr<RenderPassManager> renderPassManager)
-		:Drawable(name),
-		m_renderPassManager(renderPassManager)
-	{
-
-		
-	}
+	GPUHeightMap::GPUHeightMap(const std::string& name)
+		:Drawable(name)
+	{}
 
 	void GPUHeightMap::GenerateVertices(std::shared_ptr<Texture2D> heightMapTexture)
 	{
 		m_width = heightMapTexture->GetTextureWidth();
 		m_height = heightMapTexture->GetTextureHeight();
 
-		////TODO Move to texture manager
-		//int nChannels;
-		//unsigned char* data = stbi_load(heightMapFilePath.c_str(), &m_width, &m_height, &nChannels, 0);
-
-		//TODO Move to texture manager
-		//m_texture2D = std::make_shared<Texture2D>("test");
 		m_numTiles = 20;
-			//TODO Move to texture manager
-			//m_texture2D->CreateTexture2D(heightMapFilePath.c_str(), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
-			//m_texture2D->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
-			//m_texture2D->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-			//note that we are not using index buffers. this makes sense as we are tessellating the mesh later on.
-			//there ma
+		//note that we are not using index buffers. this makes sense as we are tessellating the mesh later on.
 		for (int x = 0; x < m_numTiles; ++x)
 		{
 			for (int z = 0; z < m_numTiles; ++z)

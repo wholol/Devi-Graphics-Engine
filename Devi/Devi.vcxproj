@@ -189,6 +189,7 @@
     <ClInclude Include="src\BindingLocation.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CubeMapTexture.h" />
+    <ClInclude Include="src\DefaultRenderPass.h" />
     <ClInclude Include="src\DrawableManager.h" />
     <ClInclude Include="src\FrameBuffer.h" />
     <ClInclude Include="src\IDrawable.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="src\AssetsLoader.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CubeMapTexture.cpp" />
+    <ClCompile Include="src\DefaultRenderPass.cpp" />
     <ClCompile Include="src\DrawableManager.cpp" />
     <ClCompile Include="src\FrameBuffer.cpp" />
     <ClCompile Include="src\IDrawable.cpp" />

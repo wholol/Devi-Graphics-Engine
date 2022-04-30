@@ -27,10 +27,11 @@ namespace Devi
 
 	private:
 		int m_shadowMapTextureWidth, m_shadowMapTextureHeight;
-		FrameBuffer m_framebuffer;
+		FrameBuffer m_framebuffer{ "ShadowMap" };
 		std::shared_ptr<Texture2D> m_depthTexture;
 		glm::mat4 m_lightViewMatrix{ glm::mat4(1.0) };
 		glm::mat4 m_lightOrthoMatrix{ glm::mat4(1.0) };
+		glm::mat4 m_modelMatrix{ glm::mat4(1.0) };
 		glm::vec3 m_directionalLightPos{ glm::vec3(0.0, 100.0, 0.0) };
 	};
 }

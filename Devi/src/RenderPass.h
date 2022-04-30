@@ -19,15 +19,15 @@ namespace Devi
 	struct RenderPassObject
 	{
 		std::shared_ptr<Shader> shader = nullptr;
-		std::vector<std::shared_ptr<ITexture>> textures;
-		std::shared_ptr<Drawable> drawable = nullptr;	//DRAWABLEPTR NOT USED DUE TO CIRCULAR DEPENDENCY
+		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
+		Drawable* drawable = nullptr;	//DRAWABLEPTR NOT USED DUE TO CIRCULAR DEPENDENCY
 	};
 
 	class RenderPass
 	{
 	public:
 
-		void Submit(std::shared_ptr<Shader> shader, const std::vector<std::shared_ptr<ITexture>>& textures, std::shared_ptr<Drawable> drawable)
+		void Submit(std::shared_ptr<Shader> shader, const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures, Drawable* drawable)
 		{
 			RenderPassObject renderPassObject;
 

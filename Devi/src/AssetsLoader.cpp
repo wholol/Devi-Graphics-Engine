@@ -3,13 +3,16 @@
 
 namespace Devi
 {
-	Assets::Assets()
+	
+	Assets::Assets(std::shared_ptr<RenderPassManager> renderPassManager)
 	{
 		m_shaderManager = std::make_shared<ShaderManager>();
 		m_textureManager = std::make_shared<TextureManager>();
 		m_drawableManager = std::make_shared <DrawableManager>();
+
+		m_renderPassManager = renderPassManager;
 	}
-	
+
 	void Assets::LoadAssets()
 	{
 		LoadShaders();
@@ -81,16 +84,32 @@ namespace Devi
 		//auto HeightMapGPU = std::make_shared<GPUHeightMap>(Terrain, "assets/Textures/iceland_heightmap.png");
 		//SetupDrawableShaderAndTextures(HeightMapGPU, "GPUHeightMap","icelandHeightMap","grass");
 		//m_drawableManager->AddDrawable(Terrain, HeightMapGPU);
-		//
+
 		//std::string skyboxName ="DayLightSkyBox";
 		//auto skybox = std::make_shared<SkyBox>(skyboxName);
 		//SetupDrawableShaderAndTextures(skybox, skyboxName, "DayLightSkyBoxCubeMap");
 		////m_drawableManager->AddDrawable(skyboxName, skybox);	
-
+		
+		//shadow map pass
+		auto depthMapShader = m_shaderManager->GetShader("DepthMap");
+		
 		std::string basicCubeName = "BasicCube";
 		auto cube = std::make_shared<Cube>(basicCubeName);
-		SetupDrawableShaderAndTextures(cube, basicCubeName);
 		m_drawableManager->AddDrawable(basicCubeName, cube);
+		cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, depthMapShader);
+
+		std::string Terrain = "Terrain";
+		auto heightMapTexture = std::dynamic_pointer_cast<Texture2D>(m_textureManager->GetTexture("icelandHeightMap"));
+
+		auto heightMapGPU = std::make_shared<GPUHeightMap>(Terrain);
+		heightMapGPU->GenerateVertices(heightMapTexture);
+		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
+		textures.push_back(std::make_pair(m_textureManager->GetTexture("icelandHeightMap"), 0));
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, m_shaderManager->GetShader("TerrainDepthMap"), textures);
+		m_drawableManager->AddDrawable(Terrain, heightMapGPU);
+
+		//normal pass
+
 	}
 
 	void Assets::LoadTextures()
@@ -111,6 +130,7 @@ namespace Devi
 			"assets/Textures/Daylight Box_Right.bmp", "assets/Textures/Daylight Box_Left.bmp",
 			"assets/Textures/Daylight Box_Top.bmp", "assets/Textures/Daylight Box_Bottom.bmp",
 			"assets/Textures/Daylight Box_Front.bmp", "assets/Textures/Daylight Box_Back.bmp");
+		textureParams.clear();
 	}
 }
 

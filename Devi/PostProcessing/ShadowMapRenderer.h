@@ -35,7 +35,7 @@ namespace Devi
 			glm::mat4 GetLightSpaceMatrix() const;
 			std::shared_ptr<Texture2D> GetDepthMap() const;
 		private:
-			FrameBuffer m_framebuffer;
+			FrameBuffer m_framebuffer{ "shadowmap" };
 			int m_shadowMapWidth;
 			int m_shadowMapHeight;
 			std::shared_ptr<Texture2D> m_depthTexture;

@@ -2,13 +2,12 @@
 
 namespace Devi
 {
-	Scene::Scene(Assets& assets, int screenWidth, int screenHeight)
+	Scene::Scene(Assets& assets, int screenWidth, int screenHeight, std::shared_ptr<RenderPassManager> renderPassManager)
+		: m_renderPassManager(renderPassManager)
 	{
 		Renderer::EnableDepthTest();
 		m_drawables = assets.GetDrawables();
 		m_shaderManager = assets.GetShaderManager();
-
-		m_renderPassManager = std::make_unique<RenderPassManager>();
 
 		ShadowMapLightSpaceMatrixParams params;
 		params.top = 1000.0f;
@@ -27,10 +26,6 @@ namespace Devi
 		newparams.right = 1000.0f;
 		newparams.zNear = -1000.0f;
 		newparams.zFar = 1000.0f;
-
-		m_renderPassManager->AddRenderPass(
-			std::make_shared<ShadowMapRenderPass>(shadowMapScreenWidth, shadowMapScreenHeight, newparams), 
-			RenderPassType::ShadowMap);
 
 		m_shadowMapRenderer = std::make_unique<ShadowMapRenderer>(shadowMapScreenWidth, shadowMapScreenHeight,params, m_shaderManager);
 		
@@ -51,7 +46,7 @@ namespace Devi
 
 		const auto& viewMatrix = m_camera.getViewMatrix();
 		
-		m_shadowMapRenderer->RenderDepthMap(m_drawables);
+		m_renderPassManager->ExecutePasses();
 
 		glViewport(0, 0, m_screenWidth, m_screenHeight);
 

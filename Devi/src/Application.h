@@ -29,8 +29,8 @@ namespace Devi
 		Window m_window;
 		bool m_isRunning = true;
 		std::unique_ptr<Scene> m_scene{nullptr};
-		std::shared_ptr<ShaderManager> m_shaderManager;
-		Assets m_assets;
+		std::shared_ptr<RenderPassManager> m_renderPassManager;
+		std::shared_ptr<Assets> m_assets;
 		double lastTime = 0.0;
 		double deltaTime = 0.0;
 	};

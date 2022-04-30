@@ -33,7 +33,7 @@ namespace Devi
 	class Scene
 	{
 	public:
-		Scene(Assets& assets, int screenWidth, int screenHeight);
+		Scene(Assets& assets, int screenWidth, int screenHeight,std::shared_ptr<RenderPassManager> renderPassManager);
 		void SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams);
 		void Update(double deltaTime);
 		void ClearScene();
@@ -46,7 +46,7 @@ namespace Devi
 		glm::mat4 m_projectionMatrix{glm::mat4(1.0)};
 		Camera m_camera;
 		std::unique_ptr<ShadowMapRenderer> m_shadowMapRenderer;
-		std::unique_ptr<RenderPassManager> m_renderPassManager;
+		std::shared_ptr<RenderPassManager> m_renderPassManager;
 		int m_screenWidth;
 		int m_screenHeight;
 	};

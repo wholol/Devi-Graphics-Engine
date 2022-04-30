@@ -5,23 +5,24 @@
 #include "Shader.h"
 #include "ITexture.h"
 #include "RenderPass.h"
+#include "RenderPassManager.h"
 
 namespace Devi
 {
 	enum class RenderPassType;
-
+	class RenderPassManager;
 	/**
 	* Drawable class. Objects that are drawn on the screen should inehrit this.
 	*/
 	class Drawable
 	{
+
 	public:
 		Drawable(const std::string& name);
 		virtual void Draw() = 0;
 		std::string GetName() const;
-		virtual void AddToRenderPass(RenderPassType type, std::shared_ptr<Shader> shader, const std::vector<std::shared_ptr<std::pair<ITexture, unsigned int>>>& textures)
-		{
-		}
+		//hard to read, but const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures == a pair. First part is a shared ptr to a texture, second an unsigned int for glActiveTexture.
+		void SubmitToRenderPass(std::shared_ptr<RenderPassManager> renderPassManager, RenderPassType type, std::shared_ptr<Shader> shader, std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures = {});
 
 	protected:
 		std::shared_ptr<VertexBuffer> m_vertexBuffer;

@@ -5,6 +5,7 @@
 #include "GPUHeightMap.h"
 #include "SkyBox.h"
 #include "Cube.h"
+#include "RenderPassManager.h"
 #include <type_traits>
 
 namespace Devi
@@ -16,8 +17,11 @@ namespace Devi
 	{
 	public:
 		
-		Assets();
+		Assets(std::shared_ptr<RenderPassManager> renderPassManager);
 		void LoadAssets();
+		
+		void AssignAssetsToRenderPasses(std::shared_ptr<RenderPassManager> renderPassManager);
+
 		std::shared_ptr<ShaderManager> GetShaderManager() const;
 		std::shared_ptr<TextureManager> GetTextureManager() const;
 		std::shared_ptr<DrawableManager> GetDrawableManager() const;
@@ -59,6 +63,7 @@ namespace Devi
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> m_texturesForDrawable;
 		unsigned int m_textureUniformBinding = 0;
 
+		std::shared_ptr<RenderPassManager> m_renderPassManager;
 		std::shared_ptr<ShaderManager> m_shaderManager;
 		std::shared_ptr<TextureManager> m_textureManager;
 		std::shared_ptr<DrawableManager> m_drawableManager;	

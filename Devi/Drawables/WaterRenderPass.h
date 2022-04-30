@@ -15,8 +15,8 @@ namespace Devi
 			int m_textureHeight;
 			std::shared_ptr<Texture2D> m_reflectionTexture;
 			std::shared_ptr<Texture2D> m_refractionTexture;
-			FrameBuffer m_waterReflectionFrameBuffer;
-			FrameBuffer m_waterRefractionFrameBuffer;
+			FrameBuffer m_waterReflectionFrameBuffer{"waterReflection"};
+			FrameBuffer m_waterRefractionFrameBuffer{ "waterRefraction" };
 			const std::vector<DrawablePtr>& m_drawables;
 	};
 }

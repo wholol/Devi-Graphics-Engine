@@ -18,8 +18,11 @@ namespace Devi
 		m_screenHeight = screenHeight;
 		
 		Inputs::Init(&m_window);
-
-		m_assets.LoadAssets();
+		m_renderPassManager = std::make_shared<RenderPassManager>();
+		m_renderPassManager->Init();
+		
+		m_assets = std::make_shared<Assets>(m_renderPassManager);
+		m_assets->LoadAssets();
 
 		ProjectionMatrixParams projectionMatrixParams;
 		projectionMatrixParams.fieldOfViewY = 90.0f;
@@ -28,7 +31,7 @@ namespace Devi
 		projectionMatrixParams.zNear = 0.1f;
 		projectionMatrixParams.zFar = 1600.0f;
 
-		m_scene = std::make_unique<Scene>(m_assets, screenWidth, screenHeight);
+		m_scene = std::make_unique<Scene>(*m_assets, screenWidth, screenHeight, m_renderPassManager);
 		m_scene->SetProjectionMatrixParams(projectionMatrixParams);
 	}
 

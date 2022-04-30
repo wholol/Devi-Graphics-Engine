@@ -34,6 +34,8 @@ namespace Devi
 		const glm::vec3 rightVector = glm::cross(GlobalUpVector, -params.directionalLightDirection);
 		const glm::vec3 upVector = glm::cross(-params.directionalLightDirection, rightVector);
 		m_lightViewMatrix = glm::lookAt(params.directionalLightPosition, params.directionalLightPosition + params.directionalLightDirection, m_cameraUpVector);
+		m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(0.0f, 200.0f, -200.0f));
+		m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(50.0f, 20.0f, 20.0f));
 	}
 
 	void ShadowMapRenderPass::Execute()
@@ -43,14 +45,32 @@ namespace Devi
 		
 		m_framebuffer.Bind();
 		m_framebuffer.SetViewPort(m_shadowMapTextureWidth, m_shadowMapTextureHeight);
-
+		m_framebuffer.ClearFrameBufferDepth();	//depth buffer must be cleared or the texture will just be black.
+		
 		for (const auto& renderOp : m_renderQueue)
 		{
 			renderOp.shader->Bind();
-			
-			for (const auto& texture : renderOp.textures)
+
+			//TODO REMOVE THESE
+			if (renderOp.drawable->GetName() == "BasicCube")
 			{
-				texture->Bind();	//TODO GLACTIVETexture not done.
+				renderOp.shader->SetUniform("modelMatrix", m_modelMatrix, UniformDataType::MAT4);	//TODO get from drawable class
+			}
+			else
+			{
+				renderOp.shader->SetUniform("modelMatrix", glm::mat4(1.0), UniformDataType::MAT4);	//TODO get from drawable class
+				renderOp.shader->SetUniform("lightSpaceMatrix", m_lightViewMatrix, UniformDataType::MAT4);
+			}
+			
+			renderOp.shader->SetUniform("viewMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//can be ubo
+			renderOp.shader->SetUniform("projectionMatrix", m_lightOrthoMatrix, UniformDataType::MAT4);	//can be ubo
+
+			//TODO SET THE UNIFORMS. (LIGHT VIEW MATRIX ETC).
+			for (const auto& texturePairs : renderOp.textures)
+			{
+				auto texture = texturePairs.first;
+				unsigned int ActiveTextureID = texturePairs.second;
+				texture->Bind(ActiveTextureID);
 			}
 
 			renderOp.drawable->Draw();

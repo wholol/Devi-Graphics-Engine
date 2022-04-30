@@ -3,6 +3,7 @@
 // binding locations that are used by most drawables.
 enum class TextureBindingLocations : int
 {
+	skyBox = 0,
 	//PBR Material
 	albedoMap = 0,
 	roughnessMap,
@@ -10,6 +11,4 @@ enum class TextureBindingLocations : int
 	aoMap,
 	metallicMap,
 	depthMap,
-	
-
 };

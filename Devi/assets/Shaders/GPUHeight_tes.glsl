@@ -38,7 +38,7 @@ void main()
 
 	TexCoordFinal = finalTextureCoord;
 
-	height = texture(heightMap, finalTextureCoord).y * 30.0;
+	height = texture(heightMap, finalTextureCoord).y * 260.0;
 
 	//since we set the vertexbuffers to have y to be zero, we are having only a flat mesh. the way we perform the terrain height is by displacement mapping.
 	//get the positions of the quad.
