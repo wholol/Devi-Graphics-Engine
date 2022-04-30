@@ -3,7 +3,7 @@
 #include "../src/IDrawable.h"
 #include "../src/Texture2D.h"
 #include "../Light/Light.h"
-#include "../src/RenderPassManager.h"
+#include "../RenderPasses/RenderPassManager.h"
 #include <algorithm>
 
 namespace Devi

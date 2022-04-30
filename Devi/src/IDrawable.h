@@ -4,8 +4,8 @@
 #include "VertexBuffer.h"
 #include "Shader.h"
 #include "ITexture.h"
-#include "RenderPass.h"
-#include "RenderPassManager.h"
+#include "../RenderPasses/RenderPass.h"
+#include "../RenderPasses/RenderPassManager.h"
 
 namespace Devi
 {

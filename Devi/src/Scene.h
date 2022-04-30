@@ -12,9 +12,9 @@
 #include "AssetsLoader.h"
 #include "../PostProcessing/ShadowMapRenderer.h"
 
-#include "RenderPass.h"
-#include "RenderPassManager.h"
-#include "ShadowMapRenderPass.h"
+#include "../RenderPasses/RenderPass.h"
+#include "../RenderPasses/RenderPassManager.h"
+#include "../RenderPasses/ShadowMapRenderPass.h"
 
 namespace Devi
 {

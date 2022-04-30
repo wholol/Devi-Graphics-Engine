@@ -5,9 +5,8 @@
 #include "GPUHeightMap.h"
 #include "SkyBox.h"
 #include "Cube.h"
-#include "RenderPassManager.h"
+#include "../RenderPasses/RenderPassManager.h"
 #include <type_traits>
-
 namespace Devi
 {
 	/**
