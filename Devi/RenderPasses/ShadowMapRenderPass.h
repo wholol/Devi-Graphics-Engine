@@ -14,8 +14,8 @@ namespace Devi
 		double zNear;
 		double zFar;
 
-		glm::vec3 directionalLightPosition = glm::vec3(0.0f, 800.0f, 0.0f);	//TODO
-		glm::vec3 directionalLightDirection = glm::vec3(0.0, -0.67, -0.99);	//TODO
+		glm::vec3 directionalLightPosition = glm::vec3(0.0f, 800.0f, 0.0f);	//TODO: Light class.
+		glm::vec3 directionalLightDirection = glm::vec3(0.0, -0.67, -0.99);	//TODO: Light class.
 	};
 
 	class ShadowMapRenderPass : public RenderPass

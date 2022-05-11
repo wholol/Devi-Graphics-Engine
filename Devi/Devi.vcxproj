@@ -182,8 +182,11 @@
     <ClInclude Include="Drawables\SkyBox.h" />
     <ClInclude Include="Drawables\WaterRenderPass.h" />
     <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Materials\MaterialInstance.h" />
+    <ClInclude Include="Materials\PBRMaterialInstance.h" />
+    <ClInclude Include="Materials\PhongMaterialInstance.h" />
     <ClInclude Include="PostProcessing\GammaCorrection.h" />
-    <ClInclude Include="PostProcessing\ShadowMapRenderer.h" />
+    <ClInclude Include="Materials\Material.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\AssetsLoader.h" />
     <ClInclude Include="src\BindingLocation.h" />
@@ -223,8 +226,11 @@
     <ClCompile Include="Drawables\SkyBox.cpp" />
     <ClCompile Include="Drawables\WaterRenderPass.cpp" />
     <ClCompile Include="Light\Light.cpp" />
+    <ClCompile Include="Materials\Material.cpp" />
+    <ClCompile Include="Materials\MaterialInstance.cpp" />
+    <ClCompile Include="Materials\PBRMaterialInstance.cpp" />
+    <ClCompile Include="Materials\PhongMaterialInstance.cpp" />
     <ClCompile Include="PostProcessing\GammaCorrection.cpp" />
-    <ClCompile Include="PostProcessing\ShadowMapRenderer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\AssetsLoader.cpp" />
     <ClCompile Include="src\Camera.cpp" />

@@ -34,6 +34,8 @@ namespace Devi
 		{
 			return findPass->second;
 		}
+
+		return nullptr;
 	}
 
 	void RenderPassManager::SubmitRenderPassOperation(RenderPassType renderPassType, std::shared_ptr<Shader> shader,const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures, Drawable* drawable)

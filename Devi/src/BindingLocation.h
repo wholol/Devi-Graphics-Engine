@@ -1,14 +1,11 @@
 #pragma once
 
-// binding locations that are used by most drawables.
-enum class TextureBindingLocations : int
-{
-	skyBox = 0,
-	//PBR Material
-	albedoMap = 0,
-	roughnessMap,
-	normalMap,
-	aoMap,
-	metallicMap,
-	depthMap,
-};
+#define DEVI_UNIFORM_SKYBOX 0u
+#define DEVI_UNIFORM_ALBEDOMAP 0u
+#define DEVI_UNIFORM_SPECULARMAP 1
+#define DEVI_UNIFORM_NORMALMAP 2
+
+#define DEVI_UNIFORM_ROUGHNESSMAP 1	//PBR
+#define DEVI_UNIFORM_AOMAP 3
+#define DEVI_UNIFORM_METALLICMAP 4
+#define DEVI_UNIFORM_DEPTHMAP 5

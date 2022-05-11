@@ -16,7 +16,6 @@ namespace Devi
 		m_depthTexture->CreateEmptyTexture2D(GL_DEPTH_COMPONENT, m_shadowMapTextureHeight, m_shadowMapTextureWidth, GL_DEPTH_COMPONENT, GL_FLOAT);
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		m_depthTexture->AddTextureParameterfv(GL_TEXTURE_BORDER_COLOR, borderColor);

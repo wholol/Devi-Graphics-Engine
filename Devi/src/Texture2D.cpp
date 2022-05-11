@@ -109,7 +109,7 @@ namespace Devi
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	int Texture2D::GetID() const
+	unsigned int Texture2D::GetID() const
 	{
 		return m_textureID;
 	}

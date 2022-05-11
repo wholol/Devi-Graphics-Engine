@@ -10,7 +10,6 @@
 #include "Texture2D.h"
 #include "FrameBuffer.h"
 #include "AssetsLoader.h"
-#include "../PostProcessing/ShadowMapRenderer.h"
 
 #include "../RenderPasses/RenderPass.h"
 #include "../RenderPasses/RenderPassManager.h"
@@ -45,7 +44,6 @@ namespace Devi
 
 		glm::mat4 m_projectionMatrix{glm::mat4(1.0)};
 		Camera m_camera;
-		std::unique_ptr<ShadowMapRenderer> m_shadowMapRenderer;
 		std::shared_ptr<RenderPassManager> m_renderPassManager;
 		int m_screenWidth;
 		int m_screenHeight;

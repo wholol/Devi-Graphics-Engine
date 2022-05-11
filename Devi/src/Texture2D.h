@@ -23,7 +23,7 @@ namespace Devi
 		void AddTextureParameterfv(GLenum textureParam, const GLfloat* params);
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
-		int GetID() const;
+		unsigned int GetID() const override;
 		std::string GetName() const override;
 		int GetTextureWidth() const;
 		int GetTextureHeight() const;

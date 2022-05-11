@@ -7,28 +7,7 @@ namespace Devi
 	{
 		Renderer::EnableDepthTest();
 		m_drawables = assets.GetDrawables();
-		m_shaderManager = assets.GetShaderManager();
-
-		ShadowMapLightSpaceMatrixParams params;
-		params.top = 1000.0f;
-		params.bottom = -1000.0f;
-		params.left = -1000.0f;
-		params.right = 1000.0f;
-		params.zNear = -1000.0f;
-		params.zFar = 1000.0f;
-		int shadowMapScreenWidth = 800;
-		int shadowMapScreenHeight = 800;
-
-		ShadowMapMatrixParams newparams;
-		newparams.top = 1000.0f;
-		newparams.bottom = -1000.0f;
-		newparams.left = -1000.0f;
-		newparams.right = 1000.0f;
-		newparams.zNear = -1000.0f;
-		newparams.zFar = 1000.0f;
-
-		m_shadowMapRenderer = std::make_unique<ShadowMapRenderer>(shadowMapScreenWidth, shadowMapScreenHeight,params, m_shaderManager);
-		
+		m_shaderManager = assets.GetShaderManager();	
 	}
 
 	void Scene::SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams)
