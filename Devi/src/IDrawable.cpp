@@ -26,5 +26,9 @@ namespace Devi
 			renderPassManager->SubmitRenderPassOperation(type, shader, textures.value(), this);
 		}
 	}
+	const glm::mat4& Drawable::GetModelMatrix() const
+	{
+		return m_modelMatrix;
+	}
 }
 

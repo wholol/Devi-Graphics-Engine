@@ -53,12 +53,11 @@ namespace Devi
 			//TODO REMOVE THESE
 			if (renderOp.drawable->GetName() == "BasicCube")
 			{
-				renderOp.shader->SetUniform("modelMatrix", m_modelMatrix, UniformDataType::MAT4);	//TODO get from drawable class
+				renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);	//TODO get from drawable class
 			}
 			else
 			{
-				renderOp.shader->SetUniform("modelMatrix", glm::mat4(1.0), UniformDataType::MAT4);	//TODO get from drawable class
-				renderOp.shader->SetUniform("lightSpaceMatrix", m_lightViewMatrix, UniformDataType::MAT4);
+				renderOp.shader->SetUniform("lightSpaceMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//TODO another TES for this???
 			}
 			
 			renderOp.shader->SetUniform("viewMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//can be ubo

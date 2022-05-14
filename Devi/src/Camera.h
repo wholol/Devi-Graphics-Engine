@@ -5,9 +5,12 @@
 
 static constexpr glm::vec3 GLOBAL_UP_VECTOR(0.0, 1.0, 0.0);
 static constexpr float CAMERA_VELOCITY = 3.0f;
+static constexpr double YAW_SENSITIVITY = 0.2;
+static constexpr double PITCH_SENSITVITY = 0.2;
 
 namespace Devi
 {
+
 	class Camera
 	{
 
@@ -22,13 +25,7 @@ namespace Devi
 		//translates the camera. note: direction vectors should be constant here.
 		void translateCamera(double deltaTime);
 		//rotates the camera around its position. note: direction vectors should be changed here.
-		void rotateCamera(double deltaTime);
-
-		//TODO
-		void IncreaseCameraSpeed();
-		//TODO
-		void DecreaseCameraSpeed();
-
+		void UpdateCameraVectors();
 
 		glm::vec3 m_cameraPosition;
 		glm::vec3 m_cameraTargetPosition;
@@ -37,6 +34,11 @@ namespace Devi
 		glm::vec3 m_cameraLookAtDirection;
 		glm::vec3 m_cameraUpVector;
 		glm::vec3 m_cameraRightVector;
+
+		glm::highp_dvec2 m_lastMousePos;
+		bool m_isFirstMouse = true;
+		double m_pitchAngle = 0.0;
+		double m_yawAngle = -90.0;
 	};
 
 }

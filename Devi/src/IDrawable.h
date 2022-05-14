@@ -23,6 +23,7 @@ namespace Devi
 		std::string GetName() const;
 		//hard to read, but const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures == a pair. First part is a shared ptr to a texture, second an unsigned int for glActiveTexture.
 		void SubmitToRenderPass(std::shared_ptr<RenderPassManager> renderPassManager, RenderPassType type, std::shared_ptr<Shader> shader, std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures = {});
+		const glm::mat4& GetModelMatrix() const;
 
 	protected:
 		std::shared_ptr<VertexBuffer> m_vertexBuffer;
@@ -30,7 +31,6 @@ namespace Devi
 		std::shared_ptr<VertexArray> m_vertexArray;
 
 		std::string m_name;
-
 		glm::mat4 m_modelMatrix{ glm::mat4(1.0) };
 	};
 
