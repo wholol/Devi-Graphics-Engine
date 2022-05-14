@@ -4,6 +4,7 @@
 #include <vector>
 #include "../src/FrameBuffer.h"
 #include "../src/IDrawable.h"
+#include "../Materials/MaterialInstance.h"
 
 namespace Devi
 {
@@ -20,7 +21,8 @@ namespace Devi
 	{
 		std::shared_ptr<Shader> shader = nullptr;
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
-		Drawable* drawable = nullptr;	//DRAWABLEPTR NOT USED DUE TO CIRCULAR DEPENDENCY
+		Drawable* drawable = nullptr;
+		std::shared_ptr<MaterialInstance> m_materialInstance;
 	};
 
 	class RenderPass

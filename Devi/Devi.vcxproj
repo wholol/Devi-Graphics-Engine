@@ -181,6 +181,7 @@
     <ClInclude Include="Drawables\GPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
     <ClInclude Include="Drawables\WaterRenderPass.h" />
+    <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Materials\MaterialInstance.h" />
     <ClInclude Include="Materials\PBRMaterialInstance.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Drawables\GPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
     <ClCompile Include="Drawables\WaterRenderPass.cpp" />
+    <ClCompile Include="Light\DirectionalLight.cpp" />
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Materials\Material.cpp" />
     <ClCompile Include="Materials\MaterialInstance.cpp" />

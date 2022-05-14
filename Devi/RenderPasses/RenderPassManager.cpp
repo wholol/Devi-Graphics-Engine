@@ -8,18 +8,19 @@ namespace Devi
 		int shadowMapScreenWidth = 800;
 		int shadowMapScreenHeight = 800;
 
-		ShadowMapMatrixParams newparams;
+		ShadowMapOrthoMatrixParams newparams;
 		newparams.top = 1000.0f;
 		newparams.bottom = -1000.0f;
 		newparams.left = -1000.0f;
 		newparams.right = 1000.0f;
+		newparams.right = 1000.0f;
 		newparams.zNear = -1000.0f;
 		newparams.zFar = 1000.0f;
 
-		AddRenderPass(
-			std::make_shared<ShadowMapRenderPass>(shadowMapScreenWidth, shadowMapScreenHeight, newparams),
-			RenderPassType::ShadowMap
-		);
+		auto shadowMapRenderPass = std::make_shared<ShadowMapRenderPass>(shadowMapScreenWidth, shadowMapScreenHeight, newparams, 
+			std::make_shared<DirectionalLight>(glm::vec3(0.0, -0.67, -0.99), glm::vec3(0.0f, 800.0f, 0.0f)));
+		AddRenderPass(shadowMapRenderPass, RenderPassType::ShadowMap);
+			
 	}
 	void RenderPassManager::AddRenderPass(std::shared_ptr<RenderPass> renderPass, RenderPassType renderPassType)
 	{

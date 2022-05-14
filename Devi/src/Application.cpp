@@ -48,7 +48,6 @@ namespace Devi
 			currentTime = lastTime;
 
 			//renderer flow (vb->attriblayout->va->bind shader->bind texture->bind uniforms->bind vertexarray->glDrawCall
-			//we need texture and shaderManagers for the renderer to know which to bind
 
 			m_scene->Update(deltaTime);
 

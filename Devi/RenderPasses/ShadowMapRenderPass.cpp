@@ -8,9 +8,10 @@ namespace
 
 namespace Devi
 {
-	ShadowMapRenderPass::ShadowMapRenderPass(int shadowMapTextureWidth, int shadowMapTextureHeight, ShadowMapMatrixParams params)
+	ShadowMapRenderPass::ShadowMapRenderPass(int shadowMapTextureWidth, int shadowMapTextureHeight, ShadowMapOrthoMatrixParams params, std::shared_ptr<DirectionalLight> directionalLight)
 		: m_shadowMapTextureWidth(shadowMapTextureWidth),
-		m_shadowMapTextureHeight(shadowMapTextureHeight)
+		  m_shadowMapTextureHeight(shadowMapTextureHeight),
+		  m_directionalLight(directionalLight)
 	{
 		m_depthTexture = std::make_shared<Texture2D>("sceneDepthMap");
 		m_depthTexture->CreateEmptyTexture2D(GL_DEPTH_COMPONENT, m_shadowMapTextureHeight, m_shadowMapTextureWidth, GL_DEPTH_COMPONENT, GL_FLOAT);
@@ -21,27 +22,23 @@ namespace Devi
 		m_depthTexture->AddTextureParameterfv(GL_TEXTURE_BORDER_COLOR, borderColor);
 		m_framebuffer.AttachTexture2DToFrameBuffer(GL_DEPTH_ATTACHMENT, *m_depthTexture, 0);
 
-		//learnopengl : framebuffers are not compelete without color buffers, we need to explcitly tell opengl we dont need it.
+		//learnopengl.com : framebuffers are not compelete without color buffers, we need to explcitly tell opengl we dont need it.
 		glDrawBuffer(GL_NONE);
 		glReadBuffer(GL_NONE);
 
-		auto m_cameraLookAtDirection = glm::normalize(params.directionalLightPosition - params.directionalLightDirection);
-		auto m_cameraRightVector = glm::cross(GlobalUpVector, m_cameraLookAtDirection);
-		auto m_cameraUpVector = glm::cross(m_cameraLookAtDirection, m_cameraRightVector);
-
+		//light ortho matrix
 		m_lightOrthoMatrix = glm::ortho(params.left, params.right, params.bottom, params.top, params.zNear, params.zFar);
-		const glm::vec3 rightVector = glm::cross(GlobalUpVector, -params.directionalLightDirection);
-		const glm::vec3 upVector = glm::cross(-params.directionalLightDirection, rightVector);
-		m_lightViewMatrix = glm::lookAt(params.directionalLightPosition, params.directionalLightPosition + params.directionalLightDirection, m_cameraUpVector);
-		m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(0.0f, 200.0f, -200.0f));
-		m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(50.0f, 20.0f, 20.0f));
 	}
 
 	void ShadowMapRenderPass::Execute()
-	{
-		Renderer::SetRendererProjectionMatrix(m_lightOrthoMatrix);
-		Renderer::SetRendererViewMatrix(m_lightViewMatrix);
-		
+	{	
+		//light view matrix
+		auto lightPos = m_directionalLight->GetLightPosition();
+		auto lightDir = m_directionalLight->GetLightDirection();
+		auto lightRightVector = glm::cross(GlobalUpVector, lightDir);
+		auto lightUpVector = glm::cross(lightDir, lightRightVector);
+		m_lightViewMatrix = glm::lookAt(lightPos, lightPos + lightDir, lightUpVector);
+
 		m_framebuffer.Bind();
 		m_framebuffer.SetViewPort(m_shadowMapTextureWidth, m_shadowMapTextureHeight);
 		m_framebuffer.ClearFrameBufferDepth();	//depth buffer must be cleared or the texture will just be black.
@@ -49,17 +46,9 @@ namespace Devi
 		for (const auto& renderOp : m_renderQueue)
 		{
 			renderOp.shader->Bind();
-
-			//TODO REMOVE THESE
-			if (renderOp.drawable->GetName() == "BasicCube")
-			{
-				renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);	//TODO get from drawable class
-			}
-			else
-			{
-				renderOp.shader->SetUniform("lightSpaceMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//TODO another TES for this???
-			}
-			
+				
+			//renderOp.shader->SetUniform("lightSpaceMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//TODO another TES for this???
+			renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);	//TODO get from drawable class
 			renderOp.shader->SetUniform("viewMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//can be ubo
 			renderOp.shader->SetUniform("projectionMatrix", m_lightOrthoMatrix, UniformDataType::MAT4);	//can be ubo
 

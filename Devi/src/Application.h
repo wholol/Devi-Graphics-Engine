@@ -23,7 +23,6 @@ namespace Devi
 		void ShutDown();
 
 	private:
-		Camera m_camera{glm::vec3(0.0,0.0,0.0)};
 		int m_screenWidth;
 		int m_screenHeight;
 		Window m_window;
