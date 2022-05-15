@@ -16,6 +16,8 @@ namespace Devi
 	public:
 		static void SetRendererViewMatrix(const glm::mat4& viewprojectionMatrix);
 		static void SetRendererProjectionMatrix(const glm::mat4& projectionMatrix);
+		static glm::mat4 GetRendererViewMatrix();
+		static glm::mat4 GetRendererProjectionMatrix();
 		
 		//render methods.
 		static void Render(std::shared_ptr<VertexArray> vertexArray);

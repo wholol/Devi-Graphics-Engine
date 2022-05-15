@@ -3,6 +3,7 @@
 layout (quads, fractional_odd_spacing, ccw) in;
 
 uniform sampler2D heightMap;
+
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;

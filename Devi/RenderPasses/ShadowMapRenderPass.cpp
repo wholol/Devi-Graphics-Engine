@@ -13,6 +13,9 @@ namespace Devi
 		  m_shadowMapTextureHeight(shadowMapTextureHeight),
 		  m_directionalLight(directionalLight)
 	{
+		m_shadowMapFrameBuffer = std::make_shared<FrameBuffer>("shadowMapFrameBuffer");
+		m_frameBufferMap.insert(std::make_pair(m_shadowMapFrameBuffer->GetName(), m_shadowMapFrameBuffer));
+
 		m_depthTexture = std::make_shared<Texture2D>("sceneDepthMap");
 		m_depthTexture->CreateEmptyTexture2D(GL_DEPTH_COMPONENT, m_shadowMapTextureHeight, m_shadowMapTextureWidth, GL_DEPTH_COMPONENT, GL_FLOAT);
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -20,7 +23,7 @@ namespace Devi
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 		m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		m_depthTexture->AddTextureParameterfv(GL_TEXTURE_BORDER_COLOR, borderColor);
-		m_framebuffer.AttachTexture2DToFrameBuffer(GL_DEPTH_ATTACHMENT, *m_depthTexture, 0);
+		m_shadowMapFrameBuffer->AttachTexture2DToFrameBuffer(GL_DEPTH_ATTACHMENT, m_depthTexture, 0);
 
 		//learnopengl.com : framebuffers are not compelete without color buffers, we need to explcitly tell opengl we dont need it.
 		glDrawBuffer(GL_NONE);
@@ -39,20 +42,18 @@ namespace Devi
 		auto lightUpVector = glm::cross(lightDir, lightRightVector);
 		m_lightViewMatrix = glm::lookAt(lightPos, lightPos + lightDir, lightUpVector);
 
-		m_framebuffer.Bind();
-		m_framebuffer.SetViewPort(m_shadowMapTextureWidth, m_shadowMapTextureHeight);
-		m_framebuffer.ClearFrameBufferDepth();	//depth buffer must be cleared or the texture will just be black.
+		m_shadowMapFrameBuffer->Bind();
+		m_shadowMapFrameBuffer->SetViewPort(m_shadowMapTextureWidth, m_shadowMapTextureHeight);
+		m_shadowMapFrameBuffer->ClearFrameBufferDepth();	//depth buffer must be cleared or the texture will just be black.
 		
 		for (const auto& renderOp : m_renderQueue)
 		{
 			renderOp.shader->Bind();
-				
-			//renderOp.shader->SetUniform("lightSpaceMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//TODO another TES for this???
-			renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);	//TODO get from drawable class
+
+			renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);
 			renderOp.shader->SetUniform("viewMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//can be ubo
 			renderOp.shader->SetUniform("projectionMatrix", m_lightOrthoMatrix, UniformDataType::MAT4);	//can be ubo
 
-			//TODO SET THE UNIFORMS. (LIGHT VIEW MATRIX ETC).
 			for (const auto& texturePairs : renderOp.textures)
 			{
 				auto texture = texturePairs.first;
@@ -63,12 +64,12 @@ namespace Devi
 			renderOp.drawable->Draw();
 		}
 
-		m_framebuffer.UnBind();
+		m_shadowMapFrameBuffer->UnBind();
 	}
-
-	std::shared_ptr<Texture2D> ShadowMapRenderPass::GetDepthMap() const
+	
+	const glm::mat4& ShadowMapRenderPass::GetLightSpaceMatrix() const
 	{
-		return m_depthTexture;
+		return m_lightOrthoMatrix * m_lightViewMatrix;
 	}
 }
 

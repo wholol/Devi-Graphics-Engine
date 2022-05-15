@@ -43,6 +43,16 @@ namespace Devi
 		m_projectionMatrix = projectionMatrix;
 	}
 
+	glm::mat4 Renderer::GetRendererViewMatrix()
+	{
+		return m_viewMatrix;
+	}
+
+	glm::mat4 Renderer::GetRendererProjectionMatrix()
+	{
+		return m_projectionMatrix;
+	}
+
 	void Renderer::Clear(float r, float g, float b, float a)
 	{
 		glClearColor(r, g, b, a);

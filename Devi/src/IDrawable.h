@@ -6,6 +6,7 @@
 #include "ITexture.h"
 #include "../RenderPasses/RenderPass.h"
 #include "../RenderPasses/RenderPassManager.h"
+#include "../Materials/MaterialInstance.h"
 
 namespace Devi
 {
@@ -22,7 +23,11 @@ namespace Devi
 		virtual void Draw() = 0;
 		std::string GetName() const;
 		//hard to read, but const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures == a pair. First part is a shared ptr to a texture, second an unsigned int for glActiveTexture.
-		void SubmitToRenderPass(std::shared_ptr<RenderPassManager> renderPassManager, RenderPassType type, std::shared_ptr<Shader> shader, std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures = {});
+		void SubmitToRenderPass(
+			std::shared_ptr<RenderPassManager> renderPassManager, 
+			RenderPassType type, std::shared_ptr<Shader> shader, 
+			std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures = {},
+			std::optional<std::shared_ptr<MaterialInstance>> materialInstance = {});
 		const glm::mat4& GetModelMatrix() const;
 
 	protected:

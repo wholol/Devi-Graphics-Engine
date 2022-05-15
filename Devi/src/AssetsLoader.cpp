@@ -1,5 +1,7 @@
 #include "AssetsLoader.h"
 #include "glad/glad.h"
+#include "../Materials/PhongMaterialInstance.h"
+#include "../Materials/PBRMaterialInstance.h"
 
 namespace Devi
 {
@@ -80,10 +82,6 @@ namespace Devi
 
 	void Assets::LoadDrawables()
 	{
-		//std::string Terrain = "Terrain";
-		//auto HeightMapGPU = std::make_shared<GPUHeightMap>(Terrain, "assets/Textures/iceland_heightmap.png");
-		//SetupDrawableShaderAndTextures(HeightMapGPU, "GPUHeightMap","icelandHeightMap","grass");
-		//m_drawableManager->AddDrawable(Terrain, HeightMapGPU);
 
 		//std::string skyboxName ="DayLightSkyBox";
 		//auto skybox = std::make_shared<SkyBox>(skyboxName);
@@ -97,18 +95,29 @@ namespace Devi
 		auto cube = std::make_shared<Cube>(basicCubeName);
 		m_drawableManager->AddDrawable(basicCubeName, cube);
 		cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, depthMapShader);
-
+		
 		std::string Terrain = "Terrain";
-		auto heightMapTexture = std::dynamic_pointer_cast<Texture2D>(m_textureManager->GetTexture("icelandHeightMap"));
+		auto heightMapTexture = std::dynamic_pointer_cast<Texture2D>(m_textureManager->GetTexture("heightMap"));
 
 		auto heightMapGPU = std::make_shared<GPUHeightMap>(Terrain);
 		heightMapGPU->GenerateVertices(heightMapTexture);
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
-		textures.push_back(std::make_pair(m_textureManager->GetTexture("icelandHeightMap"), 0));
+		
+		textures.push_back(std::make_pair(m_textureManager->GetTexture("heightMap"), 0));
 		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, m_shaderManager->GetShader("TerrainDepthMap"), textures);
+		
 		m_drawableManager->AddDrawable(Terrain, heightMapGPU);
 
-		//normal pass
+		//auto orangeShader = m_shaderManager->GetShader(basicCubeName);
+		//std::shared_ptr<Material> orange;
+		//orange = std::make_shared<Material>("BasicCubeColor",glm::vec4(0.0f,1.0f,0.0f,1.0f));
+		//std::shared_ptr<PhongMaterialInstance> orangeInstance = std::make_shared<PhongMaterialInstance>("", orange);
+		//cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, orangeShader, {} , orangeInstance);
+		
+		textures.push_back(std::make_pair(m_textureManager->GetTexture("grass"), 1));
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, m_shaderManager->GetShader("Terrain"),
+			textures);
+		
 
 	}
 
@@ -123,7 +132,7 @@ namespace Devi
 
 		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
 		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
-		m_textureManager->AddTexture2D("icelandHeightMap", "assets/Textures/iceland_heightmap.png", textureParams, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+		m_textureManager->AddTexture2D("heightMap", "assets/Textures/iceland_heightmap.png", textureParams, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
 		textureParams.clear();
 
 		m_textureManager->AddCubeMapTexture("DayLightSkyBoxCubeMap",

@@ -18,8 +18,8 @@ namespace Devi
 		m_reflectionTexture->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_LINEAR);
 
 
-		m_waterReflectionFrameBuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, *m_reflectionTexture, 0);
-		m_waterRefractionFrameBuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, *m_refractionTexture, 0);
+		m_waterReflectionFrameBuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, m_reflectionTexture, 0);
+		m_waterRefractionFrameBuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, m_refractionTexture, 0);
 
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 	}

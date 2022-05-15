@@ -12,7 +12,7 @@ namespace Devi
 
 	Material::Material(const std::string & name, glm::vec4 albedo)
 		:m_name(name),
-		m_albedo(m_albedo),
+		m_albedo(albedo),
 		m_type(MaterialType::CustomRGBA)
 	{}
 
@@ -44,7 +44,7 @@ namespace Devi
 		}
 		else
 		{
-			shader->SetUniform("albedo", m_albedo, UniformDataType::FLOAT);
+			shader->SetUniform("albedo", m_albedo, UniformDataType::VEC4);
 		}
 	}
 }

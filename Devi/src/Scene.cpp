@@ -24,13 +24,11 @@ namespace Devi
 		m_camera.Update(deltaTime);
 
 		const auto& viewMatrix = m_camera.getViewMatrix();
+
+		Renderer::SetRendererViewMatrix(viewMatrix);
 		
 		m_renderPassManager->ExecutePasses();
 
-		glViewport(0, 0, m_screenWidth, m_screenHeight);
-
-		Renderer::SetRendererViewMatrix(viewMatrix);
-		Renderer::SetRendererProjectionMatrix(m_projectionMatrix);
 	}
 
 	void Scene::ClearScene()

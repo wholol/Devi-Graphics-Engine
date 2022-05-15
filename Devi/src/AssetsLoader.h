@@ -7,6 +7,7 @@
 #include "Cube.h"
 #include "../RenderPasses/RenderPassManager.h"
 #include <type_traits>
+
 namespace Devi
 {
 	/**
@@ -19,8 +20,6 @@ namespace Devi
 		Assets(std::shared_ptr<RenderPassManager> renderPassManager);
 		void LoadAssets();
 		
-		void AssignAssetsToRenderPasses(std::shared_ptr<RenderPassManager> renderPassManager);
-
 		std::shared_ptr<ShaderManager> GetShaderManager() const;
 		std::shared_ptr<TextureManager> GetTextureManager() const;
 		std::shared_ptr<DrawableManager> GetDrawableManager() const;

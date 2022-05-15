@@ -8,7 +8,7 @@ in vec4 CurrentPositionFromLightPerspectiveNDC;
 in vec3 normals;
 
 layout (binding = 1) uniform sampler2D grass;
-layout (binding = 3) uniform sampler2D sceneDepthMap;
+layout (binding = 5) uniform sampler2D sceneDepthMap;
 
 float ComputePCF(vec3 currentPosition, float bias, float currentDepth)
 {
@@ -35,8 +35,8 @@ float ShadowCalculation(vec3 currentPosition,float bias)
 	}
 
 	float currentDepth = currentPosition.z;
-	float closestDepth = ComputePCF(currentPosition, bias, currentDepth);
-	//float closestDepth  = texture(sceneDepthMap, currentPosition.xy).r;
+	//float closestDepth = ComputePCF(currentPosition, bias, currentDepth);
+	float closestDepth  = texture(sceneDepthMap, currentPosition.xy).r;
 	if (closestDepth + bias < currentDepth)
 	{
 		return 0.6;
@@ -72,58 +72,58 @@ void main()
 }
 
 
-//approximates microfacets.
-float NDFGGX(vec3 normalVector, vec3 halfwayVector, float roughness)
-{
-	float roughnessSquared = roughness * roughness;
-	float term = max(dot(halfwayVector, normalVector),0) * max(dot(halfwayVector, normalVector),0) * (roughnessSquared - 1) + 1 ;
-	float denominator = 3.41459 * term * term;
-
-	return roughnessSquared/denominator;
-}
-
-//approximates light occlusion due to shadows.
-float SelfShadowingGeometry(vec3 normalVector, vec3 vectorDirection,float roughness)
-{
-	float k = pow((roughness + 1) , 2) / 8.0;
-	float NDotV = max(dot(normalVector, vectorDirection),0);
-	return NDotV / (NDotV * (1 - k) + k );
-}
-
-float GeometrySmith(vec3 normalVector, vec3 viewVector, vec3 lightDirectionVector, float roughness)
-{
-	float ggx_one = SelfShadowingGeometry(normalVector,viewVector,roughness);
-	float ggx_two = SelfShadowingGeometry(normalVector, lightDirectionVector, roughness);
-	return ggx_one * ggx_two;
-}
-
-vec3 FresnelShlick(vec3 viewVector, vec3 halfwayVector, vec3 F0)
-{
-	float cosTheta = max( dot(viewVector,halfwayVector) ,0);
-	return F0 + (1.0 - F0) * pow ((1.0 -  cosTheta),5);
-}
-
-
-vec3 computePBRLight(vec3 lightColor, vec3 normalVector,vec3 viewVector, vec3 lightDirectionVector, 
-float roughness, vec3 F0, float metallic, float ao)
-{
-	vec3 radiance = lightColor;
-
-	vec3 halfwayVector = lightDirectionVector + viewVector;
-
-	float N = NDFGGX(normalVector, halfwayVector, roughness);
-	float G = GeometrySmith(normalVector,viewVector,lightDirectionVector,roughness);
-	vec3 F = FresnelShlick(viewVector,halfwayVector,F0);
-
-	float NDotL = max(dot(normalVector,lightDirectionVector) , 0);
-	float NDotV = max(dot(normalVector,viewVector) , 0);
-
-	vec3 kS =  (N * G * F) / (4.0 * (NDotL* NDotV)) + 0.0001;
-
-	vec3 kD = (vec3(1.0) - F) * (1.0 - metallic);
-
-	vec3 Lo = (((kD * lightColor) / 3.14159) + kS) * radiance * NDotL;
-
-	return Lo;
-}
+////approximates microfacets.
+//float NDFGGX(vec3 normalVector, vec3 halfwayVector, float roughness)
+//{
+//	float roughnessSquared = roughness * roughness;
+//	float term = max(dot(halfwayVector, normalVector),0) * max(dot(halfwayVector, normalVector),0) * (roughnessSquared - 1) + 1 ;
+//	float denominator = 3.41459 * term * term;
+//
+//	return roughnessSquared/denominator;
+//}
+//
+////approximates light occlusion due to shadows.
+//float SelfShadowingGeometry(vec3 normalVector, vec3 vectorDirection,float roughness)
+//{
+//	float k = pow((roughness + 1) , 2) / 8.0;
+//	float NDotV = max(dot(normalVector, vectorDirection),0);
+//	return NDotV / (NDotV * (1 - k) + k );
+//}
+//
+//float GeometrySmith(vec3 normalVector, vec3 viewVector, vec3 lightDirectionVector, float roughness)
+//{
+//	float ggx_one = SelfShadowingGeometry(normalVector,viewVector,roughness);
+//	float ggx_two = SelfShadowingGeometry(normalVector, lightDirectionVector, roughness);
+//	return ggx_one * ggx_two;
+//}
+//
+//vec3 FresnelShlick(vec3 viewVector, vec3 halfwayVector, vec3 F0)
+//{
+//	float cosTheta = max( dot(viewVector,halfwayVector) ,0);
+//	return F0 + (1.0 - F0) * pow ((1.0 -  cosTheta),5);
+//}
+//
+//
+//vec3 computePBRLight(vec3 lightColor, vec3 normalVector,vec3 viewVector, vec3 lightDirectionVector, 
+//float roughness, vec3 F0, float metallic, float ao)
+//{
+//	vec3 radiance = lightColor;
+//
+//	vec3 halfwayVector = lightDirectionVector + viewVector;
+//
+//	float N = NDFGGX(normalVector, halfwayVector, roughness);
+//	float G = GeometrySmith(normalVector,viewVector,lightDirectionVector,roughness);
+//	vec3 F = FresnelShlick(viewVector,halfwayVector,F0);
+//
+//	float NDotL = max(dot(normalVector,lightDirectionVector) , 0);
+//	float NDotV = max(dot(normalVector,viewVector) , 0);
+//
+//	vec3 kS =  (N * G * F) / (4.0 * (NDotL* NDotV)) + 0.0001;
+//
+//	vec3 kD = (vec3(1.0) - F) * (1.0 - metallic);
+//
+//	vec3 Lo = (((kD * lightColor) / 3.14159) + kS) * radiance * NDotL;
+//
+//	return Lo;
+//}
 

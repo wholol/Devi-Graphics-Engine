@@ -20,7 +20,6 @@ namespace Devi
 		double xpos;
 		double ypos;
 		auto* window = m_window->GetWindow();
-
 		glfwGetCursorPos(window, &xpos, &ypos);
 		return glm::highp_dvec2(xpos, ypos);
 	}

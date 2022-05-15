@@ -6,18 +6,22 @@ namespace Devi
 	Camera::Camera(glm::vec3 cameraPosition, glm::vec3 cameraTargetPosition)
 		:m_cameraPosition(cameraPosition), m_cameraTargetPosition(cameraTargetPosition)
 	{
-		UpdateCameraVectors();
+		m_cameraLookAtDirection = glm::normalize(m_cameraPosition - m_cameraTargetPosition);
+		m_cameraRightVector = glm::cross(GLOBAL_UP_VECTOR, m_cameraLookAtDirection);
+		m_cameraUpVector = glm::cross(m_cameraLookAtDirection, m_cameraRightVector);
+
+		//UpdateCameraVectors();
 	}
 
 	void Camera::Update(double deltaTime)
 	{	
-		UpdateCameraVectors();
+		//UpdateCameraVectors();
 		translateCamera(deltaTime);
 	}
 
 	glm::mat4 Camera::getViewMatrix() const
 	{
-		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraLookAtDirection, m_cameraUpVector);
+		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraTargetPosition, m_cameraUpVector);
 	}
 
 	void Camera::translateCamera(double deltaTime)

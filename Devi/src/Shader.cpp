@@ -85,7 +85,7 @@ namespace Devi
 		}
 		catch (std::exception& e)
 		{
-			DEVI_ERROR(std::string(e.what()), __FILE__, __LINE__);
+			DEVI_ERROR(std::string(e.what()) + "for uniform variable: " + uniformName , __FILE__, __LINE__);
 		}
 	}
 
