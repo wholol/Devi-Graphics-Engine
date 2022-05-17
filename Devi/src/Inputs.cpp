@@ -7,6 +7,7 @@ namespace Devi
 	void Inputs::Init(Window* window)
 	{
 		m_window = window;
+		glfwSetInputMode(m_window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 
 	bool Inputs::IsKeyPressed(DeviKey::Key key)

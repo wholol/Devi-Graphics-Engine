@@ -30,7 +30,7 @@ namespace Devi
 		std::unique_ptr<Scene> m_scene{nullptr};
 		std::shared_ptr<RenderPassManager> m_renderPassManager;
 		std::shared_ptr<Assets> m_assets;
-		double lastTime = 0.0;
-		double deltaTime = 0.0;
+		double m_lastTime = 0.0;
+		double m_deltaTime = 0.0;
 	};
 }

@@ -31,7 +31,7 @@ namespace Devi
 		{
 			renderOp.shader->Bind();
 
-			//TODO: REDUNDANT BIND.
+			//TODO: REDUNDANT BIND FOR EVERY LOOP.
 			renderOp.shader->SetUniform(depthMap->GetName(), DEVI_UNIFORM_DEPTHMAP, UniformDataType::UNSIGNEDINT);
 
 			depthMap->Bind(DEVI_UNIFORM_DEPTHMAP);

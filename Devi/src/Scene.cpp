@@ -23,7 +23,7 @@ namespace Devi
 	{		
 		m_camera.Update(deltaTime);
 
-		const auto& viewMatrix = m_camera.getViewMatrix();
+		const auto& viewMatrix = m_camera.GetViewMatrix();
 
 		Renderer::SetRendererViewMatrix(viewMatrix);
 		
