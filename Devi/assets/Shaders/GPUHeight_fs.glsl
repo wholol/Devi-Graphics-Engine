@@ -7,7 +7,7 @@ in vec2 TexCoordFinal;
 in vec4 CurrentPositionFromLightPerspectiveNDC;
 in vec3 normals;
 
-layout (binding = 0) uniform sampler2D grass;
+layout (binding = 0) uniform sampler2D albedo;
 layout (binding = 5) uniform sampler2D sceneDepthMap;
 
 float ComputePCF(vec3 currentPosition, float bias, float currentDepth)
@@ -64,7 +64,7 @@ void main()
 	vec2 aTexCoordFinal = TexCoordFinal * 20;
 	float m_height = height / 64.0f;
 
-	vec3 landColor = texture(grass, aTexCoordFinal).rgb;
+	vec3 landColor = texture(albedo, aTexCoordFinal).rgb;
 
 	landColor *= (1.0 - shadow);
 

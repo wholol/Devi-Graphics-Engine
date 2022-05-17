@@ -132,6 +132,9 @@
     <ClCompile Include="Materials\PBRMaterial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MaterialManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -362,6 +365,12 @@
     <ClInclude Include="Materials\PBRMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\MaterialManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScreenParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\Shaders\texturedRectangle.fs" />
@@ -378,33 +387,47 @@
     <None Include="assets\Shaders\DepthMap_vs.glsl" />
     <None Include="assets\Shaders\DepthMap_fs.glsl" />
     <None Include="assets\Shaders\RefractionTexture.glsl" />
+    <None Include="assets\Shaders\ShadowMapping.glsl" />
+    <None Include="assets\Shaders\GLSLVersion.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Back.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Back.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Bottom.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Bottom.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Front.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Front.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Left.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Left.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Right.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Right.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Top.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Top.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\iceland_heightmap.png">
+    <Image Include="assets\Textures\Terrain\iceland_heightmap.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\grass.png">
+    <Image Include="assets\Textures\Terrain\grassAlbedo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassAO.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassMetallic.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassNormalMap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassRoughness.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

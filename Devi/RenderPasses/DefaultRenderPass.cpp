@@ -17,7 +17,7 @@ namespace Devi
 	}
 	void DefaultRenderPass::Execute()
 	{
-		glViewport(0, 0, 800, 600);
+		glViewport(0, 0, 1920, 1080);
 
 		auto shadowMapPass = m_dependencyRenderPasses.find(RenderPassType::ShadowMap);
 

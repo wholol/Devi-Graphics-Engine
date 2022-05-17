@@ -200,12 +200,14 @@
     <ClInclude Include="src\Inputs.h" />
     <ClInclude Include="src\KeyEnums.h" />
     <ClInclude Include="src\Log.h" />
+    <ClInclude Include="src\MaterialManager.h" />
     <ClInclude Include="src\NotImplementedException.h" />
     <ClInclude Include="src\RenderBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="RenderPasses\RenderPass.h" />
     <ClInclude Include="RenderPasses\RenderPassManager.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\ScreenParams.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\ITexture.h" />
     <ClInclude Include="src\ShaderManager.h" />
@@ -243,6 +245,7 @@
     <ClCompile Include="src\Inputs.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MaterialManager.cpp" />
     <ClCompile Include="src\RenderBuffer.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="RenderPasses\RenderPass.cpp" />
@@ -264,10 +267,12 @@
     <None Include="assets\Shaders\cubevs.glsl" />
     <None Include="assets\Shaders\DepthMap_fs.glsl" />
     <None Include="assets\Shaders\DepthMap_vs.glsl" />
+    <None Include="assets\Shaders\GLSLVersion.glsl" />
     <None Include="assets\Shaders\GPUHeight_fs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tes.glsl" />
     <None Include="assets\Shaders\RefractionTexture.glsl" />
+    <None Include="assets\Shaders\ShadowMapping.glsl" />
     <None Include="assets\Shaders\skybox_fs.glsl" />
     <None Include="assets\Shaders\skybox_vs.glsl" />
     <None Include="assets\Shaders\texturedRectangle.fs" />
@@ -275,14 +280,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png" />
-    <Image Include="assets\Textures\Daylight Box_Back.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Bottom.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Front.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Left.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Right.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Top.bmp" />
-    <Image Include="assets\Textures\grass.png" />
-    <Image Include="assets\Textures\iceland_heightmap.png" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Back.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Bottom.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Front.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Left.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Right.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Top.bmp" />
+    <Image Include="assets\Textures\Terrain\grassAlbedo.png" />
+    <Image Include="assets\Textures\Terrain\grassAO.png" />
+    <Image Include="assets\Textures\Terrain\grassMetallic.png" />
+    <Image Include="assets\Textures\Terrain\grassNormalMap.png" />
+    <Image Include="assets\Textures\Terrain\grassRoughness.png" />
+    <Image Include="assets\Textures\Terrain\iceland_heightmap.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

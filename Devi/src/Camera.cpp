@@ -55,7 +55,6 @@ namespace Devi
 			m_cameraPosition += CAMERA_VELOCITY * static_cast<float>(deltaTime) * m_cameraRightVector;
 		}
 
-		//DEVI_INFO(std::to_string(m_cameraPosition.z), __FILE__, __LINE__);
 	}
 
 	void Camera::UpdateCameraVectors(double deltaTime)
@@ -84,12 +83,10 @@ namespace Devi
 			m_pitchAngle = -89.0;
 		}
 
-		glm::vec3 lookAtVec(1.0);
-
-		lookAtVec.x = cos(glm::radians(m_yawAngle)) * cos(glm::radians(m_pitchAngle));
-		lookAtVec.y = sin(glm::radians(m_pitchAngle));
-		lookAtVec.z = sin(glm::radians(m_yawAngle)) * cos(glm::radians(m_pitchAngle));
-		m_cameraLookAtDirection = glm::normalize(lookAtVec);
+		m_cameraLookAtDirection.x = cos(glm::radians(m_yawAngle)) * cos(glm::radians(m_pitchAngle));
+		m_cameraLookAtDirection.y = sin(glm::radians(m_pitchAngle));
+		m_cameraLookAtDirection.z = sin(glm::radians(m_yawAngle)) * cos(glm::radians(m_pitchAngle));
+		m_cameraLookAtDirection = glm::normalize(m_cameraLookAtDirection);
 
 		m_cameraRightVector = glm::cross(m_cameraLookAtDirection, GLOBAL_UP_VECTOR);
 		m_cameraUpVector = glm::cross(m_cameraRightVector, m_cameraLookAtDirection);

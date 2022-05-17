@@ -6,8 +6,8 @@ namespace Devi
 {
 	void RenderPassManager::Init()
 	{
-		int shadowMapScreenWidth = 800;
-		int shadowMapScreenHeight = 800;
+		int shadowMapScreenWidth = 1920;
+		int shadowMapScreenHeight = 1080;
 
 		ShadowMapOrthoMatrixParams newparams;
 		newparams.top = 1000.0f;

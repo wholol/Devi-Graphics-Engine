@@ -26,8 +26,8 @@ namespace Devi
 
 		ProjectionMatrixParams projectionMatrixParams;
 		projectionMatrixParams.fieldOfViewY = 45.0f;
-		projectionMatrixParams.screenWidth = 800;
-		projectionMatrixParams.screenHeight = 600;
+		projectionMatrixParams.screenWidth = 1920;
+		projectionMatrixParams.screenHeight = 1080;
 		projectionMatrixParams.zNear = 0.1f;
 		projectionMatrixParams.zFar = 1800.0f;
 

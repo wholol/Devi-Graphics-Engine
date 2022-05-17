@@ -11,6 +11,7 @@ namespace Devi
 	{
 		m_shaderManager = std::make_shared<ShaderManager>();
 		m_textureManager = std::make_shared<TextureManager>();
+		m_materialManager = std::make_shared<MaterialManager>();
 		m_drawableManager = std::make_shared <DrawableManager>();
 
 		m_renderPassManager = renderPassManager;
@@ -18,8 +19,10 @@ namespace Devi
 
 	void Assets::LoadAssets()
 	{
+		
 		LoadShaders();
 		LoadTextures();
+		LoadMaterials();
 		LoadDrawables();
 	}
 
@@ -109,36 +112,74 @@ namespace Devi
 		
 		m_drawableManager->AddDrawable(Terrain, heightMapGPU);
 
-		auto orangeShader = m_shaderManager->GetShader(basicCubeName);
-		std::shared_ptr<PhongMaterial> orange = std::make_shared<PhongMaterial>("BasicCubeColor", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-		cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, orangeShader, {} , orange);
+		cube->SubmitToRenderPass(m_renderPassManager, 
+			RenderPassType::Default, 
+			m_shaderManager->GetShader(basicCubeName),
+			{} , 
+			m_materialManager->GetMaterial("BasicCubeColor"));
 
-		std::shared_ptr<PhongMaterial> grass = std::make_shared<PhongMaterial>("grass", m_textureManager->GetTexture("grass"));
-		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, m_shaderManager->GetShader("Terrain"),
-			textures, grass);
-		
-
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 
+			RenderPassType::Default, 
+			m_shaderManager->GetShader("Terrain"),
+			textures, 
+			m_materialManager->GetMaterial("grass"));
 	}
 
 	void Assets::LoadTextures()
 	{
-		std::vector<TextureParamsSpecification> textureParams;
-		
-		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
-		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
-		m_textureManager->AddTexture2D("grass", "assets/Textures/grass.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
-		textureParams.clear();
+		//take note of https://www.reddit.com/r/opengl/comments/5rx2cn/nvoglvdll_cant_find_or_open_the_pdb_file/. caused by incorrect format. (eg GL_RGBA instead of GL_RGB)
 
-		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
-		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
-		m_textureManager->AddTexture2D("heightMap", "assets/Textures/iceland_heightmap.png", textureParams, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
-		textureParams.clear();
+		std::vector<TextureParamsSpecification> textureParams;
 
 		m_textureManager->AddCubeMapTexture("DayLightSkyBoxCubeMap",
-			"assets/Textures/Daylight Box_Right.bmp", "assets/Textures/Daylight Box_Left.bmp",
-			"assets/Textures/Daylight Box_Top.bmp", "assets/Textures/Daylight Box_Bottom.bmp",
-			"assets/Textures/Daylight Box_Front.bmp", "assets/Textures/Daylight Box_Back.bmp");
+			"assets/Textures/SkyBox/Daylight Box_Right.bmp", "assets/Textures/SkyBox/Daylight Box_Left.bmp",
+			"assets/Textures/SkyBox/Daylight Box_Top.bmp", "assets/Textures/SkyBox/Daylight Box_Bottom.bmp",
+			"assets/Textures/SkyBox/Daylight Box_Front.bmp", "assets/Textures/SkyBox/Daylight Box_Back.bmp");
 		textureParams.clear();
+
+		//terrain texture
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("grass", "assets/Textures/Terrain/grassAlbedo.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("grassAO", "assets/Textures/Terrain/grassAO.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("grassMetallic", "assets/Textures/Terrain/grassMetallic.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("grassNormalMap", "assets/Textures/Terrain/grassNormalMap.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("grassRoughness", "assets/Textures/Terrain/grassRoughness.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("heightMap", "assets/Textures/Terrain/iceland_heightmap.png", textureParams, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+	}
+
+	void Assets::LoadMaterials()
+	{
+		std::shared_ptr<PhongMaterial> basicCubeColor = std::make_shared<PhongMaterial>("BasicCubeColor", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		m_materialManager->AddMaterial(basicCubeColor);
+
+		std::shared_ptr<PhongMaterial> terrainMaterial = std::make_shared<PhongMaterial>("grass", m_textureManager->GetTexture("grass"));
+		//terrainMaterial->SetMetallic(m_textureManager->GetTexture("grassMetallic"));
+		//terrainMaterial->SetAo(m_textureManager->GetTexture("grassAO"));
+		//terrainMaterial->SetRoughness(m_textureManager->GetTexture("grassRoughness"));
+		m_materialManager->AddMaterial(terrainMaterial);
 	}
 }
 

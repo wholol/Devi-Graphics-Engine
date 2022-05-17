@@ -22,14 +22,14 @@ namespace Devi
 	
 	void Scene::Update(double deltaTime)
 	{		
-		m_camera.Update(deltaTime);
-
+		
 		const auto& viewMatrix = m_camera.GetViewMatrix();
 
 		Renderer::SetRendererViewMatrix(viewMatrix);
 		
 		m_renderPassManager->ExecutePasses();
-
+		
+		m_camera.Update(deltaTime);
 	}
 
 	void Scene::ClearScene()

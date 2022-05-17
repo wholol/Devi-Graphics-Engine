@@ -6,7 +6,7 @@
 
 int main()
 {
-	Devi::Application app(800, 600, "Devi Renderer");
+	Devi::Application app(1920, 1080, "Devi Renderer");
 	app.Run();
 
 	return 0;

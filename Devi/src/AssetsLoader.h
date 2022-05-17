@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include "DrawableManager.h"
+#include "MaterialManager.h"
 #include "GPUHeightMap.h"
 #include "SkyBox.h"
 #include "Cube.h"
@@ -42,6 +43,7 @@ namespace Devi
 		void LoadShaders();
 		void LoadDrawables();
 		void LoadTextures();
+		void LoadMaterials();
 
 		template<typename TextureName, typename ...TextureNames>
 		inline void SetDrawableTexture(TextureName texturename, TextureNames ...args)
@@ -65,6 +67,7 @@ namespace Devi
 		std::shared_ptr<ShaderManager> m_shaderManager;
 		std::shared_ptr<TextureManager> m_textureManager;
 		std::shared_ptr<DrawableManager> m_drawableManager;	
+		std::shared_ptr<MaterialManager> m_materialManager;
 	};
 	
 
