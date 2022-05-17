@@ -7,7 +7,7 @@ in vec2 TexCoordFinal;
 in vec4 CurrentPositionFromLightPerspectiveNDC;
 in vec3 normals;
 
-layout (binding = 1) uniform sampler2D grass;
+layout (binding = 0) uniform sampler2D grass;
 layout (binding = 5) uniform sampler2D sceneDepthMap;
 
 float ComputePCF(vec3 currentPosition, float bias, float currentDepth)

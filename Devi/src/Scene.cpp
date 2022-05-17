@@ -8,6 +8,7 @@ namespace Devi
 		Renderer::EnableDepthTest();
 		m_drawables = assets.GetDrawables();
 		m_shaderManager = assets.GetShaderManager();	
+		m_camera.SetPosition(glm::vec3(0.0f, 500.0f ,200.0f));
 	}
 
 	void Scene::SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams)

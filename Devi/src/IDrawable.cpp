@@ -22,6 +22,7 @@ namespace Devi
 		if (material.has_value())
 		{
 			materialInst = material.value();
+			materialInst->SetMaterialUniforms(shader);
 		}
 
 		if( !textures.has_value() )	//e.g. shadow mapping does not need textures.

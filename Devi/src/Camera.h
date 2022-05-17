@@ -4,22 +4,21 @@
 #include "Math/glm/gtc/matrix_transform.hpp"
 
 static constexpr glm::vec3 GLOBAL_UP_VECTOR(0.0, 1.0, 0.0);
-static constexpr float CAMERA_VELOCITY = 300.0f;
+static constexpr float CAMERA_VELOCITY = 500.0f;
 static constexpr double YAW_SENSITIVITY = 40.0;
 static constexpr double PITCH_SENSITVITY = 40.0;
 
 namespace Devi
 {
-
 	class Camera
 	{
 
 	public:
 
-		Camera( glm::vec3 cameraPosition = glm::vec3(0.0f, 500.0f,200.0f));
+		Camera();
 		void SetPosition(glm::vec3 cameraPosition);
 		void Update(double deltaTime);
-		glm::mat4 GetViewMatrix() const;
+		const glm::mat4& GetViewMatrix() const;
 
 	private:
 

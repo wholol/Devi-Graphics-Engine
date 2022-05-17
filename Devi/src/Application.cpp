@@ -25,11 +25,11 @@ namespace Devi
 		m_assets->LoadAssets();
 
 		ProjectionMatrixParams projectionMatrixParams;
-		projectionMatrixParams.fieldOfViewY = 90.0f;
+		projectionMatrixParams.fieldOfViewY = 45.0f;
 		projectionMatrixParams.screenWidth = 800;
 		projectionMatrixParams.screenHeight = 600;
 		projectionMatrixParams.zNear = 0.1f;
-		projectionMatrixParams.zFar = 1600.0f;
+		projectionMatrixParams.zFar = 1800.0f;
 
 		m_scene = std::make_unique<Scene>(*m_assets, screenWidth, screenHeight, m_renderPassManager);
 		m_scene->SetProjectionMatrixParams(projectionMatrixParams);

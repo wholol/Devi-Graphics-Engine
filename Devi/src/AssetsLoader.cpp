@@ -2,6 +2,7 @@
 #include "glad/glad.h"
 #include "../Materials/PhongMaterial.h"
 #include "../Materials/PBRMaterial.h"
+#include "BindingLocation.h"
 
 namespace Devi
 {
@@ -103,7 +104,7 @@ namespace Devi
 		heightMapGPU->GenerateVertices(heightMapTexture);
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
 		
-		textures.push_back(std::make_pair(m_textureManager->GetTexture("heightMap"), 0));
+		textures.push_back(std::make_pair(m_textureManager->GetTexture("heightMap"), DEVI_UNIFORM_HEIGHTMAP));
 		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, m_shaderManager->GetShader("TerrainDepthMap"), textures);
 		
 		m_drawableManager->AddDrawable(Terrain, heightMapGPU);
@@ -111,10 +112,10 @@ namespace Devi
 		auto orangeShader = m_shaderManager->GetShader(basicCubeName);
 		std::shared_ptr<PhongMaterial> orange = std::make_shared<PhongMaterial>("BasicCubeColor", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, orangeShader, {} , orange);
-		
-		textures.push_back(std::make_pair(m_textureManager->GetTexture("grass"), 1));
+
+		std::shared_ptr<PhongMaterial> grass = std::make_shared<PhongMaterial>("grass", m_textureManager->GetTexture("grass"));
 		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, m_shaderManager->GetShader("Terrain"),
-			textures);
+			textures, grass);
 		
 
 	}

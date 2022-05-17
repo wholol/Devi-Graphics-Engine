@@ -3,8 +3,7 @@
 
 namespace Devi
 {
-	Camera::Camera(glm::vec3 cameraPosition)
-		:m_cameraPosition(cameraPosition)
+	Camera::Camera()
 	{
 		glm::vec3 lookAtVec(1.0);
 
@@ -28,7 +27,7 @@ namespace Devi
 		TranslateCamera(deltaTime);
 	}
 
-	glm::mat4 Camera::GetViewMatrix() const
+	const glm::mat4& Camera::GetViewMatrix() const
 	{
 		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraLookAtDirection, m_cameraUpVector);
 	}
@@ -54,7 +53,9 @@ namespace Devi
 		if (Inputs::IsKeyPressed(DeviKey::Key::D))
 		{
 			m_cameraPosition += CAMERA_VELOCITY * static_cast<float>(deltaTime) * m_cameraRightVector;
-		}	
+		}
+
+		//DEVI_INFO(std::to_string(m_cameraPosition.z), __FILE__, __LINE__);
 	}
 
 	void Camera::UpdateCameraVectors(double deltaTime)
@@ -69,7 +70,6 @@ namespace Devi
 		
 		auto deltaMousePos = currentMousePos - m_lastMousePos;
 		
-		//update pitch yaw logic here.
 		m_pitchAngle -= deltaMousePos.y * PITCH_SENSITVITY * deltaTime;
 		
 		m_yawAngle += deltaMousePos.x * YAW_SENSITIVITY * deltaTime;

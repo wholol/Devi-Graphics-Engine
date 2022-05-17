@@ -56,8 +56,6 @@ namespace Devi
 
 		unsigned char* data = stbi_load(textureFilePath.c_str(), &m_textureWidth, &m_textureHeight, &channels, 0);
 
-
-		
 		if (data)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_textureWidth, m_textureHeight, 0, format, type, data);
