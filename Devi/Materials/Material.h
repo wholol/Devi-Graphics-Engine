@@ -22,17 +22,27 @@ namespace Devi
 	public:
 		Material(const std::string& name, std::shared_ptr<ITexture> albedoMap);
 		Material(const std::string& name, glm::vec4 albedo);
+
+		void SetNormalMap(std::shared_ptr<ITexture> normalMap);
+		
+		virtual void SetMaterialUniforms(std::shared_ptr<Shader> shader) = 0;
+
+		virtual void Bind(std::shared_ptr<Shader> shader) = 0;
+
 		std::string GetName() const;
-		glm::vec4 GetAlbedoVec4() const;
-		std::shared_ptr<ITexture> GetAlbedoTexture() const;
+		
 		MaterialType GetType() const;
-		void Bind(std::shared_ptr<Shader> shader);
 
 	protected:
-		std::string m_name;
 		
+		std::string m_name;
+		//TODO templates?
 		glm::vec4 m_albedo;
 		std::shared_ptr<ITexture> m_albedoMap;	
+
+		std::shared_ptr<ITexture> m_normalMap;
+		bool m_hasNormalMap = false;
+
 		MaterialType m_type;
 		
 	};

@@ -16,19 +16,14 @@ namespace Devi
 		m_type(MaterialType::CustomRGBA)
 	{}
 
+	void Material::SetNormalMap(std::shared_ptr<ITexture> normalMap)
+	{
+		m_normalMap = normalMap;
+	}
+
 	std::string Material::GetName() const
 	{
 		return m_name;
-	}
-
-	glm::vec4 Material::GetAlbedoVec4() const
-	{
-		return m_albedo;
-	}
-
-	std::shared_ptr<ITexture> Material::GetAlbedoTexture() const
-	{
-		return m_albedoMap;
 	}
 
 	MaterialType Material::GetType() const

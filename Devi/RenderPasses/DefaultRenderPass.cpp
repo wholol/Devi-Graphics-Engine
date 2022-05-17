@@ -6,20 +6,18 @@ namespace Devi
 	DefaultRenderPass::DefaultRenderPass()
 	{
 
-		m_depthTexture = std::make_shared<Texture2D>("toot");
-		m_depthTexture->CreateEmptyTexture2D(GL_RGB, 800, 600, GL_RGB, GL_FLOAT);
-		m_depthTexture->AddTextureParameteri(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		m_depthTexture->AddTextureParameteri(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-		m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		m_framebuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, m_depthTexture, 0);
+		//m_depthTexture = std::make_shared<Texture2D>("toot");
+		//m_depthTexture->CreateEmptyTexture2D(GL_RGB, 800, 600, GL_RGB, GL_FLOAT);
+		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		//m_framebuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, m_depthTexture, 0);
 
 	}
 	void DefaultRenderPass::Execute()
 	{
 		glViewport(0, 0, 800, 600);
-
-		//m_framebuffer.Bind();
 
 		auto shadowMapPass = m_dependencyRenderPasses.find(RenderPassType::ShadowMap);
 
@@ -38,9 +36,9 @@ namespace Devi
 
 			depthMap->Bind(DEVI_UNIFORM_DEPTHMAP);
 
-			if (renderOp.materialInstance)
+			if (renderOp.material)
 			{
-				renderOp.materialInstance->Bind(renderOp.shader);
+				renderOp.material->Bind(renderOp.shader);
 			}
 				
 			for (const auto& texturePairs : renderOp.textures)
@@ -57,8 +55,6 @@ namespace Devi
 			
 			renderOp.drawable->Draw();
 		}
-
-		//m_framebuffer.UnBind();
 	}
 }
 

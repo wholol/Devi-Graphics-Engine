@@ -12,8 +12,9 @@ namespace Devi
 
 	void SkyBox::Draw()
 	{
+		const int numTriangles = 12;
 		glDepthFunc(GL_LEQUAL);
-		Renderer::RenderWithoutIndexBuffers(12, m_vertexArray);
+		Renderer::RenderWithoutIndexBuffers(numTriangles, m_vertexArray);
 		glDepthFunc(GL_LESS);
 	}
 }

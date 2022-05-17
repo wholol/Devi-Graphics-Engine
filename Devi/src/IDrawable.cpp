@@ -15,13 +15,13 @@ namespace Devi
 	void Drawable::SubmitToRenderPass(std::shared_ptr<RenderPassManager> renderPassManager, 
 		RenderPassType type, std::shared_ptr<Shader> shader,
 		std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures,
-		std::optional<std::shared_ptr<MaterialInstance>> materialInstance)
+		std::optional<std::shared_ptr<Material>> material)
 	{
-		std::shared_ptr<MaterialInstance> materialInst = nullptr;
+		std::shared_ptr<Material> materialInst = nullptr;
 
-		if (materialInstance.has_value())
+		if (material.has_value())
 		{
-			materialInst = materialInstance.value();
+			materialInst = material.value();
 		}
 
 		if( !textures.has_value() )	//e.g. shadow mapping does not need textures.

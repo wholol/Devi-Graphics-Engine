@@ -4,7 +4,7 @@
 #include <vector>
 #include "../src/FrameBuffer.h"
 #include "../src/IDrawable.h"
-#include "../Materials/MaterialInstance.h"
+#include "../Materials/Material.h"
 #include <unordered_map>
 #include <functional>
 
@@ -24,7 +24,7 @@ namespace Devi
 		std::shared_ptr<Shader> shader = nullptr;
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
 		Drawable* drawable = nullptr;
-		std::shared_ptr<MaterialInstance> materialInstance;
+		std::shared_ptr<Material> material;
 	};
 
 	class RenderPass
@@ -32,7 +32,7 @@ namespace Devi
 
 	public:	
 		void Submit(std::shared_ptr<Shader> shader, const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures,
-			std::shared_ptr<MaterialInstance> material,
+			std::shared_ptr<Material> material,
 			Drawable* drawable);
 
 		//input/dependency from another pass.

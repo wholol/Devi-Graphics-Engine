@@ -183,9 +183,8 @@
     <ClInclude Include="Drawables\WaterRenderPass.h" />
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
-    <ClInclude Include="Materials\MaterialInstance.h" />
-    <ClInclude Include="Materials\PBRMaterialInstance.h" />
-    <ClInclude Include="Materials\PhongMaterialInstance.h" />
+    <ClInclude Include="Materials\PBRMaterial.h" />
+    <ClInclude Include="Materials\PhongMaterial.h" />
     <ClInclude Include="PostProcessing\GammaCorrection.h" />
     <ClInclude Include="Materials\Material.h" />
     <ClInclude Include="src\Application.h" />
@@ -229,9 +228,8 @@
     <ClCompile Include="Light\DirectionalLight.cpp" />
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Materials\Material.cpp" />
-    <ClCompile Include="Materials\MaterialInstance.cpp" />
-    <ClCompile Include="Materials\PBRMaterialInstance.cpp" />
-    <ClCompile Include="Materials\PhongMaterialInstance.cpp" />
+    <ClCompile Include="Materials\PBRMaterial.cpp" />
+    <ClCompile Include="Materials\PhongMaterial.cpp" />
     <ClCompile Include="PostProcessing\GammaCorrection.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\AssetsLoader.cpp" />

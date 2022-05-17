@@ -1,7 +1,7 @@
 #include "AssetsLoader.h"
 #include "glad/glad.h"
-#include "../Materials/PhongMaterialInstance.h"
-#include "../Materials/PBRMaterialInstance.h"
+#include "../Materials/PhongMaterial.h"
+#include "../Materials/PBRMaterial.h"
 
 namespace Devi
 {
@@ -108,11 +108,9 @@ namespace Devi
 		
 		m_drawableManager->AddDrawable(Terrain, heightMapGPU);
 
-		//auto orangeShader = m_shaderManager->GetShader(basicCubeName);
-		//std::shared_ptr<Material> orange;
-		//orange = std::make_shared<Material>("BasicCubeColor",glm::vec4(0.0f,1.0f,0.0f,1.0f));
-		//std::shared_ptr<PhongMaterialInstance> orangeInstance = std::make_shared<PhongMaterialInstance>("", orange);
-		//cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, orangeShader, {} , orangeInstance);
+		auto orangeShader = m_shaderManager->GetShader(basicCubeName);
+		std::shared_ptr<PhongMaterial> orange = std::make_shared<PhongMaterial>("BasicCubeColor", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, orangeShader, {} , orange);
 		
 		textures.push_back(std::make_pair(m_textureManager->GetTexture("grass"), 1));
 		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default, m_shaderManager->GetShader("Terrain"),

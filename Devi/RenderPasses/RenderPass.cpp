@@ -5,7 +5,7 @@ namespace Devi
 
 	void RenderPass::Submit(std::shared_ptr<Shader> shader,
 		const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures,
-		std::shared_ptr<MaterialInstance> materialInstance,
+		std::shared_ptr<Material> material,
 		Drawable* drawable)
 	{
 		RenderPassObject renderPassObject;
@@ -13,7 +13,7 @@ namespace Devi
 		renderPassObject.shader = shader;
 		renderPassObject.textures = std::move(textures);
 		renderPassObject.drawable = drawable;
-		renderPassObject.materialInstance = materialInstance;
+		renderPassObject.material = material;
 
 		m_renderQueue.emplace_back(renderPassObject);
 	}

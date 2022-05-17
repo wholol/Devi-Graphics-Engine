@@ -13,7 +13,5 @@ namespace Devi
 		DefaultRenderPass();
 		void Execute() override;
 	private:
-		FrameBuffer m_framebuffer{ "t" };
-		std::shared_ptr<Texture2D> m_depthTexture;
 	};
 }

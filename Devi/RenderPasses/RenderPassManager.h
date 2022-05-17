@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderPass.h"
 #include <unordered_map>
-#include "../Materials/MaterialInstance.h"
+#include "../Materials/Material.h"
 
 
 namespace Devi
@@ -19,7 +19,7 @@ namespace Devi
 
 		void SubmitRenderPassOperation(RenderPassType type, std::shared_ptr<Shader> shader, 
 			const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures, 
-			std::shared_ptr<MaterialInstance> materialInstance,
+			std::shared_ptr<Material> material,
 			Drawable* drawable);
 		
 		void ExecutePasses();

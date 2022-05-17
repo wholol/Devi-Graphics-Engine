@@ -11,7 +11,5 @@ namespace Devi
 	public:
 		SkyBox(const std::string& name);
 		void Draw() override;
-
-	private:
 	};
 }
