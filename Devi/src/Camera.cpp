@@ -3,8 +3,8 @@
 
 namespace Devi
 {
-	Camera::Camera(glm::vec3 cameraPosition, glm::vec3 cameraTargetPosition)
-		:m_cameraPosition(cameraPosition), m_cameraTargetPosition(cameraTargetPosition)
+	Camera::Camera(glm::vec3 cameraPosition)
+		:m_cameraPosition(cameraPosition)
 	{
 		glm::vec3 lookAtVec(1.0);
 
@@ -15,6 +15,11 @@ namespace Devi
 
 		m_cameraRightVector = glm::cross(m_cameraLookAtDirection, GLOBAL_UP_VECTOR);
 		m_cameraUpVector = glm::cross(m_cameraRightVector, m_cameraLookAtDirection);
+	}
+
+	void Camera::SetPosition(glm::vec3 cameraPosition)
+	{
+		m_cameraPosition = cameraPosition;
 	}
 
 	void Camera::Update(double deltaTime)
@@ -36,23 +41,20 @@ namespace Devi
 			m_cameraPosition += CAMERA_VELOCITY * static_cast<float>(deltaTime) * m_cameraLookAtDirection;
 		}
 
-		else if (Inputs::IsKeyPressed(DeviKey::Key::S))
+		if (Inputs::IsKeyPressed(DeviKey::Key::S))
 		{
 			m_cameraPosition -= CAMERA_VELOCITY * static_cast<float>(deltaTime) * m_cameraLookAtDirection;
 		}
 
-		else if (Inputs::IsKeyPressed(DeviKey::Key::A))
+		if (Inputs::IsKeyPressed(DeviKey::Key::A))
 		{
 			m_cameraPosition -= CAMERA_VELOCITY * static_cast<float>(deltaTime) * m_cameraRightVector;
 		}
 
-		else if (Inputs::IsKeyPressed(DeviKey::Key::D))
+		if (Inputs::IsKeyPressed(DeviKey::Key::D))
 		{
 			m_cameraPosition += CAMERA_VELOCITY * static_cast<float>(deltaTime) * m_cameraRightVector;
-		}
-		
-		auto currentMousePos = Devi::Inputs::GetMousePosInWindow();
-		//DEVI_INFO(std::to_string(deltaTime), __FILE__, __LINE__);
+		}	
 	}
 
 	void Camera::UpdateCameraVectors(double deltaTime)
