@@ -14,11 +14,11 @@ namespace Devi
 	{
 
 	public:
-
 		Camera();
 		void SetPosition(glm::vec3 cameraPosition);
 		void Update(double deltaTime);
 		const glm::mat4& GetViewMatrix() const;
+		glm::vec3 GetCameraPosition() const;
 
 	private:
 

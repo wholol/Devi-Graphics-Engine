@@ -2,7 +2,9 @@
 #include "glad/glad.h"
 #include "../Materials/PhongMaterial.h"
 #include "../Materials/PBRMaterial.h"
+#include "../Noise/PerlinNoise.h"
 #include "BindingLocation.h"
+#include "TextureManager.h"
 
 namespace Devi
 {
@@ -87,10 +89,10 @@ namespace Devi
 	void Assets::LoadDrawables()
 	{
 
-		//std::string skyboxName ="DayLightSkyBox";
-		//auto skybox = std::make_shared<SkyBox>(skyboxName);
-		//SetupDrawableShaderAndTextures(skybox, skyboxName, "DayLightSkyBoxCubeMap");
-		////m_drawableManager->AddDrawable(skyboxName, skybox);	
+		std::string skyboxName ="DayLightSkyBox";
+		auto skybox = std::make_shared<SkyBox>(skyboxName);
+		m_drawableManager->AddDrawable(skyboxName, skybox);	
+		//skybox->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default,m_shaderManager->GetShader("DayLightSkyBox"))l
 		
 		//shadow map pass
 		auto depthMapShader = m_shaderManager->GetShader("DepthMap");
@@ -163,11 +165,36 @@ namespace Devi
 		m_textureManager->AddTexture2D("grassRoughness", "assets/Textures/Terrain/grassRoughness.png", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
 		textureParams.clear();
 
+		//snow
 		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
 		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
-		m_textureManager->AddTexture2D("heightMap", "assets/Textures/Terrain/iceland_heightmap.png", textureParams, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+		m_textureManager->AddTexture2D("snow", "assets/Textures/Terrain/snowAlbedo.png", textureParams, GL_RGBA, GL_RGBA ,GL_UNSIGNED_BYTE);
 		textureParams.clear();
 
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("snowAO", "assets/Textures/Terrain/snowAO.png", textureParams, GL_RGB8, GL_RGB8, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("snowMetallic", "assets/Textures/Terrain/goldMetallic.psd", textureParams, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("snowRoughness", "assets/Textures/Terrain/snowRoughness.png", textureParams, GL_RGB8, GL_RGB8, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+		
+		textureParams.push_back({ GL_TEXTURE_WRAP_R, GL_REPEAT });
+		textureParams.push_back({ GL_TEXTURE_WRAP_S, GL_REPEAT });
+		m_textureManager->AddTexture2D("heightMap", "assets/Textures/Terrain/perlinNoise.png", textureParams, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
+		textureParams.clear();
+
+		//PerlinNoise perlin(2000, 2000);
+		//perlin.Generate("assets/Textures/PerlinNoise.bmp");
+		
+		
 	}
 
 	void Assets::LoadMaterials()
@@ -175,10 +202,11 @@ namespace Devi
 		std::shared_ptr<PhongMaterial> basicCubeColor = std::make_shared<PhongMaterial>("BasicCubeColor", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		m_materialManager->AddMaterial(basicCubeColor);
 
-		std::shared_ptr<PhongMaterial> terrainMaterial = std::make_shared<PhongMaterial>("grass", m_textureManager->GetTexture("grass"));
-		//terrainMaterial->SetMetallic(m_textureManager->GetTexture("grassMetallic"));
-		//terrainMaterial->SetAo(m_textureManager->GetTexture("grassAO"));
-		//terrainMaterial->SetRoughness(m_textureManager->GetTexture("grassRoughness"));
+		std::shared_ptr<PBRMaterial> terrainMaterial = std::make_shared<PBRMaterial>("grass", m_textureManager->GetTexture("grass"));
+		terrainMaterial->SetMetallic(m_textureManager->GetTexture("grassMetallic"));
+		terrainMaterial->SetAo(m_textureManager->GetTexture("grassAO"));
+		terrainMaterial->SetRoughness(m_textureManager->GetTexture("grassRoughness"));
+		terrainMaterial->SetNormalMap(m_textureManager->GetTexture("grassNormalMap"));
 		m_materialManager->AddMaterial(terrainMaterial);
 	}
 }

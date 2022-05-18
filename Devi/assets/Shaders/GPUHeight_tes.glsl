@@ -10,12 +10,13 @@ uniform mat4 projectionMatrix;
 
 uniform mat4 lightSpaceMatrix;
 
-
 in vec2 TextureCoord[];
 
 out vec2 TexCoordFinal;
 out float height;
 out vec4 CurrentPositionFromLightPerspectiveNDC;
+out vec3 WorldPos;
+out vec3 normals;
 
 void main()
 {
@@ -61,6 +62,8 @@ void main()
 	vec4 displacementVector = normal * height;	//we're scaling the height here.
 	currentposition += displacementVector;
 
+	WorldPos = vec3(modelMatrix * currentposition);
+	normals = vec3(normal);
 	// NDC space.
 	CurrentPositionFromLightPerspectiveNDC = lightSpaceMatrix * modelMatrix * currentposition;
 

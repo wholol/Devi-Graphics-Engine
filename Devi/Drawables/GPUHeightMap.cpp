@@ -13,7 +13,7 @@ namespace Devi
 		m_width = heightMapTexture->GetTextureWidth();
 		m_height = heightMapTexture->GetTextureHeight();
 
-		m_numTiles = 20;
+		m_numTiles = 32;
 
 		//note that we are not using index buffers. this makes sense as we are tessellating the mesh later on.
 		for (int x = 0; x < m_numTiles; ++x)

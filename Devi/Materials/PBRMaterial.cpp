@@ -45,7 +45,7 @@ namespace Devi
 	{
 		if (GetType() == MaterialType::Textured)
 		{
-			shader->SetUniform(m_albedoMap->GetName(), DEVI_UNIFORM_ALBEDOMAP, UniformDataType::UNSIGNEDINT);
+			shader->SetUniform("albedoMap", DEVI_UNIFORM_ALBEDOMAP, UniformDataType::UNSIGNEDINT);
 		}
 		else
 		{
@@ -54,7 +54,7 @@ namespace Devi
 
 		if (m_roughnessMap)
 		{
-			shader->SetUniform(m_roughnessMap->GetName(), DEVI_UNIFORM_ROUGHNESSMAP, UniformDataType::UNSIGNEDINT);
+			shader->SetUniform("roughnessMap", DEVI_UNIFORM_ROUGHNESSMAP, UniformDataType::UNSIGNEDINT);
 		}
 		else
 		{
@@ -63,7 +63,7 @@ namespace Devi
 
 		if (m_metallicMap)
 		{
-			shader->SetUniform(m_metallicMap->GetName(), DEVI_UNIFORM_METALLICMAP, UniformDataType::UNSIGNEDINT);
+			shader->SetUniform("metallicMap", DEVI_UNIFORM_METALLICMAP, UniformDataType::UNSIGNEDINT);
 		}
 		else
 		{
@@ -72,7 +72,7 @@ namespace Devi
 
 		if (m_aoMap)
 		{
-			shader->SetUniform(m_aoMap->GetName(), DEVI_UNIFORM_AOMAP, UniformDataType::UNSIGNEDINT);
+			shader->SetUniform("aoMap", DEVI_UNIFORM_AOMAP, UniformDataType::UNSIGNEDINT);
 		}
 		else
 		{
@@ -81,7 +81,7 @@ namespace Devi
 		
 		if (m_normalMap)
 		{
-			shader->SetUniform("normalMap", m_normalMap, UniformDataType::FLOAT);
+			shader->SetUniform("normalMap", DEVI_UNIFORM_NORMALMAP, UniformDataType::UNSIGNEDINT);
 		}
 	}
 

@@ -32,6 +32,11 @@ namespace Devi
 		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraLookAtDirection, m_cameraUpVector);
 	}
 
+	glm::vec3 Camera::GetCameraPosition() const
+	{
+		return m_cameraPosition;
+	}
+
 	void Camera::TranslateCamera(double deltaTime)
 	{
 		//forward

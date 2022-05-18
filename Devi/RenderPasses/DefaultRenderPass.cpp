@@ -6,18 +6,10 @@ namespace Devi
 	DefaultRenderPass::DefaultRenderPass()
 	{
 
-		//m_depthTexture = std::make_shared<Texture2D>("toot");
-		//m_depthTexture->CreateEmptyTexture2D(GL_RGB, 800, 600, GL_RGB, GL_FLOAT);
-		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-		//m_depthTexture->AddTextureParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		//m_framebuffer.AttachTexture2DToFrameBuffer(GL_COLOR_ATTACHMENT0, m_depthTexture, 0);
-
 	}
 	void DefaultRenderPass::Execute()
 	{
-		glViewport(0, 0, 1920, 1080);
+		glViewport(0, 0, 1920, 1080);		//TODO use application screenwidth and not hardcode the value
 
 		auto shadowMapPass = m_dependencyRenderPasses.find(RenderPassType::ShadowMap);
 

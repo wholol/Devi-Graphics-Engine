@@ -21,7 +21,7 @@ namespace Devi
 		}
 		else
 		{
-			shader->SetUniform("albedo", m_albedo, UniformDataType::FLOAT);
+			shader->SetUniform("albedo", m_albedo, UniformDataType::VEC4);
 		}
 
 		if (m_normalMap)
