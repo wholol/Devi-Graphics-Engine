@@ -35,6 +35,7 @@ namespace Devi
 
 	void ShadowMapRenderPass::Execute()
 	{	
+
 		//light view matrix
 		auto lightPos = m_directionalLight->GetLightPosition();
 		auto lightDir = m_directionalLight->GetLightDirection();
@@ -46,28 +47,31 @@ namespace Devi
 		m_shadowMapFrameBuffer->SetViewPort(m_shadowMapTextureWidth, m_shadowMapTextureHeight);
 		m_shadowMapFrameBuffer->ClearFrameBufferDepth();	//depth buffer must be cleared or the texture will just be black.
 		
-		for (const auto& renderOp : m_renderQueue)
+		//step 1
 		{
-			renderOp.shader->Bind();
-
-			renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);
-			renderOp.shader->SetUniform("viewMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//can be ubo
-			renderOp.shader->SetUniform("projectionMatrix", m_lightOrthoMatrix, UniformDataType::MAT4);	//can be ubo
-
-			for (const auto& texturePairs : renderOp.textures)
+			for (const auto& renderOp : GetStep(0).renderQueue)
 			{
-				auto texture = texturePairs.first;
-				unsigned int ActiveTextureID = texturePairs.second;
-				texture->Bind(ActiveTextureID);
+				renderOp.shader->Bind();
+
+				renderOp.shader->SetUniform("modelMatrix", renderOp.drawable->GetModelMatrix(), UniformDataType::MAT4);
+				renderOp.shader->SetUniform("viewMatrix", m_lightViewMatrix, UniformDataType::MAT4);	//can be ubo
+				renderOp.shader->SetUniform("projectionMatrix", m_lightOrthoMatrix, UniformDataType::MAT4);	//can be ubo
+
+				for (const auto& texturePairs : renderOp.textures)
+				{
+					auto texture = texturePairs.first;
+					unsigned int ActiveTextureID = texturePairs.second;
+					texture->Bind(ActiveTextureID);
+				}
+
+				renderOp.drawable->Draw();
 			}
 
-			renderOp.drawable->Draw();
+			m_shadowMapFrameBuffer->UnBind();
 		}
-
-		m_shadowMapFrameBuffer->UnBind();
 	}
 	
-	const glm::mat4& ShadowMapRenderPass::GetLightSpaceMatrix() const
+	const glm::mat4 ShadowMapRenderPass::GetLightSpaceMatrix() const
 	{
 		return m_lightOrthoMatrix * m_lightViewMatrix;
 	}

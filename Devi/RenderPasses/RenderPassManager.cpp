@@ -4,10 +4,10 @@
 
 namespace Devi
 {
-	void RenderPassManager::Init()
+	void RenderPassManager::InitAllPasses()
 	{
-		int shadowMapScreenWidth = 1920;
-		int shadowMapScreenHeight = 1080;
+		int shadowMapScreenWidth = 2000;
+		int shadowMapScreenHeight = 2000;
 
 		ShadowMapOrthoMatrixParams newparams;
 		newparams.top = 1000.0f;
@@ -31,6 +31,7 @@ namespace Devi
 		AddRenderPass(normalPass, RenderPassType::Default);
 			
 	}
+
 	void RenderPassManager::AddRenderPass(std::shared_ptr<RenderPass> renderPass, RenderPassType renderPassType)
 	{
 		renderPass->SetRenderPassType(renderPassType);

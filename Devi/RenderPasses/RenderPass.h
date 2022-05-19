@@ -27,13 +27,18 @@ namespace Devi
 		std::shared_ptr<Material> material;
 	};
 
+	struct Step
+	{
+		std::vector<RenderPassObject> renderQueue;
+	};
+
 	class RenderPass
 	{
 
 	public:	
 		void Submit(std::shared_ptr<Shader> shader, const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures,
 			std::shared_ptr<Material> material,
-			Drawable* drawable);
+			Drawable* drawable, unsigned int stepNumber = 0);
 
 		//input/dependency from another pass.
 		void LinkRenderPass(std::shared_ptr<RenderPass> renderpass);
@@ -43,16 +48,36 @@ namespace Devi
 
 		void SetRenderPassType(RenderPassType renderPassType);
 
+		template <typename T>
+		void SortCriteria(std::function<T> sortCriteria, unsigned int stepNumber);
+
+		template<typename T>
+		inline void RenderPass::SortCriteria(std::function<T> sortCriteria, unsigned int stepNumber)
+		{
+			if (!m_isStepsSorted)
+			{
+				SortSteps();
+			}
+
+			std::sort(m_steps[stepNumber].renderQueue.begin(), m_steps[stepNumber].renderQueue.end(), sortCriteria);
+		}
+
+		const Step& GetStep(unsigned int stepNumber) const;
+
 		RenderPassType GetRenderPassType() const;
 
 		virtual void Execute() = 0;
 
 	protected:
-		std::vector<RenderPassObject> m_renderQueue;
+		std::unordered_map<unsigned int, Step> m_stepMap;
+
+		bool m_isStepsSorted = false;
 		
 		std::unordered_map<RenderPassType,std::shared_ptr<RenderPass>> m_dependencyRenderPasses;
 		std::unordered_map<std::string, std::shared_ptr<FrameBuffer>> m_frameBufferMap;
 
 		RenderPassType m_renderPassType;
 	};
+	
+
 }

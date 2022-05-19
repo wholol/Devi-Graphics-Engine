@@ -23,7 +23,7 @@ namespace Devi
 		ShadowMapRenderPass(int shadowMapTextureWidth, int shadowMapTextureHeight, 
 			ShadowMapOrthoMatrixParams params, std::shared_ptr<DirectionalLight> directionalLight);
 		void Execute() override;
-		const glm::mat4& GetLightSpaceMatrix() const;
+		const glm::mat4 GetLightSpaceMatrix() const;
 
 	private:
 		
@@ -31,7 +31,7 @@ namespace Devi
 		int m_shadowMapTextureHeight;
 
 		std::shared_ptr<DirectionalLight> m_directionalLight;
-		
+
 		std::shared_ptr<FrameBuffer> m_shadowMapFrameBuffer;
 		std::shared_ptr<Texture2D> m_depthTexture;
 		

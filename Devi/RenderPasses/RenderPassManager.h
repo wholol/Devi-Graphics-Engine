@@ -13,7 +13,7 @@ namespace Devi
 	class RenderPassManager
 	{
 	public:
-		void Init();
+		void InitAllPasses();
 		void AddRenderPass(std::shared_ptr<RenderPass> renderPass, RenderPassType renderPassType);
 		std::shared_ptr<RenderPass> GetRenderPass(RenderPassType renderPassType);
 

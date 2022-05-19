@@ -102,9 +102,6 @@
     <ClCompile Include="src\DrawableManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Drawables\WaterRenderPass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\IDrawable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -136,6 +133,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Noise\PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPasses\WaterRenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -338,9 +338,6 @@
     <ClInclude Include="src\DrawableManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\WaterRenderPass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\BindingLocation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -381,6 +378,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies\Siv\PerlinNoise.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPasses\WaterRenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

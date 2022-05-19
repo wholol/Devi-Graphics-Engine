@@ -181,7 +181,6 @@
     <ClInclude Include="Drawables\CPUHeightMap.h" />
     <ClInclude Include="Drawables\GPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
-    <ClInclude Include="Drawables\WaterRenderPass.h" />
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Materials\PBRMaterial.h" />
@@ -189,6 +188,7 @@
     <ClInclude Include="Noise\PerlinNoise.h" />
     <ClInclude Include="PostProcessing\GammaCorrection.h" />
     <ClInclude Include="Materials\Material.h" />
+    <ClInclude Include="RenderPasses\WaterRenderPass.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\AssetsLoader.h" />
     <ClInclude Include="src\BindingLocation.h" />
@@ -229,7 +229,7 @@
     <ClCompile Include="Drawables\CPUHeightMap.cpp" />
     <ClCompile Include="Drawables\GPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
-    <ClCompile Include="Drawables\WaterRenderPass.cpp" />
+    <ClCompile Include="RenderPasses\WaterRenderPass.cpp" />
     <ClCompile Include="Light\DirectionalLight.cpp" />
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Materials\Material.cpp" />

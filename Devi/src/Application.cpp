@@ -19,7 +19,7 @@ namespace Devi
 		
 		Inputs::Init(&m_window);
 		m_renderPassManager = std::make_shared<RenderPassManager>();
-		m_renderPassManager->Init();
+		m_renderPassManager->InitAllPasses();
 		
 		m_assets = std::make_shared<Assets>(m_renderPassManager);
 		m_assets->LoadAssets();
