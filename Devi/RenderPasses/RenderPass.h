@@ -38,7 +38,9 @@ namespace Devi
 	public:	
 		void Submit(std::shared_ptr<Shader> shader, const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures,
 			std::shared_ptr<Material> material,
-			Drawable* drawable, unsigned int stepNumber = 0);
+			Drawable* drawable, 
+			std::initializer_list<unsigned int> stepNumbers = {0}
+		);
 
 		//input/dependency from another pass.
 		void LinkRenderPass(std::shared_ptr<RenderPass> renderpass);
