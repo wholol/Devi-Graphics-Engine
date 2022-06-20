@@ -24,10 +24,19 @@ namespace Devi
 		virtual void Draw() = 0;
 		
 		std::string GetName() const;
-		
-		//hard to read, but const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures == a pair. First part is a shared ptr to a texture, second an unsigned int for glActiveTexture.
+	
+		/**
+		* Submits various variables to a specific render pass, which then uses them to render the renderable/drawable object.
+		* @param renderPassManager the renderpass maanger instance.
+		* @param stepNumber which step number should it be rendered in the render pass.
+		* @param type type of render pass to pass the variables to.
+		* @param shader the shader involved for this renderpass, step and this renderable/drawable object.
+		* @param textures textures that will be used in the shader object passed. unsigned int is used by glActiveTextures
+		* @param material the material of the drawable which will be used in the shader object passed.
+		*/
 		void SubmitToRenderPass(
 			std::shared_ptr<RenderPassManager> renderPassManager, 
+			unsigned int stepNumber,
 			RenderPassType type, std::shared_ptr<Shader> shader, 
 			std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures = {},
 			std::optional<std::shared_ptr<Material>> material = {});

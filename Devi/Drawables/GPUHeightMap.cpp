@@ -50,10 +50,10 @@ namespace Devi
 			}
 		}
 
-			m_vertexBuffer = std::make_shared<VertexBuffer>(&m_vertices[0], m_vertices.size() * sizeof(float));
-			m_vertexBuffer->AddAttribLayout(3);
-			m_vertexBuffer->AddAttribLayout(2);
-			m_vertexArray = std::make_shared<VertexArray>(*m_vertexBuffer);
+		m_vertexBuffer = std::make_shared<VertexBuffer>(&m_vertices[0], m_vertices.size() * sizeof(float));
+		m_vertexBuffer->AddAttribLayout(3);
+		m_vertexBuffer->AddAttribLayout(2);
+		m_vertexArray = std::make_shared<VertexArray>(*m_vertexBuffer);
 
 	}
 

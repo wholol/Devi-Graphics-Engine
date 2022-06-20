@@ -3,12 +3,11 @@
 
 namespace Devi
 {
-
-	void RenderPass::Submit(std::shared_ptr<Shader> shader,
-		const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures,
-		std::shared_ptr<Material> material,
-		Drawable* drawable,
-		std::initializer_list<unsigned int> stepNumbers)
+	void RenderPass::Submit(std::shared_ptr<Shader> shader, 
+		const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures, 
+		std::shared_ptr<Material> material, 
+		Drawable* drawable, 
+		unsigned int stepNumber)
 	{
 		RenderPassObject renderPassObject;
 
@@ -16,25 +15,20 @@ namespace Devi
 		renderPassObject.textures = std::move(textures);
 		renderPassObject.drawable = drawable;
 		renderPassObject.material = material;
-		
-		for (auto it = stepNumbers.begin(); it < stepNumbers.end(); ++it)
+
+		auto findStep = m_stepMap.find(stepNumber);
+
+		if (findStep != m_stepMap.end())
 		{
-			auto findStep = m_stepMap.find(*it);
-
-			if (findStep != m_stepMap.end())
-			{
-				auto& q = findStep->second.renderQueue;
-				q.emplace_back(renderPassObject);
-			}
-			else
-			{
-				Step step;
-				step.renderQueue.emplace_back(renderPassObject);	//make sure to add the renderpassobject for the new step as well.
-				m_stepMap.insert(std::make_pair(*it, step));
-
-			}
+			auto& q = findStep->second.renderQueue;
+			q.emplace_back(renderPassObject);
 		}
-		
+		else
+		{
+			Step step;
+			step.renderQueue.emplace_back(renderPassObject);
+			m_stepMap.insert(std::make_pair(stepNumber, step));
+		}
 	}
 
 	void RenderPass::LinkRenderPass(std::shared_ptr<RenderPass> renderpass)

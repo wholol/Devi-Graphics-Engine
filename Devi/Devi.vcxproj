@@ -181,6 +181,7 @@
     <ClInclude Include="Drawables\CPUHeightMap.h" />
     <ClInclude Include="Drawables\GPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
+    <ClInclude Include="Drawables\WaterQuad.h" />
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Materials\PBRMaterial.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="Drawables\CPUHeightMap.cpp" />
     <ClCompile Include="Drawables\GPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
+    <ClCompile Include="Drawables\WaterQuad.cpp" />
     <ClCompile Include="RenderPasses\WaterRenderPass.cpp" />
     <ClCompile Include="Light\DirectionalLight.cpp" />
     <ClCompile Include="Light\Light.cpp" />
@@ -275,12 +277,15 @@
     <None Include="assets\Shaders\GPUHeight_fs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tes.glsl" />
+    <None Include="assets\Shaders\ReflectionShader.glsl" />
     <None Include="assets\Shaders\RefractionTexture.glsl" />
     <None Include="assets\Shaders\ShadowMapping.glsl" />
     <None Include="assets\Shaders\skybox_fs.glsl" />
     <None Include="assets\Shaders\skybox_vs.glsl" />
     <None Include="assets\Shaders\texturedRectangle.fs" />
     <None Include="assets\Shaders\texturedRectangle.vs" />
+    <None Include="assets\Shaders\waterReflection_fs.glsl" />
+    <None Include="assets\Shaders\waterReflection_vs.glsl" />
     <None Include="assets\Textures\Terrain\goldmetallicMap.psd" />
   </ItemGroup>
   <ItemGroup>

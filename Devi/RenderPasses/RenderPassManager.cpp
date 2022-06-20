@@ -53,7 +53,8 @@ namespace Devi
 	void RenderPassManager::SubmitRenderPassOperation(RenderPassType renderPassType, std::shared_ptr<Shader> shader,
 		const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures,
 		std::shared_ptr<Material> material,
-		Drawable* drawable)
+		Drawable* drawable,
+		unsigned int stepNumber)
 	{
 		auto findPass = m_renderPassMap.find(renderPassType);
 
@@ -61,7 +62,7 @@ namespace Devi
 		{
 			auto pass = findPass->second;
 
-			pass->Submit(shader, textures, material, drawable);
+			pass->Submit(shader, textures, material, drawable, stepNumber);
 		}
 	}
 

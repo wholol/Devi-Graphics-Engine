@@ -138,6 +138,9 @@
     <ClCompile Include="RenderPasses\WaterRenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Drawables\WaterQuad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -383,6 +386,9 @@
     <ClInclude Include="RenderPasses\WaterRenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Drawables\WaterQuad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\Shaders\texturedRectangle.fs" />
@@ -402,6 +408,9 @@
     <None Include="assets\Shaders\ShadowMapping.glsl" />
     <None Include="assets\Shaders\GLSLVersion.glsl" />
     <None Include="assets\Textures\Terrain\goldmetallicMap.psd" />
+    <None Include="assets\Shaders\ReflectionShader.glsl" />
+    <None Include="assets\Shaders\waterReflection_vs.glsl" />
+    <None Include="assets\Shaders\waterReflection_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">

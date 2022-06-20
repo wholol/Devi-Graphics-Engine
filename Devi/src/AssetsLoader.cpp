@@ -88,43 +88,43 @@ namespace Devi
 
 	void Assets::LoadDrawables()
 	{
-
 		std::string skyboxName ="DayLightSkyBox";
 		auto skybox = std::make_shared<SkyBox>(skyboxName);
 		m_drawableManager->AddDrawable(skyboxName, skybox);	
-		//skybox->SubmitToRenderPass(m_renderPassManager, RenderPassType::Default,m_shaderManager->GetShader("DayLightSkyBox"))l
-		
-		//shadow map pass
+		//skybox->SubmitToRenderPass(m_renderPassManager,0, RenderPassType::Default ,m_shaderManager->GetShader("DayLightSkyBox"));
+	
 		auto depthMapShader = m_shaderManager->GetShader("DepthMap");
 		
 		std::string basicCubeName = "BasicCube";
 		auto cube = std::make_shared<Cube>(basicCubeName);
 		m_drawableManager->AddDrawable(basicCubeName, cube);
-		cube->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, depthMapShader);
+		cube->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::ShadowMap, depthMapShader);
+		cube->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Default, m_shaderManager->GetShader(basicCubeName), {}, m_materialManager->GetMaterial("BasicCubeColor"));
+		//cube->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Water,);
+		//cube->SubmitToRenderPass(m_renderPassManager, 1, RenderPassType::Water, );
 		
-		std::string Terrain = "Terrain";
+		std::string terrainName = "Terrain";
 		auto heightMapTexture = std::dynamic_pointer_cast<Texture2D>(m_textureManager->GetTexture("heightMap"));
 
-		auto heightMapGPU = std::make_shared<GPUHeightMap>(Terrain);
+		auto heightMapGPU = std::make_shared<GPUHeightMap>(terrainName);
 		heightMapGPU->GenerateVertices(heightMapTexture);
+		m_drawableManager->AddDrawable(terrainName, heightMapGPU);
+
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures;
+		textures.push_back(std::make_pair(heightMapTexture, DEVI_UNIFORM_HEIGHTMAP));
 		
-		textures.push_back(std::make_pair(m_textureManager->GetTexture("heightMap"), DEVI_UNIFORM_HEIGHTMAP));
-		heightMapGPU->SubmitToRenderPass(m_renderPassManager, RenderPassType::ShadowMap, m_shaderManager->GetShader("TerrainDepthMap"), textures);
-		
-		m_drawableManager->AddDrawable(Terrain, heightMapGPU);
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::ShadowMap, m_shaderManager->GetShader("TerrainDepthMap"), textures);
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Default, m_shaderManager->GetShader("Terrain"), textures, m_materialManager->GetMaterial("grass"));
+		//heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Water, );	//TODO: reflection shader.
+		//heightMapGPU->SubmitToRenderPass(m_renderPassManager, 1, RenderPassType::Water, ); //TODO: refraction shader.
 
-		cube->SubmitToRenderPass(m_renderPassManager, 
-			RenderPassType::Default, 
-			m_shaderManager->GetShader(basicCubeName),
-			{} , 
-			m_materialManager->GetMaterial("BasicCubeColor"));
+		std::string waterName = "WaterQuad";
+		auto water = std::make_shared<WaterQuad>(waterName, heightMapTexture->GetTextureWidth(), heightMapTexture->GetTextureHeight());
+		m_drawableManager->AddDrawable(waterName, water);
 
-		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 
-			RenderPassType::Default, 
-			m_shaderManager->GetShader("Terrain"),
-			textures, 
-			m_materialManager->GetMaterial("grass"));
+		//add all objects (cube and terrain) into water render pass to be used to render to framebuffers for reflection an refraction.
+		//add watrer quad in normal render pass (antoehr shader taht will use the framebuffer outputs
+
 	}
 
 	void Assets::LoadTextures()

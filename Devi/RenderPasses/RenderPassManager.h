@@ -20,7 +20,8 @@ namespace Devi
 		void SubmitRenderPassOperation(RenderPassType type, std::shared_ptr<Shader> shader, 
 			const std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>& textures, 
 			std::shared_ptr<Material> material,
-			Drawable* drawable);
+			Drawable* drawable,
+			unsigned int stepNumber);
 		
 		void ExecutePasses();
 

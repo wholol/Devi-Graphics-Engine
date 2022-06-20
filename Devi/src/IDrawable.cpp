@@ -12,7 +12,9 @@ namespace Devi
 		return m_name;
 	}
 
-	void Drawable::SubmitToRenderPass(std::shared_ptr<RenderPassManager> renderPassManager, 
+	void Drawable::SubmitToRenderPass(
+		std::shared_ptr<RenderPassManager> renderPassManager, 
+		unsigned int stepNumber,
 		RenderPassType type, std::shared_ptr<Shader> shader,
 		std::optional<std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>>> textures,
 		std::optional<std::shared_ptr<Material>> material)
@@ -30,7 +32,7 @@ namespace Devi
 			std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> noTextureAtAll;
 			noTextureAtAll.reserve(0);
 
-			renderPassManager->SubmitRenderPassOperation(type, shader, noTextureAtAll, materialInst, this);
+			renderPassManager->SubmitRenderPassOperation(type, shader, noTextureAtAll, materialInst, this, stepNumber);
 		}
 		else
 		{
@@ -41,7 +43,7 @@ namespace Devi
 				shader->SetUniform(Texture->GetName(), texture.second, UniformDataType::UNSIGNEDINT);
 			}
 
-			renderPassManager->SubmitRenderPassOperation(type, shader, textures.value(), materialInst, this);
+			renderPassManager->SubmitRenderPassOperation(type, shader, textures.value(), materialInst, this, stepNumber);
 		}
 	}
 	const glm::mat4& Drawable::GetModelMatrix() const
