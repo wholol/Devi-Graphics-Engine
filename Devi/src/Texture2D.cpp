@@ -3,7 +3,7 @@
 
 namespace Devi
 {
-	Texture2D::Texture2D(const std::string & name)
+	Texture2D::Texture2D(const std::string& name)
 		:m_name(name)
 	{
 	}
@@ -20,12 +20,12 @@ namespace Devi
 
 		stbi_set_flip_vertically_on_load(flipImage);
 
-		int width, height, channels;
-		unsigned char *data = stbi_load(textureFilePath.c_str(), &width, &height, &channels, 0);
+		int channels;
+		unsigned char *data = stbi_load(textureFilePath.c_str(), &m_textureWidth, &m_textureHeight, &channels, 0);
 
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_textureWidth, m_textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		}
 		else
 		{
@@ -50,15 +50,15 @@ namespace Devi
 		glGenTextures(1, &m_textureID);
 		Bind();
 
-		int width, height, channels;
+		int channels;
 
 		stbi_set_flip_vertically_on_load(flipImage);
 
-		unsigned char* data = stbi_load(textureFilePath.c_str(), &width, &height, &channels, 0);
-		
+		unsigned char* data = stbi_load(textureFilePath.c_str(), &m_textureWidth, &m_textureHeight, &channels, 0);
+
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, data);
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_textureWidth, m_textureHeight, 0, format, type, data);
 			DEVI_INFO("texture loaded for: " + textureFilePath, __FILE__, __LINE__);
 		}
 		else
@@ -107,7 +107,7 @@ namespace Devi
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	int Texture2D::GetID() const
+	unsigned int Texture2D::GetID() const
 	{
 		return m_textureID;
 	}
@@ -115,5 +115,24 @@ namespace Devi
 	std::string Texture2D::GetName() const
 	{
 		return m_name;
+	}
+
+	int Texture2D::GetTextureWidth() const
+	{
+		if (m_textureWidth == 0)
+		{
+			DEVI_ERROR("Texture for: " + m_name + " has a width of zero.", __FILE__, __LINE__);
+		}
+		return m_textureWidth;
+	}
+
+	int Texture2D::GetTextureHeight() const
+	{
+		if (m_textureHeight == 0)
+		{
+			DEVI_ERROR("Texture for: " + m_name + " has a height of zero.", __FILE__, __LINE__);
+		}
+
+		return m_textureHeight;
 	}
 }

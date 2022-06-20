@@ -8,21 +8,23 @@ namespace Devi
 {
 
 	/**
-	* Renderer class. Facade for the data(e.g. shader, vertex array, texture) binding flow.
+	* Renderer class. Binds VA and performs gl draw calls
 	* Note: //make sure to bind shader first before setting uniforms if adding a new render method. if we set the uniforms and bind it last, the next drawable will be using the shader from the previous drawable.
 	*/
 	class Renderer
 	{
 	public:
-		static void SetRendererViewMatrix(glm::mat4 viewprojectionMatrix);
-		static void SetRendererProjectionMatrix(glm::mat4 projectionMatrix);
+		static void SetRendererViewMatrix(const glm::mat4& viewprojectionMatrix);
+		static void SetRendererProjectionMatrix(const glm::mat4& projectionMatrix);
+		static glm::mat4 GetRendererViewMatrix();
+		static glm::mat4 GetRendererProjectionMatrix();
 		
 		//render methods.
-		static void Render(VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix = glm::mat4(1.0), bool ignoreViewMatrixTranslationComponent = false);
-		static void RenderWithoutIndexBuffers(int numberOfTriangles,VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix = glm::mat4(1.0), bool ignoreViewMatrixTranslationComponent = false);
-		static void RenderPatches(int numPatches, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix = glm::mat4(1.0), bool ignoreViewMatrixTranslationComponent = false);
-		static void RenderTriangleStrip(int numberofStrips, int numberOfIndicesPerStrip, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix = glm::mat4(1.0), bool ignoreViewMatrixTranslationComponent = false);
-		static void RenderQuad(VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix = glm::mat4(1.0), bool ignoreViewMatrixTranslationComponent = false);
+		static void Render(std::shared_ptr<VertexArray> vertexArray);
+		static void RenderWithoutIndexBuffers(int numberOfTriangles, std::shared_ptr<VertexArray> vertexArray);
+		static void RenderPatches(int numPatches, std::shared_ptr<VertexArray> vertexArray);
+		static void RenderTriangleStrip(int numberofStrips, int numberOfIndicesPerStrip, std::shared_ptr<VertexArray> vertexArray);
+		static void RenderQuad(std::shared_ptr<VertexArray> vertexArray);
 		
 		static void Clear(float r = 0.2f, float g = 0.3f, float b = 0.3f, float a = 1.0f);
 		static void EnableDepthTest();

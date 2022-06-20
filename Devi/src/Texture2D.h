@@ -14,7 +14,7 @@ namespace Devi
 	class Texture2D : public ITexture
 	{
 	public:
-		Texture2D(const std::string& name);
+		Texture2D(const std::string& name);	//for empty textures
 		Texture2D(const std::string& name, const std::string& textureFilePath,bool generateMipMap = true, bool flipImage = true);
 		void CreateTexture2D(const std::string& textureFilePath, GLint internalFormat, GLint format, GLenum type, bool generateMipMap = true, bool flipImage = false);
 		//creates an empty texture with no data.
@@ -23,7 +23,7 @@ namespace Devi
 		void AddTextureParameterfv(GLenum textureParam, const GLfloat* params);
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
-		int GetID() const;
+		unsigned int GetID() const override;
 		std::string GetName() const override;
 		int GetTextureWidth() const;
 		int GetTextureHeight() const;
@@ -31,6 +31,8 @@ namespace Devi
 	private:
 		unsigned int m_textureID;
 		std::string m_name;
+		int m_textureWidth;
+		int m_textureHeight;
 	};
 
 }

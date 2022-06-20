@@ -90,9 +90,6 @@
     <ClCompile Include="Light\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PostProcessing\ShadowMapRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ShaderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +100,45 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\DrawableManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IDrawable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPasses\RenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPasses\RenderPassManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPasses\ShadowMapRenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPasses\DefaultRenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\MATERIAL.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Light\DirectionalLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\PhongMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\PBRMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaterialManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Noise\PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPasses\WaterRenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\WaterQuad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -293,9 +329,6 @@
     <ClInclude Include="Light\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PostProcessing\ShadowMapRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ShaderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -306,6 +339,54 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\DrawableManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BindingLocation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPasses\RenderPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPasses\RenderPassManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPasses\ShadowMapRenderPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPasses\DefaultRenderPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light\DirectionalLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\PhongMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\PBRMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MaterialManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScreenParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UniformBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise\PerlinNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Siv\PerlinNoise.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPasses\WaterRenderPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\WaterQuad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -323,33 +404,73 @@
     <None Include="assets\Shaders\GPUHeight_fs.glsl" />
     <None Include="assets\Shaders\DepthMap_vs.glsl" />
     <None Include="assets\Shaders\DepthMap_fs.glsl" />
+    <None Include="assets\Shaders\RefractionTexture.glsl" />
+    <None Include="assets\Shaders\ShadowMapping.glsl" />
+    <None Include="assets\Shaders\GLSLVersion.glsl" />
+    <None Include="assets\Textures\Terrain\goldmetallicMap.psd" />
+    <None Include="assets\Shaders\ReflectionShader.glsl" />
+    <None Include="assets\Shaders\waterReflection_vs.glsl" />
+    <None Include="assets\Shaders\waterReflection_fs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Back.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Back.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Bottom.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Bottom.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Front.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Front.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Left.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Left.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Right.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Right.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\Daylight Box_Top.bmp">
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Top.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\iceland_heightmap.png">
+    <Image Include="assets\Textures\Terrain\iceland_heightmap.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\Textures\grass.png">
+    <Image Include="assets\Textures\Terrain\grassAlbedo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassAO.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassMetallic.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassNormalMap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\grassRoughness.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\snowAlbedo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\snowAO.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\snowMetallic.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\snowRoughness.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\snowNormalMap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\goldAlbedo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Textures\Terrain\goldNormalMap.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

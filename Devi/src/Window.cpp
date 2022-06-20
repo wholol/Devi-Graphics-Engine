@@ -49,11 +49,6 @@ namespace Devi
 		glfwPollEvents();
 	}
 
-	int Window::GetScreenWidth() const
-	{
-		return 0;
-	}
-
 	void FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0, 0, width, height);

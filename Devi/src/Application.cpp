@@ -18,17 +18,20 @@ namespace Devi
 		m_screenHeight = screenHeight;
 		
 		Inputs::Init(&m_window);
-
-		m_assets.LoadAssets();
+		m_renderPassManager = std::make_shared<RenderPassManager>();
+		m_renderPassManager->InitAllPasses();
+		
+		m_assets = std::make_shared<Assets>(m_renderPassManager);
+		m_assets->LoadAssets();
 
 		ProjectionMatrixParams projectionMatrixParams;
-		projectionMatrixParams.fieldOfViewY = 90.0f;
-		projectionMatrixParams.screenWidth = 800;
-		projectionMatrixParams.screenHeight = 600;
+		projectionMatrixParams.fieldOfViewY = 45.0f;
+		projectionMatrixParams.screenWidth = 1920;
+		projectionMatrixParams.screenHeight = 1080;
 		projectionMatrixParams.zNear = 0.1f;
-		projectionMatrixParams.zFar = 1600.0f;
+		projectionMatrixParams.zFar = 1800.0f;
 
-		m_scene = std::make_unique<Scene>(m_assets, screenWidth, screenHeight);
+		m_scene = std::make_unique<Scene>(*m_assets, screenWidth, screenHeight, m_renderPassManager);
 		m_scene->SetProjectionMatrixParams(projectionMatrixParams);
 	}
 
@@ -36,18 +39,22 @@ namespace Devi
 	{
 		while (m_isRunning)
 		{
-			m_isRunning = !glfwWindowShouldClose(m_window.GetWindow());
+			m_isRunning = ( !glfwWindowShouldClose(m_window.GetWindow()) );
+
+			if (Inputs::IsKeyPressed(DeviKey::Key::Escape))
+			{
+				m_isRunning = false;
+			}
 			
 			double currentTime = glfwGetTime();
 			
-			deltaTime = currentTime - lastTime;
+			m_deltaTime = currentTime - m_lastTime;
 
-			currentTime = lastTime;
+			m_lastTime = currentTime;
 
 			//renderer flow (vb->attriblayout->va->bind shader->bind texture->bind uniforms->bind vertexarray->glDrawCall
-			//we need texture and shaderManagers for the renderer to know which to bind
 
-			m_scene->Update(deltaTime);
+			m_scene->Update(m_deltaTime);
 
 			m_window.Update();
 

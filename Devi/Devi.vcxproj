@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\assets;$(SolutionDir)Devi\Dependencies;$(SolutionDir)Devi\Drawables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Devi\Dependencies\GLAD\include;$(SolutionDir)Devi\Dependencies\GLFW\include;$(SolutionDir)Devi\assets;$(SolutionDir)Devi\Dependencies;$(SolutionDir)Devi\Drawables;$(SolutionDir)Devi\RenderPasses;$(SolutionDir)Devi\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,18 +175,27 @@
     <ClInclude Include="Dependencies\Boost\property_tree\stream_translator.hpp" />
     <ClInclude Include="Dependencies\Boost\property_tree\string_path.hpp" />
     <ClInclude Include="Dependencies\Boost\property_tree\xml_parser.hpp" />
+    <ClInclude Include="Dependencies\Siv\PerlinNoise.hpp" />
     <ClInclude Include="Dependencies\STBImage\stb_image.h" />
     <ClInclude Include="Drawables\Cube.h" />
     <ClInclude Include="Drawables\CPUHeightMap.h" />
     <ClInclude Include="Drawables\GPUHeightMap.h" />
     <ClInclude Include="Drawables\SkyBox.h" />
+    <ClInclude Include="Drawables\WaterQuad.h" />
+    <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Materials\PBRMaterial.h" />
+    <ClInclude Include="Materials\PhongMaterial.h" />
+    <ClInclude Include="Noise\PerlinNoise.h" />
     <ClInclude Include="PostProcessing\GammaCorrection.h" />
-    <ClInclude Include="PostProcessing\ShadowMapRenderer.h" />
+    <ClInclude Include="Materials\Material.h" />
+    <ClInclude Include="RenderPasses\WaterRenderPass.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\AssetsLoader.h" />
+    <ClInclude Include="src\BindingLocation.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CubeMapTexture.h" />
+    <ClInclude Include="RenderPasses\DefaultRenderPass.h" />
     <ClInclude Include="src\DrawableManager.h" />
     <ClInclude Include="src\FrameBuffer.h" />
     <ClInclude Include="src\IDrawable.h" />
@@ -194,15 +203,21 @@
     <ClInclude Include="src\Inputs.h" />
     <ClInclude Include="src\KeyEnums.h" />
     <ClInclude Include="src\Log.h" />
+    <ClInclude Include="src\MaterialManager.h" />
     <ClInclude Include="src\NotImplementedException.h" />
     <ClInclude Include="src\RenderBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="RenderPasses\RenderPass.h" />
+    <ClInclude Include="RenderPasses\RenderPassManager.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\ScreenParams.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\ITexture.h" />
     <ClInclude Include="src\ShaderManager.h" />
+    <ClInclude Include="RenderPasses\ShadowMapRenderPass.h" />
     <ClInclude Include="src\Texture2D.h" />
     <ClInclude Include="src\TextureManager.h" />
+    <ClInclude Include="src\UniformBuffer.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\Window.h" />
@@ -215,24 +230,36 @@
     <ClCompile Include="Drawables\CPUHeightMap.cpp" />
     <ClCompile Include="Drawables\GPUHeightMap.cpp" />
     <ClCompile Include="Drawables\SkyBox.cpp" />
+    <ClCompile Include="Drawables\WaterQuad.cpp" />
+    <ClCompile Include="RenderPasses\WaterRenderPass.cpp" />
+    <ClCompile Include="Light\DirectionalLight.cpp" />
     <ClCompile Include="Light\Light.cpp" />
+    <ClCompile Include="Materials\Material.cpp" />
+    <ClCompile Include="Materials\PBRMaterial.cpp" />
+    <ClCompile Include="Materials\PhongMaterial.cpp" />
+    <ClCompile Include="Noise\PerlinNoise.cpp" />
     <ClCompile Include="PostProcessing\GammaCorrection.cpp" />
-    <ClCompile Include="PostProcessing\ShadowMapRenderer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\AssetsLoader.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CubeMapTexture.cpp" />
+    <ClCompile Include="RenderPasses\DefaultRenderPass.cpp" />
     <ClCompile Include="src\DrawableManager.cpp" />
     <ClCompile Include="src\FrameBuffer.cpp" />
+    <ClCompile Include="src\IDrawable.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Inputs.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MaterialManager.cpp" />
     <ClCompile Include="src\RenderBuffer.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="RenderPasses\RenderPass.cpp" />
+    <ClCompile Include="RenderPasses\RenderPassManager.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\ShaderManager.cpp" />
+    <ClCompile Include="RenderPasses\ShadowMapRenderPass.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
@@ -246,24 +273,42 @@
     <None Include="assets\Shaders\cubevs.glsl" />
     <None Include="assets\Shaders\DepthMap_fs.glsl" />
     <None Include="assets\Shaders\DepthMap_vs.glsl" />
+    <None Include="assets\Shaders\GLSLVersion.glsl" />
     <None Include="assets\Shaders\GPUHeight_fs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tcs.glsl" />
     <None Include="assets\Shaders\GPUHeight_tes.glsl" />
+    <None Include="assets\Shaders\ReflectionShader.glsl" />
+    <None Include="assets\Shaders\RefractionTexture.glsl" />
+    <None Include="assets\Shaders\ShadowMapping.glsl" />
     <None Include="assets\Shaders\skybox_fs.glsl" />
     <None Include="assets\Shaders\skybox_vs.glsl" />
     <None Include="assets\Shaders\texturedRectangle.fs" />
     <None Include="assets\Shaders\texturedRectangle.vs" />
+    <None Include="assets\Shaders\waterReflection_fs.glsl" />
+    <None Include="assets\Shaders\waterReflection_vs.glsl" />
+    <None Include="assets\Textures\Terrain\goldmetallicMap.psd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png" />
-    <Image Include="assets\Textures\Daylight Box_Back.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Bottom.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Front.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Left.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Right.bmp" />
-    <Image Include="assets\Textures\Daylight Box_Top.bmp" />
-    <Image Include="assets\Textures\grass.png" />
-    <Image Include="assets\Textures\iceland_heightmap.png" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Back.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Bottom.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Front.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Left.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Right.bmp" />
+    <Image Include="assets\Textures\SkyBox\Daylight Box_Top.bmp" />
+    <Image Include="assets\Textures\Terrain\goldAlbedo.png" />
+    <Image Include="assets\Textures\Terrain\goldNormalMap.png" />
+    <Image Include="assets\Textures\Terrain\grassAlbedo.png" />
+    <Image Include="assets\Textures\Terrain\grassAO.png" />
+    <Image Include="assets\Textures\Terrain\grassMetallic.png" />
+    <Image Include="assets\Textures\Terrain\grassNormalMap.png" />
+    <Image Include="assets\Textures\Terrain\grassRoughness.png" />
+    <Image Include="assets\Textures\Terrain\iceland_heightmap.png" />
+    <Image Include="assets\Textures\Terrain\snowAlbedo.png" />
+    <Image Include="assets\Textures\Terrain\snowAO.png" />
+    <Image Include="assets\Textures\Terrain\snowMetallic.png" />
+    <Image Include="assets\Textures\Terrain\snowNormalMap.png" />
+    <Image Include="assets\Textures\Terrain\snowRoughness.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

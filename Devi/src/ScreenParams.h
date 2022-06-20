@@ -1,0 +1,3 @@
+#pragma once
+#define DEVI_SCREENWIDTH 1920
+#define DEVI_SCREENHEIGHT 1080

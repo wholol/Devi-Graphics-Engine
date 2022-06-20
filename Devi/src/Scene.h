@@ -10,8 +10,10 @@
 #include "Texture2D.h"
 #include "FrameBuffer.h"
 #include "AssetsLoader.h"
-#include "../PostProcessing/ShadowMapRenderer.h"
 
+#include "../RenderPasses/RenderPass.h"
+#include "../RenderPasses/RenderPassManager.h"
+#include "../RenderPasses/ShadowMapRenderPass.h"
 
 namespace Devi
 {
@@ -30,7 +32,7 @@ namespace Devi
 	class Scene
 	{
 	public:
-		Scene(Assets& assets, int screenWidth, int screenHeight);
+		Scene(Assets& assets, int screenWidth, int screenHeight,std::shared_ptr<RenderPassManager> renderPassManager);
 		void SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams);
 		void Update(double deltaTime);
 		void ClearScene();
@@ -42,7 +44,7 @@ namespace Devi
 
 		glm::mat4 m_projectionMatrix{glm::mat4(1.0)};
 		Camera m_camera;
-		std::unique_ptr<ShadowMapRenderer> m_shadowMapRenderer;
+		std::shared_ptr<RenderPassManager> m_renderPassManager;
 		int m_screenWidth;
 		int m_screenHeight;
 	};

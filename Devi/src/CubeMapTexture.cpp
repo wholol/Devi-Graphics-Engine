@@ -67,4 +67,9 @@ namespace Devi
 		return m_name;
 	}
 
+	unsigned int CubeMapTexture::GetID() const
+	{
+		return m_cubeMapTextureID;
+	}
+
 }

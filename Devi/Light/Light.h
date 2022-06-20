@@ -3,15 +3,21 @@
 
 namespace Devi
 {
-	class DirectionalLight
+	enum class LightType
+	{
+		DirectionalLight,
+		PointLight
+	};
+
+	class Light
 	{
 	public:
-		DirectionalLight(glm::vec3 lightDirection = glm::vec3(0.0, -1.0 ,0.0), glm::vec3 lightColor = glm::vec3(1.0,1.0,1.0));
-		glm::vec3 GetLightDirection() const;
-		glm::vec3 GetLightColour() const;
+		Light(glm::vec3 lightColor);
+		glm::vec3 GetLightColor() const;
+		LightType GetLightType() const;
 
-	private:
-		glm::vec3 m_LightDirection;
+	protected:
 		glm::vec3 m_LightColor;
+		LightType m_lightType;
 	};
 }

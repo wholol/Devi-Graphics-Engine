@@ -2,9 +2,12 @@
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include "DrawableManager.h"
+#include "MaterialManager.h"
 #include "GPUHeightMap.h"
 #include "SkyBox.h"
 #include "Cube.h"
+#include "WaterQuad.h"
+#include "../RenderPasses/RenderPassManager.h"
 #include <type_traits>
 
 namespace Devi
@@ -16,8 +19,9 @@ namespace Devi
 	{
 	public:
 		
-		Assets();
+		Assets(std::shared_ptr<RenderPassManager> renderPassManager);
 		void LoadAssets();
+		
 		std::shared_ptr<ShaderManager> GetShaderManager() const;
 		std::shared_ptr<TextureManager> GetTextureManager() const;
 		std::shared_ptr<DrawableManager> GetDrawableManager() const;
@@ -27,11 +31,11 @@ namespace Devi
 		template< typename ...TextureNames, class Enable = std::enable_if_t<(... && std::is_same_v<TextureNames, const char*>)> >
 		inline void SetupDrawableShaderAndTextures(DrawablePtr drawable,const std::string& shaderName, TextureNames ...args)
 		{
-			auto shader = m_shaderManager->GetShader(shaderName);
-			drawable->SetShader(shader);
-			SetDrawableTexture(args...);
-			drawable->SetTextures(m_texturesForDrawable);
-			m_texturesForDrawable.clear();
+			//auto shader = m_shaderManager->GetShader(shaderName);
+			//drawable->SetShader(shader);
+			//SetDrawableTexture(args...);
+			//drawable->SetTextures(m_texturesForDrawable);
+			//m_texturesForDrawable.clear();
 		}
 
 
@@ -40,6 +44,7 @@ namespace Devi
 		void LoadShaders();
 		void LoadDrawables();
 		void LoadTextures();
+		void LoadMaterials();
 
 		template<typename TextureName, typename ...TextureNames>
 		inline void SetDrawableTexture(TextureName texturename, TextureNames ...args)
@@ -59,9 +64,11 @@ namespace Devi
 		std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> m_texturesForDrawable;
 		unsigned int m_textureUniformBinding = 0;
 
+		std::shared_ptr<RenderPassManager> m_renderPassManager;
 		std::shared_ptr<ShaderManager> m_shaderManager;
 		std::shared_ptr<TextureManager> m_textureManager;
 		std::shared_ptr<DrawableManager> m_drawableManager;	
+		std::shared_ptr<MaterialManager> m_materialManager;
 	};
 	
 

@@ -14,7 +14,7 @@ namespace Devi
 	private:
 		int m_screenWidth;
 		int m_screenHeight;
-		FrameBuffer m_framebuffer;
+		FrameBuffer m_framebuffer{ "gamma correction" };
 		RenderBuffer m_renderBuffer;
 		Texture2D m_texture2D;
 		Shader m_shader;

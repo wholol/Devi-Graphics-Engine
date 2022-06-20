@@ -5,27 +5,11 @@ namespace Devi
 	glm::mat4 Renderer::m_projectionMatrix{ glm::mat4(1.0) };
 	glm::mat4 Renderer::m_viewMatrix{ glm::mat4(1.0) };
 
-	void Renderer::Render(VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
-	{
-		shader.Bind();
-		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
-		
-		if (ignoreViewMatrixTranslationComponent)
-		{
-			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
+	void Renderer::Render(std::shared_ptr<VertexArray> vertexArray)
+	{	
+		vertexArray->Bind();
 
-		}
-		else
-		{
-			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
-		}
-
-		shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
-		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-		
-		vertexArray.Bind();
-
-		const std::optional<IndexBuffer>& indexBuffer = vertexArray.GetIndexBuffer();
+		const std::optional<IndexBuffer>& indexBuffer = vertexArray->GetIndexBuffer();
 
 		if (indexBuffer.has_value())
 		{
@@ -37,58 +21,36 @@ namespace Devi
 		}
 	}
 
-	void Renderer::RenderWithoutIndexBuffers(int numberOfTriangles, VertexArray & vertexArray, Shader & shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	void Renderer::RenderWithoutIndexBuffers(int numberOfTriangles, std::shared_ptr<VertexArray> vertexArray)
 	{
-		
-		shader.Bind();
-		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
-
-		if (ignoreViewMatrixTranslationComponent)
-		{
-			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
-			
-		}
-		else
-		{
-			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
-		}
-
-		
-		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-
-		vertexArray.Bind();
-
+		vertexArray->Bind();
 		glDrawArrays(GL_TRIANGLES, 0, numberOfTriangles * 3);
 	}
 
-	void Renderer::RenderPatches(int numPatches, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	void Renderer::RenderPatches(int numPatches, std::shared_ptr<VertexArray> vertexArray)
 	{
-		shader.Bind();
-		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
-
-		if (ignoreViewMatrixTranslationComponent)
-		{
-			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
-
-		}
-		else
-		{
-			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
-		}
-		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-
-		vertexArray.Bind();
+		vertexArray->Bind();
 		glDrawArrays(GL_PATCHES, 0, numPatches);
 	}
 
-	void Renderer::SetRendererViewMatrix(glm::mat4 viewMatrix)
+	void Renderer::SetRendererViewMatrix(const glm::mat4& viewMatrix)
 	{
 		m_viewMatrix = viewMatrix;
 	}
 
-	void Renderer::SetRendererProjectionMatrix(glm::mat4 projectionMatrix)
+	void Renderer::SetRendererProjectionMatrix(const glm::mat4& projectionMatrix)
 	{
 		m_projectionMatrix = projectionMatrix;
+	}
+
+	glm::mat4 Renderer::GetRendererViewMatrix()
+	{
+		return m_viewMatrix;
+	}
+
+	glm::mat4 Renderer::GetRendererProjectionMatrix()
+	{
+		return m_projectionMatrix;
 	}
 
 	void Renderer::Clear(float r, float g, float b, float a)
@@ -97,45 +59,18 @@ namespace Devi
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::RenderTriangleStrip(int numberofStrips, int numberOfIndicesPerStrip, VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	void Renderer::RenderTriangleStrip(int numberofStrips, int numberOfIndicesPerStrip, std::shared_ptr<VertexArray> vertexArray)
 	{
-		shader.Bind();
-		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
-
-		if (ignoreViewMatrixTranslationComponent)
-		{
-			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
-
-		}
-		else
-		{
-			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
-		}
-		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-		
-		vertexArray.Bind();
+		vertexArray->Bind();
 
 		for (int i = 0; i < numberofStrips; ++i)
 		{
 			glDrawElements(GL_TRIANGLE_STRIP, numberOfIndicesPerStrip, GL_UNSIGNED_INT,(void*)(i * sizeof(unsigned int) * numberOfIndicesPerStrip));
 		}
 	}
-	void Renderer::RenderQuad(VertexArray& vertexArray, Shader& shader, glm::mat4 modelMatrix, bool ignoreViewMatrixTranslationComponent)
+	void Renderer::RenderQuad(std::shared_ptr<VertexArray> vertexArray)
 	{
-		shader.Bind();
-		shader.SetUniform("modelMatrix", modelMatrix, UniformDataType::MAT4);
-
-		if (ignoreViewMatrixTranslationComponent)
-		{
-			shader.SetUniform("viewMatrix", glm::mat4(glm::mat3(m_viewMatrix)), UniformDataType::MAT4);
-
-		}
-		else
-		{
-			shader.SetUniform("viewMatrix", m_viewMatrix, UniformDataType::MAT4);
-		}
-		shader.SetUniform("projectionMatrix", m_projectionMatrix, UniformDataType::MAT4);
-
+		vertexArray->Bind();
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
 

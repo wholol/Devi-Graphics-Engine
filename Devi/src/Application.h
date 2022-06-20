@@ -23,15 +23,14 @@ namespace Devi
 		void ShutDown();
 
 	private:
-		Camera m_camera{glm::vec3(0.0,0.0,0.0)};
 		int m_screenWidth;
 		int m_screenHeight;
 		Window m_window;
 		bool m_isRunning = true;
 		std::unique_ptr<Scene> m_scene{nullptr};
-		std::shared_ptr<ShaderManager> m_shaderManager;
-		Assets m_assets;
-		double lastTime = 0.0;
-		double deltaTime = 0.0;
+		std::shared_ptr<RenderPassManager> m_renderPassManager;
+		std::shared_ptr<Assets> m_assets;
+		double m_lastTime = 0.0;
+		double m_deltaTime = 0.0;
 	};
 }

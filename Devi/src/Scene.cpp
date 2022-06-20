@@ -2,22 +2,13 @@
 
 namespace Devi
 {
-	Scene::Scene(Assets& assets, int screenWidth, int screenHeight)
+	Scene::Scene(Assets& assets, int screenWidth, int screenHeight, std::shared_ptr<RenderPassManager> renderPassManager)
+		: m_renderPassManager(renderPassManager)
 	{
 		Renderer::EnableDepthTest();
 		m_drawables = assets.GetDrawables();
-		m_shaderManager = assets.GetShaderManager();
-		ShadowMapLightSpaceMatrixParams params;
-		params.top = 1000.0f;
-		params.bottom = -1000.0f;
-		params.left = -1000.0f;
-		params.right = 1000.0f;
-		params.zNear = -1000.0f;
-		params.zFar = 1000.0f;
-		int shadowMapScreenWidth = 800;
-		int shadowMapScreenHeight = 600;
-		m_shadowMapRenderer = std::make_unique<ShadowMapRenderer>(shadowMapScreenWidth, shadowMapScreenHeight,params, m_shaderManager);
-		
+		m_shaderManager = assets.GetShaderManager();	
+		m_camera.SetPosition(glm::vec3(0.0f, 500.0f ,200.0f));
 	}
 
 	void Scene::SetProjectionMatrixParams(ProjectionMatrixParams projectionMatrixParams)
@@ -31,24 +22,14 @@ namespace Devi
 	
 	void Scene::Update(double deltaTime)
 	{		
-		m_camera.Update(deltaTime);
-
-		const auto& viewMatrix = m_camera.getViewMatrix();
 		
-		m_shadowMapRenderer->RenderDepthMap(m_drawables);
-
-		glViewport(0, 0, m_screenWidth, m_screenHeight);
+		const auto& viewMatrix = m_camera.GetViewMatrix();
 
 		Renderer::SetRendererViewMatrix(viewMatrix);
-		Renderer::SetRendererProjectionMatrix(m_projectionMatrix);
-
-		for (const auto& drawable : m_drawables)
-		{
-			drawable->SetShader( m_shaderManager->GetShader( drawable->GetName() ));	//set the default shader since we changed it for shadow map.
-			drawable->SetDepthMapTexture(m_shadowMapRenderer->GetDepthMap());
-			drawable->SetLightSpaceMatrix(m_shadowMapRenderer->GetLightSpaceMatrix());
-			drawable->Draw();
-		}
+		
+		m_renderPassManager->ExecutePasses();
+		
+		m_camera.Update(deltaTime);
 	}
 
 	void Scene::ClearScene()

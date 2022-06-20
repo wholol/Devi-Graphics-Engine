@@ -18,6 +18,7 @@ namespace Devi
 		void Bind(unsigned int activeTexture = 0) override;
 		void UnBind() override;
 		std::string GetName() const override;
+		unsigned int GetID() const override;
 
 	private:
 		unsigned int m_cubeMapTextureID;

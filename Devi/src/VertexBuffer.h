@@ -42,6 +42,5 @@ namespace Devi
 		unsigned int m_vertexBufferID;
 		unsigned int m_stride = 0;
 		std::vector<VertexBufferLayout> m_layouts;
-		int test;
 	};
 }

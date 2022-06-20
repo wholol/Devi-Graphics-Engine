@@ -2,19 +2,21 @@
 
 layout (quads, fractional_odd_spacing, ccw) in;
 
-uniform sampler2D heightMap;
+layout (binding = 6) uniform sampler2D heightMap;
+
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
 uniform mat4 lightSpaceMatrix;
 
-
 in vec2 TextureCoord[];
 
 out vec2 TexCoordFinal;
 out float height;
 out vec4 CurrentPositionFromLightPerspectiveNDC;
+out vec3 WorldPos;
+out vec3 normals;
 
 void main()
 {
@@ -38,7 +40,7 @@ void main()
 
 	TexCoordFinal = finalTextureCoord;
 
-	height = texture(heightMap, finalTextureCoord).y * 150.0;
+	height = texture(heightMap, finalTextureCoord).y * 260.0;
 
 	//since we set the vertexbuffers to have y to be zero, we are having only a flat mesh. the way we perform the terrain height is by displacement mapping.
 	//get the positions of the quad.
@@ -58,8 +60,10 @@ void main()
 
 	vec4 currentposition = (currentpos2 - currentpos1) * v + currentpos1;
 	vec4 displacementVector = normal * height;	//we're scaling the height here.
-	//currentposition += displacementVector;
+	currentposition += displacementVector;
 
+	WorldPos = vec3(modelMatrix * currentposition);
+	normals = vec3(normal);
 	// NDC space.
 	CurrentPositionFromLightPerspectiveNDC = lightSpaceMatrix * modelMatrix * currentposition;
 

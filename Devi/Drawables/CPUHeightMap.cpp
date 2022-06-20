@@ -11,9 +11,11 @@ namespace Devi
 {
 
 	CPUHeightMap::CPUHeightMap(const std::string& name, const std::string& heightMapFilePath)
-		:m_name(name)
-	{
+		:Drawable(name)
+	{}
 
+	void CPUHeightMap::GenerateVertices(const std::string& heightMapFilePath)
+	{
 		int nChannels;
 		unsigned char* data = stbi_load(heightMapFilePath.c_str(), &m_width, &m_height, &nChannels, 0);
 		//we should end up wtih width * height vertices.
@@ -29,15 +31,14 @@ namespace Devi
 				{
 					unsigned char* texel = data + (x + m_width * z) * nChannels;
 					unsigned char heightForHeightMap = *texel;
-					
+
 					m_vertices.emplace_back((-m_width / 2.0f + (int)x));	//x
 					m_vertices.emplace_back(((int)heightForHeightMap / normalize) * scaleHeight);	//y
 					m_vertices.emplace_back((-m_height / 2.0f + z));	//z
 				}
 			}
 
-			m_test = m_vertices.size();
-			m_vertexBuffer = std::make_unique<VertexBuffer>((void*)&m_vertices[0], m_vertices.size() * sizeof(float));
+			m_vertexBuffer = std::make_shared<VertexBuffer>((void*)&m_vertices[0], m_vertices.size() * sizeof(float));
 			m_vertexBuffer->AddAttribLayout(3);
 
 			//generate index buffer
@@ -47,40 +48,24 @@ namespace Devi
 				{
 					//triangle strips in opengl will take the latest index and the last two indexes to form a triangle.
 					m_indices.emplace_back(x + m_width * y);
-					m_indices.emplace_back( x + m_width * (y + 1));
+					m_indices.emplace_back(x + m_width * (y + 1));
 				}
 			}
 
-			m_indexBuffer = std::make_unique<IndexBuffer>(&m_indices[0],m_indices.size() * sizeof(unsigned int));
-			m_vertexArray = std::make_unique<VertexArray>(*m_vertexBuffer, *m_indexBuffer);
+			m_indexBuffer = std::make_shared<IndexBuffer>(&m_indices[0], m_indices.size() * sizeof(unsigned int));
+			m_vertexArray = std::make_shared<VertexArray>(*m_vertexBuffer, *m_indexBuffer);
 
 		}
 		else
 		{
-			DEVI_ERROR("heightmap data failed to load.",__FILE__,__LINE__);
+			DEVI_ERROR("heightmap data failed to load.", __FILE__, __LINE__);
 		}
 
 		stbi_image_free(data);
-
 	}
 
 	void CPUHeightMap::Draw()
 	{
-		Renderer::RenderTriangleStrip(m_height - 1, m_width * 2, *m_vertexArray, *m_shader);
+		Renderer::RenderTriangleStrip(m_height - 1, m_width * 2, m_vertexArray);
 	}
-
-	void CPUHeightMap::SetShader(std::shared_ptr<Shader> shader)
-	{
-		m_shader = shader;
-	}
-
-	void CPUHeightMap::SetTextures(std::vector<std::pair<std::shared_ptr<ITexture>, unsigned int>> textures)
-	{
-	}
-
-	std::string CPUHeightMap::GetName() const
-	{
-		return m_name;
-	}
-
 }
