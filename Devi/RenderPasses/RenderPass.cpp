@@ -67,7 +67,7 @@ namespace Devi
 		}
 		else
 		{
-			DEVI_ERROR("Step number: " + std::to_string(stepNumber) + "not found for RenderPassType: TODO", __FILE__, __LINE__);
+			DEVI_ERROR("Step number: " + std::to_string(stepNumber) + " not found for RenderPassType: TODO", __FILE__, __LINE__);
 		}
 	}
 

@@ -84,6 +84,12 @@ namespace Devi
 			"assets/Shaders/cubevs.glsl",
 			"assets/Shaders/cubefs.glsl"
 			);
+
+		m_shaderManager->addShader("TerrainWater",
+			"assets/Shaders/GPUHeight_vs.glsl",
+			"assets/Shaders/GPUHeight_fs.glsl",
+			"assets/Shaders/GPUHeight_tcs.glsl",
+			"assets/Shaders/waterRenderingForTerrain_tes.glsl");
 	}
 
 	void Assets::LoadDrawables()
@@ -115,8 +121,8 @@ namespace Devi
 		
 		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::ShadowMap, m_shaderManager->GetShader("TerrainDepthMap"), textures);
 		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Default, m_shaderManager->GetShader("Terrain"), textures, m_materialManager->GetMaterial("grass"));
-		//heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Water, );	//TODO: reflection shader.
-		//heightMapGPU->SubmitToRenderPass(m_renderPassManager, 1, RenderPassType::Water, ); //TODO: refraction shader.
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 0, RenderPassType::Water, m_shaderManager->GetShader("TerrainWater"), textures, m_materialManager->GetMaterial("grass"));
+		heightMapGPU->SubmitToRenderPass(m_renderPassManager, 1, RenderPassType::Water, m_shaderManager->GetShader("TerrainWater"), textures, m_materialManager->GetMaterial("grass"));	
 
 		std::string waterName = "WaterQuad";
 		auto water = std::make_shared<WaterQuad>(waterName, heightMapTexture->GetTextureWidth(), heightMapTexture->GetTextureHeight());

@@ -24,8 +24,10 @@ namespace Devi
 	{		
 		
 		const auto& viewMatrix = m_camera.GetViewMatrix();
+		const auto& waterReflectionViewMatrix = m_camera.GetWaterReflectionViewMatrix();
 
 		Renderer::SetRendererViewMatrix(viewMatrix);
+		Renderer::SetWaterReflectionViewMatrix(waterReflectionViewMatrix);
 		
 		m_renderPassManager->ExecutePasses();
 		

@@ -408,9 +408,8 @@
     <None Include="assets\Shaders\ShadowMapping.glsl" />
     <None Include="assets\Shaders\GLSLVersion.glsl" />
     <None Include="assets\Textures\Terrain\goldmetallicMap.psd" />
-    <None Include="assets\Shaders\ReflectionShader.glsl" />
-    <None Include="assets\Shaders\waterReflection_vs.glsl" />
     <None Include="assets\Shaders\waterReflection_fs.glsl" />
+    <None Include="assets\Shaders\waterRenderingForTerrain_tes.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Textures\container.png">
