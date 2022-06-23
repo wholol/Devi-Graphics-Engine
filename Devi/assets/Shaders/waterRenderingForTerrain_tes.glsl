@@ -8,7 +8,7 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
-uniform mat4 lightSpaceMatrix;
+uniform vec4 clippingPlane;
 
 in vec2 TextureCoord[];
 
@@ -40,7 +40,7 @@ void main()
 
 	TexCoordFinal = finalTextureCoord;
 
-	height = texture(heightMap, finalTextureCoord).y * 260;
+	height = texture(heightMap, finalTextureCoord).y * 260.0;
 
 	//since we set the vertexbuffers to have y to be zero, we are having only a flat mesh. the way we perform the terrain height is by displacement mapping.
 	//get the positions of the quad.
@@ -64,8 +64,8 @@ void main()
 
 	WorldPos = vec3(modelMatrix * currentposition);
 	normals = vec3(normal);
-	// NDC space.
-	CurrentPositionFromLightPerspectiveNDC = lightSpaceMatrix * modelMatrix * currentposition;
+
+	gl_ClipDistance[0] = dot(clippingPlane, vec4(WorldPos, 1.0));
 
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * currentposition;
 

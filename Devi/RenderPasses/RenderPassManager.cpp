@@ -1,5 +1,6 @@
 #include "RenderPassManager.h"
 #include "ShadowMapRenderPass.h"
+#include "WaterRenderPass.h"
 #include "DefaultRenderPass.h"
 
 namespace Devi
@@ -24,12 +25,14 @@ namespace Devi
 		
 		AddRenderPass(shadowMapRenderPass, RenderPassType::ShadowMap);
 
+		auto waterRenderPass = std::make_shared<WaterRenderPass>(1920, 1080);	//TODO: hardcoded right now.
+		AddRenderPass(waterRenderPass, RenderPassType::Water);
+
 		//normal pass
 		auto normalPass = std::make_shared<DefaultRenderPass>();
 		normalPass->LinkRenderPass(shadowMapRenderPass);
 
-		AddRenderPass(normalPass, RenderPassType::Default);
-			
+		AddRenderPass(normalPass, RenderPassType::Default);		
 	}
 
 	void RenderPassManager::AddRenderPass(std::shared_ptr<RenderPass> renderPass, RenderPassType renderPassType)
@@ -45,6 +48,10 @@ namespace Devi
 		if (findPass != m_renderPassMap.end())
 		{
 			return findPass->second;
+		}
+		else
+		{
+			DEVI_ERROR("RenderPass Not found. Please checking if it is initialized.", __FILE__, __LINE__);
 		}
 
 		return nullptr;
@@ -69,6 +76,8 @@ namespace Devi
 	void RenderPassManager::ExecutePasses()
 	{
 		GetRenderPass(RenderPassType::ShadowMap)->Execute();
+
+		GetRenderPass(RenderPassType::Water)->Execute();
 
 		GetRenderPass(RenderPassType::Default)->Execute();
 	}

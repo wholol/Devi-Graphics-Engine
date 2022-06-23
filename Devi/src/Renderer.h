@@ -14,10 +14,12 @@ namespace Devi
 	class Renderer
 	{
 	public:
-		static void SetRendererViewMatrix(const glm::mat4& viewprojectionMatrix);
+		static void SetRendererViewMatrix(const glm::mat4& viewMatrix);
+		static void SetWaterReflectionViewMatrix(const glm::mat4& viewMatrix);
 		static void SetRendererProjectionMatrix(const glm::mat4& projectionMatrix);
 		static glm::mat4 GetRendererViewMatrix();
 		static glm::mat4 GetRendererProjectionMatrix();
+		static glm::mat4 GetRendererWaterReflectionViewMatrix();
 		
 		//render methods.
 		static void Render(std::shared_ptr<VertexArray> vertexArray);
@@ -30,6 +32,7 @@ namespace Devi
 		static void EnableDepthTest();
 	private:
 		static glm::mat4 m_viewMatrix;
+		static glm::mat4 m_waterReflectionViewMatrix;
 		static glm::mat4 m_projectionMatrix;
 	};
 }

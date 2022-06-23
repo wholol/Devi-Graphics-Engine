@@ -16,20 +16,33 @@ namespace Devi
 		m_cameraUpVector = glm::cross(m_cameraRightVector, m_cameraLookAtDirection);
 	}
 
-	void Camera::SetPosition(glm::vec3 cameraPosition)
+	void Camera::SetPosition(glm::vec3 position)
 	{
-		m_cameraPosition = cameraPosition;
+		m_cameraPosition = position;
 	}
 
 	void Camera::Update(double deltaTime)
 	{	
 		UpdateCameraVectors(deltaTime);
 		TranslateCamera(deltaTime);
+		//std::cout << m_cameraPosition.y << std::endl;
 	}
 
 	const glm::mat4& Camera::GetViewMatrix() const
 	{
 		return glm::lookAt(m_cameraPosition, m_cameraPosition + m_cameraLookAtDirection, m_cameraUpVector);
+	}
+
+	const glm::mat4& Camera::GetWaterReflectionViewMatrix() const
+	{
+		glm::vec3 waterReflectionCameraPosition = m_cameraPosition;
+		waterReflectionCameraPosition.y -= 2.0 * (waterReflectionCameraPosition.y);
+
+		glm::vec3 waterReflectionLookAtDirection = m_cameraLookAtDirection;
+
+		waterReflectionLookAtDirection.y = -waterReflectionLookAtDirection.y;
+
+		return glm::lookAt(waterReflectionCameraPosition, waterReflectionCameraPosition + waterReflectionLookAtDirection, m_cameraUpVector);
 	}
 
 	glm::vec3 Camera::GetCameraPosition() const

@@ -4,6 +4,7 @@ namespace Devi
 {
 	glm::mat4 Renderer::m_projectionMatrix{ glm::mat4(1.0) };
 	glm::mat4 Renderer::m_viewMatrix{ glm::mat4(1.0) };
+	glm::mat4 Renderer::m_waterReflectionViewMatrix{ glm::mat4(1.0) };
 
 	void Renderer::Render(std::shared_ptr<VertexArray> vertexArray)
 	{	
@@ -38,6 +39,11 @@ namespace Devi
 		m_viewMatrix = viewMatrix;
 	}
 
+	void Renderer::SetWaterReflectionViewMatrix(const glm::mat4& viewMatrix)
+	{
+		m_waterReflectionViewMatrix = viewMatrix;
+	}
+
 	void Renderer::SetRendererProjectionMatrix(const glm::mat4& projectionMatrix)
 	{
 		m_projectionMatrix = projectionMatrix;
@@ -51,6 +57,11 @@ namespace Devi
 	glm::mat4 Renderer::GetRendererProjectionMatrix()
 	{
 		return m_projectionMatrix;
+	}
+
+	glm::mat4 Renderer::GetRendererWaterReflectionViewMatrix()
+	{
+		return m_waterReflectionViewMatrix;
 	}
 
 	void Renderer::Clear(float r, float g, float b, float a)
